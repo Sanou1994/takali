@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -34,6 +35,6 @@ public class Terrain implements Serializable{
 	private List<Match> matchs = new ArrayList<Match>();
 	@OneToMany(mappedBy = "terrain")
 	private List<Reservation> reservations = new ArrayList<Reservation>();
-	@ManyToOne @Column(nullable = false)
+	@ManyToOne @NotNull
 	private Utilisateur user;
 }

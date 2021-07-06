@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,9 +26,9 @@ public class Reservation implements Serializable{
 	private String heureFin;
 	@OneToOne
 	private Match match;
-	@OneToOne @Column(nullable = false)
+	@OneToOne @NotNull
 	private Utilisateur user;
-	@ManyToOne @Column(nullable = false)
+	@ManyToOne @NotNull
 	private Terrain terrain;
 
 }

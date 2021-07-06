@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -34,7 +35,7 @@ public class Utilisateur implements Serializable {
 	private String email;
 	private String telephone;
 	private String password;
-	@ManyToOne @Column(nullable = false)
+	@ManyToOne @NotNull
 	private Role role;
 	@OneToMany(mappedBy = "user")
 	private List<Terrain> terrains = new ArrayList<Terrain>();

@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -32,10 +33,10 @@ public class Match implements Serializable{
 	private List<Equipe>equipeVisites = new ArrayList<Equipe>();
 	@ManyToMany(mappedBy = "matchVisiteurs")
 	private List<Equipe> equipeVisiteurs = new ArrayList<Equipe>();
-	@OneToOne @Column(nullable = false)
+	@OneToOne @NotNull
 	private Reservation reservation;
-	@ManyToOne @Column(nullable = false)
+	@ManyToOne @NotNull
 	private Terrain terrain;
-	@ManyToOne @Column(nullable = false)
+	@ManyToOne @NotNull
 	private Tournoi tournoi;
 }
