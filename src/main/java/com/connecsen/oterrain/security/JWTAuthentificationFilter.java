@@ -16,6 +16,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.connecsen.oterrain.domaine.Utilisateur;
+import com.connecsen.oterrain.utils.Utility;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.jsonwebtoken.Jwts;
@@ -39,9 +40,6 @@ public Authentication attemptAuthentication(HttpServletRequest request, HttpServ
 	} catch (IOException e) {
 		 throw new RuntimeException(e);
 	}
-	System.out.print("-----------------------------------");
-	System.out.print("username :"+user.getUsername());
-	System.out.print("password :"+user.getPassword());
 	return authenticationManager.authenticate(
 			new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword())
 			);
@@ -55,11 +53,11 @@ public Authentication attemptAuthentication(HttpServletRequest request, HttpServ
 	String jwtToken =Jwts.builder()
 			            .setSubject(springUser.getUsername())
 			            .setExpiration(
-			            		     new Date(System.currentTimeMillis()+SecurityConstants.EXPIRATION_TIME)
+			            		     new Date(System.currentTimeMillis()+Utility.EXPIRATION_TIME)
 			            		       )
-			            .signWith(SignatureAlgorithm.HS512, SecurityConstants.SECRET)
+			            .signWith(SignatureAlgorithm.HS512, Utility.SECRET)
 			            .claim("roles",springUser.getAuthorities())
 			            .compact();
-	 response.addHeader(SecurityConstants.HEADER_STRING,SecurityConstants.TOKEN_PREFIX+jwtToken);
+	 response.addHeader(Utility.HEADER_STRING,Utility.TOKEN_PREFIX+jwtToken);
 	}
 }

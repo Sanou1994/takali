@@ -1,15 +1,17 @@
 package com.connecsen.oterrain.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.stereotype.Service;
+import java.util.List;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import com.connecsen.oterrain.domaine.Login;
 import com.connecsen.oterrain.domaine.Mail;
@@ -46,7 +48,31 @@ public class AccountService implements IAccountService{
 		Utilisateur user = userRepository.findByUsernameAndPassword(username, pwdCryp);
 		return user;
 	}
+	@Override
+	public boolean updateResetPasswordToken(String token, String email) {
+		Utilisateur user = userRepository.findByEmail(email);
+		boolean userFoundResultat = false;
+        if (user != null) {
+        	user.setResetPasswordToken(token);
+        	userRepository.save(user);
+        } else {
+           
+        }
+		return userFoundResultat;
+	}
 
+	@Override
+	public Utilisateur getByResetPasswordToken(String token) {
+		return userRepository.findByResetPasswordToken(token);
+	}
+
+	@Override
+	public void updatePassword(Utilisateur user, String newPassword) {
+        String encodedPassword = bCryptPasswordEncoder.encode(newPassword);
+        user.setPassword(encodedPassword);
+        user.setResetPasswordToken(null);
+        userRepository.save(user);	
+	}
 	@Override
 	public Role addRole(Role role) {
 		return roleRepository.save(role);
@@ -80,24 +106,87 @@ public class AccountService implements IAccountService{
 	    }
 
 	  @Override
-	public void sendMailWithAttachments(Login login) throws MessagingException {
+	public void sendMailWithAttachments(Login login,String resetPasswordId) throws MessagingException {
 	        MimeMessage msg = javaMailSender.createMimeMessage();
 
 	        MimeMessageHelper helper = new MimeMessageHelper(msg, true);
-
+            String subject = "Information pour changer le mot de passe";
+	        String link ="www.google.com";
+	        String content = "<p>Salut,</p>"
+	                + "<p>Vous aviez reçu cet email pour changer votre mot de passe.</p>"
+	                + "<p>Copie ce code : <h3>" + resetPasswordId + "</h3> et insère dans le champ qui va s'afficher après avoir cliquer sur ce lien:</p>"
+	                + "<p>Clique sur le lien  a travers le champ en bleu :</p>"
+	                + "<p><a href=\"" + link + "\">Changer mon mot de passe</a></p>"
+	                + "<br>"
+	                + "<p>ignore ce message si vous vous souvenez de votre mot de passe, "
+	                + "oubien si vous n'avez pas fait cette demande.</p>";
 	        helper.setTo(login.getEmail());
 
-	        helper.setSubject("Information sur changer mot de passe");
+	        helper.setSubject(subject);
 
-	        helper.setText("<html><body><div class=\"container\">\r\n" + 
-	        		"			<h3>Information changer mot de passe</h3><br/>\r\n" + 
-	        		"			<span>Cliquer sur ce lien ci-dessous pour changer votre de passe</span><br/>\r\n" + 
-	        		"			<span><a href=\"http://www.google.com\">X88X8E8Z88R8F8Z88288J?NF88E88A8Z8ER8G8</a></span>\r\n" + 
-	        		"		 </div></body></html>", true);
-
+	       
+	        
+	        helper.setText(content, true);
 	       helper.addAttachment("logo.jpg", new ClassPathResource("logo.jpg"));
 
 	        javaMailSender.send(msg);
 	    }
+
+	@Override
+	public Utilisateur createOrUpdateUser(Utilisateur user) {
+		return userRepository.save(user);
+	}
+
+	@Override
+	public Utilisateur getUserById(Long id) {
+		return userRepository.findById(id).get();
+	}
+
+	@Override
+	public List<Utilisateur> getAllUsers() {
+		return userRepository.findAll();
+	}
+
+	@Override
+	public boolean deleteUser(Long id) {
+		Utilisateur user = getUserById(id);
+		boolean resultat =false;
+		if(user != null)
+		{
+			userRepository.deleteById(id);
+			resultat =true;
+		}
+		return resultat;
+	}
+
+	@Override
+	public Role createOrUpdateRole(Role role) {
+		return roleRepository.save(role);
+	}
+
+	@Override
+	public Role getRoleById(Long id) {
+		return roleRepository.findById(id).get();
+	}
+
+	@Override
+	public List<Role> getAllRoles() {
+		return roleRepository.findAll();
+	}
+
+	@Override
+	public boolean deleteRole(Long id) {
+		Role role = getRoleById(id);
+		boolean resultat =false;
+		if(role != null)
+		{
+			roleRepository.deleteById(id);
+			resultat =true;
+		}
+		return resultat;
+	}
+
+
+	
 	}
 

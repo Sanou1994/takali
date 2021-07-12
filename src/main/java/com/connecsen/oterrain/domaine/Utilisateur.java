@@ -34,15 +34,18 @@ public class Utilisateur implements Serializable {
 	private String typeId;
 	private String numeroId;
 	private String naissance;
+	@Column(unique = true)
 	private String email;
 	private String telephone;
 	private String password;
+	@Column(name = "reset_password_token")
+    private String resetPasswordToken;
 	@ManyToMany(mappedBy = "users",fetch = FetchType.EAGER)
-	private List<Role> roles = new ArrayList<>();
+	private Collection<Role> roles = new ArrayList<>();
 	@OneToMany(mappedBy = "user")
-	private List<Terrain> terrains = new ArrayList<Terrain>();
+	private Collection<Terrain> terrains = new ArrayList<Terrain>();
 	@OneToMany(mappedBy = "user")
-	private List<Reservation> reservations = new ArrayList<Reservation>();
+	private Collection<Reservation> reservations = new ArrayList<Reservation>();
 	
 	public Utilisateur() {
 		super();
@@ -173,20 +176,28 @@ public class Utilisateur implements Serializable {
 		this.roles = roles;
 	}
 
-	public List<Terrain> getTerrains() {
+	public Collection<Terrain> getTerrains() {
 		return terrains;
 	}
 
-	public void setTerrains(List<Terrain> terrains) {
+	public void setTerrains(Collection<Terrain> terrains) {
 		this.terrains = terrains;
 	}
 
-	public List<Reservation> getReservations() {
+	public Collection<Reservation> getReservations() {
 		return reservations;
 	}
 
-	public void setReservations(List<Reservation> reservations) {
+	public void setReservations(Collection<Reservation> reservations) {
 		this.reservations = reservations;
+	}
+	 @JsonIgnore
+	public String getResetPasswordToken() {
+		return resetPasswordToken;
+	}
+	 @JsonSetter
+	public void setResetPasswordToken(String resetPasswordToken) {
+		this.resetPasswordToken = resetPasswordToken;
 	}
 
 	

@@ -2,7 +2,7 @@ package com.connecsen.oterrain.domaine;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,7 +25,7 @@ public class Role implements Serializable {
 	private Long id;
 	private String libelle ;
 	@ManyToMany
-	private List<Utilisateur> users = new ArrayList<Utilisateur>();
+	private Collection<Utilisateur> users = new ArrayList<Utilisateur>();
 	public Role(Long id, String libelle) {
 		super();
 		this.id = id;

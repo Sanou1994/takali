@@ -2,7 +2,7 @@ package com.connecsen.oterrain.domaine;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -30,8 +30,8 @@ public class Tournoi implements Serializable{
 	private String dateDebut;
 	private String dateFin;
 	@OneToMany(mappedBy = "tournoi")
-	private List<Match> matchs = new ArrayList<Match>();
+	private Collection<Match> matchs = new ArrayList<Match>();
 	@ManyToMany(mappedBy = "tournois")
-	private List<Equipe> equipes = new ArrayList<Equipe>();
+	private Collection<Equipe> equipes = new ArrayList<Equipe>();
 	
 }

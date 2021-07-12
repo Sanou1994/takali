@@ -16,6 +16,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.connecsen.oterrain.utils.Utility;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 
@@ -28,19 +30,20 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter{
 		response.addHeader("Access-Control-Allow-Origin","*");
 		response.addHeader("Access-Control-Allow-Headers", "Origin,Accept,X-Requested-With,Content-Type"+
 		                   ",Access-Control-Request-Method,Access-Control-Request-Headers,Authorization");
+		response.addHeader("Access-Control-Expose-Headers","Access-Control-Allow-Origin,Access-Control-Allow-Credentials, Authorization");
 		if(request.getMethod().equals("OPTIONS"))
 		{
 			response.setStatus(HttpServletResponse.SC_OK);
 		}else {
 			
-			String jwtToken =request.getHeader(SecurityConstants.HEADER_STRING);
+			String jwtToken =request.getHeader(Utility.HEADER_STRING);
 			System.out.println("token :"+jwtToken);
-			if(jwtToken == null  || !jwtToken.startsWith(SecurityConstants.TOKEN_PREFIX)){
+			if(jwtToken == null  || !jwtToken.startsWith(Utility.TOKEN_PREFIX)){
 				filterChain.doFilter(request, response);return ;
 			}
 			Claims claims =Jwts.parser()
-					     .setSigningKey(SecurityConstants.SECRET)
-					     .parseClaimsJws(jwtToken.replace(SecurityConstants.TOKEN_PREFIX, ""))
+					     .setSigningKey(Utility.SECRET)
+					     .parseClaimsJws(jwtToken.replace(Utility.TOKEN_PREFIX, ""))
 					     .getBody();
 			String username =claims.getSubject();
 			@SuppressWarnings("unchecked")

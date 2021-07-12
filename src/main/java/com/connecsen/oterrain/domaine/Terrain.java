@@ -2,7 +2,7 @@ package com.connecsen.oterrain.domaine;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,9 +31,9 @@ public class Terrain implements Serializable{
 	private Double prixHeure;
 	private Double prixDemiHeure;
 	@OneToMany(mappedBy = "terrain")
-	private List<Match> matchs = new ArrayList<Match>();
+	private Collection<Match> matchs = new ArrayList<Match>();
 	@OneToMany(mappedBy = "terrain")
-	private List<Reservation> reservations = new ArrayList<Reservation>();
+	private Collection<Reservation> reservations = new ArrayList<Reservation>();
 	@ManyToOne @NotNull
 	private Utilisateur user;
 }
