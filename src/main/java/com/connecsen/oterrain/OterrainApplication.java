@@ -6,7 +6,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @SpringBootApplication
-public class OterrainApplication{
+public class OterrainApplication {
+	
 	public static void main(String[] args) {
 		SpringApplication.run(OterrainApplication.class, args);
 	}
@@ -14,5 +15,6 @@ public class OterrainApplication{
 	public BCryptPasswordEncoder getBCPE() {
 		return new BCryptPasswordEncoder();
 	}
+	
 
 }

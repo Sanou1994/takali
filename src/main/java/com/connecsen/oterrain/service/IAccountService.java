@@ -20,16 +20,15 @@ public interface IAccountService {
 	  public boolean deleteRole(Long id);
 	 
 	         //GESTION USER
+	  public String getToken(String username , String password);
 	  public Utilisateur createOrUpdateUser(Utilisateur user);
 	  public Utilisateur getUserById(Long id);
 	  public List<Utilisateur> getAllUsers();
 	  public boolean deleteUser(Long id); 
-	  public Utilisateur login_in(String username,String password);
+	  public Utilisateur se_connecter(String username,String password);
 	  public Utilisateur login_up(Utilisateur user);
 	  public Utilisateur findUserByUsername(String username);
 	  public Utilisateur findUserByUsernameAndEmail(String username,String email);
-	 
-	  public void addRoleToUser(String libelle ,String username);
 	  public void sendMail(Mail mail);
       public void sendMailWithAttachments(Login login,String resetPasswordId) throws MessagingException;
       public boolean updateResetPasswordToken(String token, String email);

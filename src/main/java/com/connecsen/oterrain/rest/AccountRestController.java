@@ -17,25 +17,25 @@ import org.springframework.web.bind.annotation.RestController;
 import com.connecsen.oterrain.domaine.Login;
 import com.connecsen.oterrain.domaine.Role;
 import com.connecsen.oterrain.domaine.Utilisateur;
-import com.connecsen.oterrain.service.AccountService;
+import com.connecsen.oterrain.service.IAccountService;
 import com.connecsen.oterrain.utils.Utility;
 
 @RestController
 public class AccountRestController {
 
 	@Autowired
-	private AccountService accountService;
+	private IAccountService accountService;
 	
 	@PostMapping(Utility.DO_REGISTER)
 	public Utilisateur register( @RequestBody Utilisateur user) {
 		Utilisateur userAdd =accountService.login_up(user);
-		accountService.addRoleToUser("USER", userAdd.getUsername());
 		return userAdd;
 	}
 	
 	@PostMapping(Utility.DO_LOGIN)
 	public Utilisateur verifiedAccount( @RequestBody Login  login) {
-		Utilisateur user = accountService.login_in(login.getUsername(), login.getPassword());
+		Utilisateur user = accountService.se_connecter(login.getUsername(), login.getPassword());
+		user.setMonToken(accountService.getToken(login.getUsername(), login.getPassword()));
 		return user;
 	}
 	

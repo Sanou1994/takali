@@ -11,9 +11,11 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
+import com.connecsen.oterrain.utils.Utility;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSetter;
 
@@ -26,7 +28,6 @@ public class Utilisateur implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
 	@Column(unique = true)
 	private String username;
 	private String prenom;
@@ -37,11 +38,13 @@ public class Utilisateur implements Serializable {
 	@Column(unique = true)
 	private String email;
 	private String telephone;
+	@Transient
+	private String monToken;
 	private String password;
 	@Column(name = "reset_password_token")
     private String resetPasswordToken;
-	@ManyToMany(mappedBy = "users",fetch = FetchType.EAGER)
-	private Collection<Role> roles = new ArrayList<>();
+	@ManyToOne(fetch = FetchType.EAGER)
+	private Role  role ;
 	@OneToMany(mappedBy = "user")
 	private Collection<Terrain> terrains = new ArrayList<Terrain>();
 	@OneToMany(mappedBy = "user")
@@ -52,7 +55,7 @@ public class Utilisateur implements Serializable {
 	}
 
 	public Utilisateur(Long id, String username, String prenom, String adresse, String typeId, String numeroId,
-			String naissance, String email, String telephone, String password, List<Role> roles,
+			String naissance, String email, String telephone, String password, Role roles,
 			List<Terrain> terrains, List<Reservation> reservations) {
 		super();
 		this.id = id;
@@ -65,13 +68,13 @@ public class Utilisateur implements Serializable {
 		this.email = email;
 		this.telephone = telephone;
 		this.password = password;
-		this.roles = roles;
+		this.role = roles;
 		this.terrains = terrains;
 		this.reservations = reservations;
 	}
 
 	public Utilisateur(String username, String prenom, String adresse, String typeId, String numeroId, String naissance,
-			String email, String telephone, String password, List<Role> roles, List<Terrain> terrains,
+			String email, String telephone, String password, Role roles, List<Terrain> terrains,
 			List<Reservation> reservations) {
 		super();
 		this.username = username;
@@ -83,7 +86,7 @@ public class Utilisateur implements Serializable {
 		this.email = email;
 		this.telephone = telephone;
 		this.password = password;
-		this.roles = roles;
+		this.role = roles;
 		this.terrains = terrains;
 		this.reservations = reservations;
 	}
@@ -159,7 +162,7 @@ public class Utilisateur implements Serializable {
 	public void setTelephone(String telephone) {
 		this.telephone = telephone;
 	}
-   @JsonIgnore
+  // @JsonIgnore
 	public String getPassword() {
 		return password;
 	}
@@ -168,12 +171,12 @@ public class Utilisateur implements Serializable {
 		this.password = password;
 	}
 
-	public Collection<Role> getRoles() {
-		return roles;
+	public Role getRoles() {
+		return role;
 	}
 
-	public void setRoles(List<Role> roles) {
-		this.roles = roles;
+	public void setRoles(Role roles) {
+		this.role = roles;
 	}
 
 	public Collection<Terrain> getTerrains() {
@@ -198,6 +201,14 @@ public class Utilisateur implements Serializable {
 	 @JsonSetter
 	public void setResetPasswordToken(String resetPasswordToken) {
 		this.resetPasswordToken = resetPasswordToken;
+	}
+
+	public String getMonToken() {
+		return Utility.TOKEN_PREFIX+monToken ;
+	}
+
+	public void setMonToken(String monToken) {
+		this.monToken = monToken;
 	}
 
 	

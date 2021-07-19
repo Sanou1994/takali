@@ -8,7 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,7 +24,7 @@ public class Role implements Serializable {
 	@Id @GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private String libelle ;
-	@ManyToMany
+	@OneToMany
 	private Collection<Utilisateur> users = new ArrayList<Utilisateur>();
 	public Role(Long id, String libelle) {
 		super();

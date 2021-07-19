@@ -10,6 +10,12 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -19,9 +25,18 @@ import com.connecsen.oterrain.domaine.Role;
 import com.connecsen.oterrain.domaine.Utilisateur;
 import com.connecsen.oterrain.repository.RoleRepository;
 import com.connecsen.oterrain.repository.UserRepository;
+import com.connecsen.oterrain.security.JwtTokenUtil;
 
 @Service
 public class AccountService implements IAccountService{
+	@Autowired
+	private AuthenticationManager authenticationManager;
+	
+	@Autowired
+	private JwtTokenUtil jwtTokenUtil;
+	
+	@Autowired
+	private UserDetailsService userDetailsService;
     @Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
     @Autowired
@@ -43,10 +58,10 @@ public class AccountService implements IAccountService{
 		return userSave;
 	}
 	@Override
-	public Utilisateur login_in(String username,String password) {
-		String pwdCryp = bCryptPasswordEncoder.encode(password);
-		Utilisateur user = userRepository.findByUsernameAndPassword(username, pwdCryp);
-		return user;
+	public Utilisateur se_connecter(String username,String password) {
+		Utilisateur user = userRepository.findByUsername(username);
+		boolean resultat = bCryptPasswordEncoder.matches(password, user.getPassword());
+		return (resultat) ? user : null;
 	}
 	@Override
 	public boolean updateResetPasswordToken(String token, String email) {
@@ -76,13 +91,6 @@ public class AccountService implements IAccountService{
 	@Override
 	public Role addRole(Role role) {
 		return roleRepository.save(role);
-	}
-
-	@Override
-	public void addRoleToUser(String libelle, String username) {
-		Role role =roleRepository.findByLibelle(libelle);
-		Utilisateur userFound = userRepository.findByUsername(username);
-		userFound.getRoles().add(role);
 	}
 
 	@Override
@@ -173,7 +181,25 @@ public class AccountService implements IAccountService{
 	public List<Role> getAllRoles() {
 		return roleRepository.findAll();
 	}
-
+	
+	@Override
+	public String getToken(String username , String password)
+	{
+      try {
+		authenticate(username,  password);
+	} catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+		
+		final UserDetails userDetails = userDetailsService
+		.loadUserByUsername(username);
+		
+		final String token = jwtTokenUtil.generateToken(userDetails);
+		
+		return token;
+		
+	}
 	@Override
 	public boolean deleteRole(Long id) {
 		Role role = getRoleById(id);
@@ -186,6 +212,16 @@ public class AccountService implements IAccountService{
 		return resultat;
 	}
 
+	
+	public  void authenticate(String username, String password) throws Exception {
+		try {
+		authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+		} catch (DisabledException e) {
+		throw new Exception("USER_DISABLED", e);
+		} catch (BadCredentialsException e) {
+		throw new Exception("INVALID_CREDENTIALS", e);
+		}
+		}
 
 	
 	}

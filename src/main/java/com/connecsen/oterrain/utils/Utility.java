@@ -1,12 +1,9 @@
 package com.connecsen.oterrain.utils;
 
-import net.bytebuddy.utility.RandomString;
-
 public final class Utility {
 	// CONSTANT POUR LA SECURITE
-	public static final String SECRET="sanouarouna90@gmail.com";
-	public static final long EXPIRATION_TIME =864_000_000 ;// 10 JOURS
-	public static final String TOKEN_PREFIX = "Bearer";
+	public static final long EXPIRATION_TIME =5 * 60 * 60 ;
+	public static final String TOKEN_PREFIX = "Bearer ";
 	public static final String HEADER_STRING = "Authorization";
 
 	
@@ -31,7 +28,7 @@ public final class Utility {
 	
 	//GENERATEUR DE TOKEN POUR RECUPERER LE MOT DE PASSE
 	public static String getTokenResetPassword() {
-		return RandomString.make(30);
+		return "1";// RandomString.make(30);
 	}
 
 }
