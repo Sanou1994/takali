@@ -23,7 +23,7 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 		Utilisateur user =accountService.findUserByUsername(username);
 		if(user == null) throw new UsernameNotFoundException(username);
 		Collection<GrantedAuthority> authorities = new ArrayList<>();
-			authorities.add(new SimpleGrantedAuthority(user.getRoles().getLibelle()));
+
 		User userNew = new User(
 				user.getUsername(),
 				user.getPassword(),
