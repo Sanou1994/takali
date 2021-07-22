@@ -43,7 +43,7 @@ public class AccountService implements IAccountService{
     private UserRepository userRepository;
     @Autowired
     private RoleRepository roleRepository;
-    @Autowired
+    @org.springframework.beans.factory.annotation.Autowired(required=true)
     private final JavaMailSender javaMailSender;
     
     public AccountService(JavaMailSender javaMailSender) {
