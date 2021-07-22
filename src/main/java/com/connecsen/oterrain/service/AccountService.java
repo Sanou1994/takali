@@ -44,11 +44,8 @@ public class AccountService implements IAccountService{
     @Autowired
     private RoleRepository roleRepository;
     @org.springframework.beans.factory.annotation.Autowired(required=true)
-    private final JavaMailSender javaMailSender;
+    private  JavaMailSender javaMailSender;
     
-    public AccountService(JavaMailSender javaMailSender) {
-        this.javaMailSender = javaMailSender;
-    }
     
 	@Override
 	public Utilisateur login_up(Utilisateur user) {
@@ -225,4 +222,3 @@ public class AccountService implements IAccountService{
 
 	
 	}
-
