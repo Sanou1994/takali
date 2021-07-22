@@ -3,13 +3,8 @@ package com.connecsen.oterrain.service;
 import java.util.List;
 
 import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
@@ -43,8 +38,8 @@ public class AccountService implements IAccountService{
     private UserRepository userRepository;
     @Autowired
     private RoleRepository roleRepository;
-    @Autowired
-    private  JavaMailSender javaMailSender;
+   // @Autowired
+   // private  JavaMailSender javaMailSender;
     
     
 	@Override
@@ -101,18 +96,20 @@ public class AccountService implements IAccountService{
 	 @Override
     public void sendMail(Mail mail) {
 
-	        SimpleMailMessage msg = new SimpleMailMessage();
+		 /**    SimpleMailMessage msg = new SimpleMailMessage();
 	        msg.setTo(mail.getRecipient(), mail.getRecipient());
 
 	        msg.setSubject(mail.getSubject());
 	        msg.setText(mail.getMessage());
 
-	        javaMailSender.send(msg);
+	        javaMailSender.send(msg); */
 	    }
 
-	  @Override
+	 
+	
+	@Override
 	public void sendMailWithAttachments(Login login,String resetPasswordId) throws MessagingException {
-	        MimeMessage msg = javaMailSender.createMimeMessage();
+		 /**   MimeMessage msg = javaMailSender.createMimeMessage();
 
 	        MimeMessageHelper helper = new MimeMessageHelper(msg, true);
             String subject = "Information pour changer le mot de passe";
@@ -134,7 +131,7 @@ public class AccountService implements IAccountService{
 	        helper.setText(content, true);
 	       helper.addAttachment("logo.jpg", new ClassPathResource("logo.jpg"));
 
-	        javaMailSender.send(msg);
+	        javaMailSender.send(msg);*/
 	    }
 
 	@Override
