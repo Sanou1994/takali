@@ -27,7 +27,7 @@ public class UserDtoResponse implements Serializable{
 	private String monToken;
 	private String password;
     private String resetPasswordToken;
-	private Role  role ;
+	private Role roles ;
 	private Collection<Terrain> terrains = new ArrayList<Terrain>();
 	private Collection<Reservation> reservations = new ArrayList<Reservation>();
 	

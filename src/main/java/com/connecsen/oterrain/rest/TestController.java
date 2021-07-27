@@ -4,8 +4,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.connecsen.oterrain.domaine.Utilisateur;
+import com.connecsen.oterrain.domaine.dto.request.UserDtoRequest;
 import com.connecsen.oterrain.domaine.dto.response.UserDtoResponse;
 import com.connecsen.oterrain.service.IAccountService;
+import com.connecsen.oterrain.utils.Utility;
 @RestController
 public class TestController {
 	private IAccountService accountService;
@@ -19,9 +21,11 @@ public class TestController {
 	}
 
 	@GetMapping("/dto")
-	public UserDtoResponse getAllUser(){
-		Utilisateur user  = new Utilisateur("arouna", "sanou", "Fass", "CINB", "AAA555", "9090", "@a", "3333", "Pass", null, null, null);
+	public Utilisateur getAllUser(){
+		Utilisateur user  = new Utilisateur("arouna33", "sanou", "Fass", "CINB", "AAA555", "9090", "@a", "3333", "Pass", null, null, null);
+		UserDtoRequest userDtoRequest  = new UserDtoRequest();
+		userDtoRequest.setId(1L);
 		UserDtoResponse carDto = modelMapper.map(user,UserDtoResponse.class);
-		return carDto;
+		return Utility.userDtoRequestConvertToUtilisateur(userDtoRequest);
     }
 }

@@ -44,7 +44,7 @@ public class Utilisateur implements Serializable {
 	@Column(name = "reset_password_token")
     private String resetPasswordToken;
 	@ManyToOne(fetch = FetchType.EAGER)
-	private Role  role ;
+	private Role roles ; 
 	@OneToMany(mappedBy = "user")
 	private Collection<Terrain> terrains = new ArrayList<Terrain>();
 	@OneToMany(mappedBy = "user")
@@ -55,7 +55,7 @@ public class Utilisateur implements Serializable {
 	}
 
 	public Utilisateur(Long id, String username, String prenom, String adresse, String typeId, String numeroId,
-			String naissance, String email, String telephone, String password, Role roles,
+			String naissance, String email, String telephone, String password,Role roles,
 			List<Terrain> terrains, List<Reservation> reservations) {
 		super();
 		this.id = id;
@@ -68,7 +68,7 @@ public class Utilisateur implements Serializable {
 		this.email = email;
 		this.telephone = telephone;
 		this.password = password;
-		this.role = roles;
+		this.roles = roles;
 		this.terrains = terrains;
 		this.reservations = reservations;
 	}
@@ -86,7 +86,7 @@ public class Utilisateur implements Serializable {
 		this.email = email;
 		this.telephone = telephone;
 		this.password = password;
-		this.role = roles;
+		this.roles = roles;
 		this.terrains = terrains;
 		this.reservations = reservations;
 	}
@@ -171,12 +171,12 @@ public class Utilisateur implements Serializable {
 		this.password = password;
 	}
 
-	public Role getRoles() {
-		return role;
+	public Role  getRoles() {
+		return roles;
 	}
 
 	public void setRoles(Role roles) {
-		this.role = roles;
+		this.roles = roles;
 	}
 
 	public Collection<Terrain> getTerrains() {

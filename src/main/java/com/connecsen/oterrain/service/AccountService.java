@@ -1,6 +1,7 @@
 package com.connecsen.oterrain.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -23,9 +24,14 @@ import com.connecsen.oterrain.domaine.Login;
 import com.connecsen.oterrain.domaine.Mail;
 import com.connecsen.oterrain.domaine.Role;
 import com.connecsen.oterrain.domaine.Utilisateur;
+import com.connecsen.oterrain.domaine.dto.request.RoleDtoRequest;
+import com.connecsen.oterrain.domaine.dto.request.UserDtoRequest;
+import com.connecsen.oterrain.domaine.dto.response.RoleDtoResponse;
+import com.connecsen.oterrain.domaine.dto.response.UserDtoResponse;
 import com.connecsen.oterrain.repository.RoleRepository;
 import com.connecsen.oterrain.repository.UserRepository;
 import com.connecsen.oterrain.security.JwtTokenUtil;
+import com.connecsen.oterrain.utils.Utility;
 
 @Service
 public class AccountService implements IAccountService{
@@ -48,17 +54,22 @@ public class AccountService implements IAccountService{
     
     
 	@Override
-	public Utilisateur login_up(Utilisateur user) {
+	public UserDtoResponse login_up(UserDtoRequest user) {
 		String pwdCryp = bCryptPasswordEncoder.encode(user.getPassword());
 		user.setPassword(pwdCryp);
-		Utilisateur userSave = userRepository.save(user);
-		return userSave;
+		Utilisateur userConverted =Utility.userDtoRequestConvertToUtilisateur(user);
+		Utilisateur userSave = userRepository.save(userConverted);
+		UserDtoResponse userMap = Utility.utilisateurConvertToUserDtoResponse(userSave);
+		return userMap ;
 	}
 	@Override
-	public Utilisateur se_connecter(String username,String password) {
+	public UserDtoResponse se_connecter(String username,String password) {
+		UserDtoResponse userMap = null;
 		Utilisateur user = userRepository.findByUsername(username);
-		boolean resultat = bCryptPasswordEncoder.matches(password, user.getPassword());
-		return (resultat) ? user : null;
+		if((user != null)&&(bCryptPasswordEncoder.matches(password, user.getPassword()))){
+			userMap = Utility.utilisateurConvertToUserDtoResponse(user);
+		}
+		return userMap ;
 	}
 	@Override
 	public boolean updateResetPasswordToken(String token, String email) {
@@ -74,8 +85,10 @@ public class AccountService implements IAccountService{
 	}
 
 	@Override
-	public Utilisateur getByResetPasswordToken(String token) {
-		return userRepository.findByResetPasswordToken(token);
+	public UserDtoResponse getByResetPasswordToken(String token) {
+		Utilisateur user = userRepository.findByResetPasswordToken(token);
+		UserDtoResponse userMap = Utility.utilisateurConvertToUserDtoResponse(user);
+		return userMap;
 	}
 
 	@Override
@@ -86,8 +99,10 @@ public class AccountService implements IAccountService{
         userRepository.save(user);	
 	}
 	@Override
-	public Role addRole(Role role) {
-		return roleRepository.save(role);
+	public RoleDtoResponse addRole(RoleDtoRequest role) {
+		Role roleRequest  =Utility.RoleDtoRequestConvertToRole(role);
+		RoleDtoResponse roleDtoResponse  =Utility.roleConvertToRoleDtoResponse(roleRepository.save(roleRequest));
+		return roleDtoResponse;
 	}
 
 	@Override
@@ -140,23 +155,31 @@ public class AccountService implements IAccountService{
 	    }
 
 	@Override
-	public Utilisateur createOrUpdateUser(Utilisateur user) {
-		return userRepository.save(user);
+	public UserDtoResponse createOrUpdateUser(UserDtoRequest user) {
+		Utilisateur userRequest =Utility.userDtoRequestConvertToUtilisateur(user);
+		Utilisateur userSave = userRepository.save(userRequest);
+		UserDtoResponse userMap = Utility.utilisateurConvertToUserDtoResponse(userSave);
+		return userMap;
 	}
 
 	@Override
-	public Utilisateur getUserById(Long id) {
-		return userRepository.findById(id).get();
+	public UserDtoResponse getUserById(Long id) {
+		Utilisateur userSave = userRepository.findById(id).get();
+		UserDtoResponse userMap = Utility.utilisateurConvertToUserDtoResponse(userSave);
+		return userMap;
 	}
 
 	@Override
-	public List<Utilisateur> getAllUsers() {
-		return userRepository.findAll();
+	public List<UserDtoResponse> getAllUsers() {
+		List<Utilisateur> utilisateurs =userRepository.findAll();
+		 List<UserDtoResponse> utilisateurDtoResponses = utilisateurs.stream()
+				 .map(utilisateur -> Utility.utilisateurConvertToUserDtoResponse(utilisateur)).collect(Collectors.toList());
+		return utilisateurDtoResponses;
+		
 	}
-
 	@Override
 	public boolean deleteUser(Long id) {
-		Utilisateur user = getUserById(id);
+		UserDtoResponse user = getUserById(id);
 		boolean resultat =false;
 		if(user != null)
 		{
@@ -167,18 +190,25 @@ public class AccountService implements IAccountService{
 	}
 
 	@Override
-	public Role createOrUpdateRole(Role role) {
-		return roleRepository.save(role);
+	public RoleDtoResponse createOrUpdateRole(RoleDtoRequest roleDtoRequest) {
+		Role roleRequest =Utility.RoleDtoRequestConvertToRole(roleDtoRequest);
+		RoleDtoResponse roleResponse =Utility.roleConvertToRoleDtoResponse(roleRepository.save(roleRequest));
+		return roleResponse;
 	}
 
 	@Override
-	public Role getRoleById(Long id) {
-		return roleRepository.findById(id).get();
+	public RoleDtoResponse getRoleById(Long id) {
+		RoleDtoResponse roleResponse =Utility.roleConvertToRoleDtoResponse(roleRepository.findById(id).get());
+		return roleResponse;
 	}
 
 	@Override
-	public List<Role> getAllRoles() {
-		return roleRepository.findAll();
+	public List<RoleDtoResponse> getAllRoles() {
+		List<Role> roles =roleRepository.findAll();
+		List<RoleDtoResponse> roleDtoResponses = roles.stream()
+				 .map(role -> Utility.roleConvertToRoleDtoResponse(role)).collect(Collectors.toList());
+		return roleDtoResponses;
+
 	}
 	
 	@Override
@@ -201,7 +231,7 @@ public class AccountService implements IAccountService{
 	}
 	@Override
 	public boolean deleteRole(Long id) {
-		Role role = getRoleById(id);
+		RoleDtoResponse role = getRoleById(id);
 		boolean resultat =false;
 		if(role != null)
 		{

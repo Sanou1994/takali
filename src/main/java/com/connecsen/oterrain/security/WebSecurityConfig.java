@@ -25,7 +25,7 @@ private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 	@Autowired
 	private UserDetailsService jwtUserDetailsService;
 	@Autowired
-	private JwtRequestFilter jwtRequestFilter;
+	private JWTAuthorizationFilter jwtRequestFilter;
 	
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -48,7 +48,7 @@ private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 	// We don't need CSRF for this example
 	httpSecurity.csrf().disable()
 	// dont authenticate this particular request
-	.authorizeRequests().antMatchers("/dto","/swagger-ui/**","/user/register/**","/user/login/**").permitAll().
+	.authorizeRequests().antMatchers("/v3/api-docs/**","/swagger-ui/**","/user/register/**","/user/login/**").permitAll().
 	// all other requests need to be authenticated
 	anyRequest().authenticated().and().
 	// make sure we use stateless session; session won't be used to
