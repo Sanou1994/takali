@@ -1,24 +1,18 @@
-package com.connecsen.oterrain.domaine;
+package com.connecsen.oterrain.domaine.dto.response;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
+import com.connecsen.oterrain.domaine.Equipe;
+import com.connecsen.oterrain.domaine.Match;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-@Entity @Data @NoArgsConstructor @AllArgsConstructor
-public class Tournoi implements Serializable{
+@Data @NoArgsConstructor @AllArgsConstructor
+public class TournoiDtoResponse implements Serializable{
 	private static final long serialVersionUID = 1L;
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String nom;
 	private String annee;
@@ -29,9 +23,6 @@ public class Tournoi implements Serializable{
 	private Double prixPme;
 	private String dateDebut;
 	private String dateFin;
-	@OneToMany(mappedBy = "tournoi")
 	private Collection<Match> matchs = new ArrayList<Match>();
-	@ManyToMany(mappedBy = "tournois")
 	private Collection<Equipe> equipes = new ArrayList<Equipe>();
-	
 }

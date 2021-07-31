@@ -2,7 +2,7 @@ package com.connecsen.oterrain.domaine;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,9 +26,9 @@ public class Equipe implements Serializable{
 	private Boolean paye;
 	private Boolean archive;
 	@ManyToMany
-	private List<Match>matchVisites = new ArrayList<Match>();
+	private Collection<Match>matchVisites = new ArrayList<Match>();
 	@ManyToMany
-	private List<Match> matchVisiteurs = new ArrayList<Match>();
+	private Collection<Match> matchVisiteurs = new ArrayList<Match>();
 	@ManyToMany @Column(nullable = false)
-	private List<Tournoi>tournois = new ArrayList<Tournoi>();
+	private Collection<Tournoi>tournois = new ArrayList<Tournoi>();
 }
