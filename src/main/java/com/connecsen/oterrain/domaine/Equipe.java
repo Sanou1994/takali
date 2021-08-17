@@ -2,20 +2,22 @@ package com.connecsen.oterrain.domaine;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
-@Entity @Data @NoArgsConstructor @AllArgsConstructor
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+@Entity @JsonIdentityInfo(
+		   generator = ObjectIdGenerators.PropertyGenerator.class,
+		   property = "id")
 public class Equipe implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,10 +27,97 @@ public class Equipe implements Serializable{
 	private String typeEntreprise;
 	private Boolean paye;
 	private Boolean archive;
-	@ManyToMany
-	private Collection<Match>matchVisites = new ArrayList<Match>();
-	@ManyToMany
-	private Collection<Match> matchVisiteurs = new ArrayList<Match>();
-	@ManyToMany @Column(nullable = false)
-	private Collection<Tournoi>tournois = new ArrayList<Tournoi>();
+	@ManyToMany(targetEntity=Match.class, mappedBy="equipeVisites")
+	@LazyCollection(LazyCollectionOption.FALSE)
+	private List<Match>matchVisites = new ArrayList<Match>();
+	@ManyToMany(targetEntity=Match.class, mappedBy="equipeVisiteurs")
+	@LazyCollection(LazyCollectionOption.FALSE)
+	private  List<Match> matchVisiteurs = new ArrayList<Match>();
+	@ManyToMany(targetEntity=Tournoi.class)
+	@LazyCollection(LazyCollectionOption.FALSE)
+	private  List<Tournoi>tournois = new ArrayList<Tournoi>();
+	public Equipe(String nomEquipe, String nomEntreprise, String typeEntreprise, Boolean paye, Boolean archive,
+			List<Match> matchVisites, List<Match> matchVisiteurs, List<Tournoi> tournois) {
+		super();
+		this.nomEquipe = nomEquipe;
+		this.nomEntreprise = nomEntreprise;
+		this.typeEntreprise = typeEntreprise;
+		this.paye = paye;
+		this.archive = archive;
+		this.matchVisites = matchVisites;
+		this.matchVisiteurs = matchVisiteurs;
+		this.tournois = tournois;
+	}
+	public Equipe(Long id, String nomEquipe, String nomEntreprise, String typeEntreprise, Boolean paye, Boolean archive,
+			List<Match> matchVisites, List<Match> matchVisiteurs, List<Tournoi> tournois) {
+		super();
+		this.id = id;
+		this.nomEquipe = nomEquipe;
+		this.nomEntreprise = nomEntreprise;
+		this.typeEntreprise = typeEntreprise;
+		this.paye = paye;
+		this.archive = archive;
+		this.matchVisites = matchVisites;
+		this.matchVisiteurs = matchVisiteurs;
+		this.tournois = tournois;
+	}
+	public Equipe() {
+		super();
+	}
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public String getNomEquipe() {
+		return nomEquipe;
+	}
+	public void setNomEquipe(String nomEquipe) {
+		this.nomEquipe = nomEquipe;
+	}
+	public String getNomEntreprise() {
+		return nomEntreprise;
+	}
+	public void setNomEntreprise(String nomEntreprise) {
+		this.nomEntreprise = nomEntreprise;
+	}
+	public String getTypeEntreprise() {
+		return typeEntreprise;
+	}
+	public void setTypeEntreprise(String typeEntreprise) {
+		this.typeEntreprise = typeEntreprise;
+	}
+	public Boolean getPaye() {
+		return paye;
+	}
+	public void setPaye(Boolean paye) {
+		this.paye = paye;
+	}
+	public Boolean getArchive() {
+		return archive;
+	}
+	public void setArchive(Boolean archive) {
+		this.archive = archive;
+	}
+	public List<Match> getMatchVisites() {
+		return matchVisites;
+	}
+	public void setMatchVisites(List<Match> matchVisites) {
+		this.matchVisites = matchVisites;
+	}
+	public List<Match> getMatchVisiteurs() {
+		return matchVisiteurs;
+	}
+	public void setMatchVisiteurs(List<Match> matchVisiteurs) {
+		this.matchVisiteurs = matchVisiteurs;
+	}
+	public List<Tournoi> getTournois() {
+		return tournois;
+	}
+	public void setTournois(List<Tournoi> tournois) {
+		this.tournois = tournois;
+	}
+	
+	
 }

@@ -8,13 +8,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
-import javax.validation.constraints.NotNull;
 
-import lombok.AllArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import lombok.Data;
-import lombok.NoArgsConstructor;
-@Entity @Data @NoArgsConstructor @AllArgsConstructor
-
+@Entity @Data @JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class)
 public class Reservation implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,11 +23,38 @@ public class Reservation implements Serializable{
 	private String heureDebut;
 	private String dateFin;
 	private String heureFin;
-	@OneToOne
+	@OneToOne 
 	private Match match;
-	@OneToOne @NotNull
+	@ManyToOne(targetEntity=Utilisateur.class)
 	private Utilisateur user;
-	@ManyToOne @NotNull
+	@ManyToOne 
 	private Terrain terrain;
+	public Reservation(String dateDebut, String heureDebut, String dateFin, String heureFin, Match match,
+			Utilisateur user, Terrain terrain) {
+		super();
+		this.dateDebut = dateDebut;
+		this.heureDebut = heureDebut;
+		this.dateFin = dateFin;
+		this.heureFin = heureFin;
+		this.match = match;
+		this.user = user;
+		this.terrain = terrain;
+	}
+	public Reservation(Long id, String dateDebut, String heureDebut, String dateFin, String heureFin, Match match,
+			Utilisateur user, Terrain terrain) {
+		super();
+		this.id = id;
+		this.dateDebut = dateDebut;
+		this.heureDebut = heureDebut;
+		this.dateFin = dateFin;
+		this.heureFin = heureFin;
+		this.match = match;
+		this.user = user;
+		this.terrain = terrain;
+	}
+	public Reservation() {
+		super();
+	}
+	
 
 }

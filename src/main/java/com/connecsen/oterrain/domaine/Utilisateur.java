@@ -2,12 +2,10 @@ package com.connecsen.oterrain.domaine;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,14 +14,17 @@ import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
 import com.connecsen.oterrain.utils.Utility;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 /**
  * @author akane
  *
  */
-@Entity
+@Entity 
+@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class)
 public class Utilisateur implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,12 +44,12 @@ public class Utilisateur implements Serializable {
 	private String password;
 	@Column(name = "reset_password_token")
     private String resetPasswordToken;
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne 
 	private Role roles ; 
-	@OneToMany(mappedBy = "user")
-	private Collection<Terrain> terrains = new ArrayList<Terrain>();
-	@OneToMany(mappedBy = "user")
-	private Collection<Reservation> reservations = new ArrayList<Reservation>();
+	@OneToMany(targetEntity=Terrain.class, mappedBy="user")
+	private List<Terrain> terrains = new ArrayList<Terrain>();
+	@OneToMany(targetEntity=Reservation.class, mappedBy = "user")
+	private List<Reservation> reservations = new ArrayList<Reservation>();
 	
 	public Utilisateur() {
 		super();
@@ -179,19 +180,19 @@ public class Utilisateur implements Serializable {
 		this.roles = roles;
 	}
 
-	public Collection<Terrain> getTerrains() {
+	public List<Terrain> getTerrains() {
 		return terrains;
 	}
 
-	public void setTerrains(Collection<Terrain> terrains) {
+	public void setTerrains(List<Terrain> terrains) {
 		this.terrains = terrains;
 	}
 
-	public Collection<Reservation> getReservations() {
+	public List<Reservation> getReservations() {
 		return reservations;
 	}
 
-	public void setReservations(Collection<Reservation> reservations) {
+	public void setReservations(List<Reservation> reservations) {
 		this.reservations = reservations;
 	}
 	 @JsonIgnore

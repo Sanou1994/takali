@@ -17,8 +17,8 @@ import com.connecsen.oterrain.utils.Utility;
 
 @RestController
 public class TournoiController {
-	
 	private ITournoiService iTournoiService;
+	
 	public TournoiController(ITournoiService iTournoiService) {
 		super();
 		this.iTournoiService = iTournoiService;

@@ -2,7 +2,7 @@ package com.connecsen.oterrain.domaine.dto.response;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,5 +12,5 @@ public class RoleDtoResponse implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private Long id;
 	private String libelle ;
-	private Collection<UserDtoResponse> users = new ArrayList<UserDtoResponse>();
+	private List<UserDtoResponse> users = new ArrayList<UserDtoResponse>();
 }

@@ -2,7 +2,7 @@ package com.connecsen.oterrain.domaine.dto.response;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
 import com.connecsen.oterrain.domaine.Match;
 import com.connecsen.oterrain.domaine.Reservation;
@@ -24,7 +24,7 @@ public class TerrainDtoResponse implements Serializable{
 	private String description;
 	private Double prixHeure;
 	private Double prixDemiHeure;
-	private Collection<Match> matchs = new ArrayList<Match>();
-	private Collection<Reservation> reservations = new ArrayList<Reservation>();
+	private List<Match> matchs = new ArrayList<Match>();
+	private List<Reservation> reservations = new ArrayList<Reservation>();
 	private Utilisateur user;
 }

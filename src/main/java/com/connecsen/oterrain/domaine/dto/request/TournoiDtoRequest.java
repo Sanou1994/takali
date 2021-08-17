@@ -2,7 +2,7 @@ package com.connecsen.oterrain.domaine.dto.request;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
 import com.connecsen.oterrain.domaine.Equipe;
 import com.connecsen.oterrain.domaine.Match;
@@ -23,6 +23,6 @@ public class TournoiDtoRequest implements Serializable{
 	private Double prixPme;
 	private String dateDebut;
 	private String dateFin;
-	private Collection<Match> matchs = new ArrayList<Match>();
-	private Collection<Equipe> equipes = new ArrayList<Equipe>();
+	private List<Match> matchs = new ArrayList<Match>();
+	private List<Equipe> equipes = new ArrayList<Equipe>();
 }

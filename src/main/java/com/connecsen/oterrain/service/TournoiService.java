@@ -28,7 +28,7 @@ private TournoiRepository tournoiRepository;
 
 	@Override
 	public TournoiDtoResponse getTournoiById(Long id) {
-		Tournoi tournoi = tournoiRepository.getById(id);
+		Tournoi tournoi = tournoiRepository.findById(id).get();
 		TournoiDtoResponse tournoiDtoResponse = Utility.tournoiConvertToTournoiDtoResponse(tournoiRepository.save(tournoi));
 		return tournoiDtoResponse;
 	}
@@ -44,7 +44,7 @@ private TournoiRepository tournoiRepository;
 	@Override
 	public boolean deleteTournoi(Long id) {
 		boolean resultat = false;
-		Tournoi tournoi = tournoiRepository.getById(id);
+		Tournoi tournoi = tournoiRepository.findById(id).get();
 		if(tournoi != null) {
 			tournoiRepository.deleteById(id);
 			resultat =true;

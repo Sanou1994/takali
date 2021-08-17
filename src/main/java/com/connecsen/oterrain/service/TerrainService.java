@@ -28,7 +28,7 @@ public class TerrainService implements ITerrainService {
 
 	@Override
 	public TerrainDtoResponse getTerrainById(Long id) {
-		Terrain terrain = terrainRepository.getById(id);
+		Terrain terrain = terrainRepository.findById(id).get();
 		TerrainDtoResponse terrainDtoResponse = Utility.terrainConvertToTerrainDtoResponse(terrainRepository.save(terrain));
 		return terrainDtoResponse;
 	}
@@ -44,7 +44,7 @@ public class TerrainService implements ITerrainService {
 	@Override
 	public boolean deleteTerrain(Long id) {
 		boolean resultat = false;
-		Terrain terrain = terrainRepository.getById(id);
+		Terrain terrain = terrainRepository.findById(id).get();
 		if(terrain != null) {
 			terrainRepository.deleteById(id);
 			resultat =true;

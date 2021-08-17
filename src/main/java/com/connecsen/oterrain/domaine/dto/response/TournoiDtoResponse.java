@@ -2,13 +2,13 @@ package com.connecsen.oterrain.domaine.dto.response;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
-
-import com.connecsen.oterrain.domaine.Equipe;
-import com.connecsen.oterrain.domaine.Match;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+
+import com.connecsen.oterrain.domaine.Equipe;
+import com.connecsen.oterrain.domaine.Match;
 import lombok.NoArgsConstructor;
 @Data @NoArgsConstructor @AllArgsConstructor
 public class TournoiDtoResponse implements Serializable{
@@ -23,6 +23,6 @@ public class TournoiDtoResponse implements Serializable{
 	private Double prixPme;
 	private String dateDebut;
 	private String dateFin;
-	private Collection<Match> matchs = new ArrayList<Match>();
-	private Collection<Equipe> equipes = new ArrayList<Equipe>();
+	private List<Match> matchs = new ArrayList<Match>();
+	private List<Equipe> equipes = new ArrayList<Equipe>();
 }
