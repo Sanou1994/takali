@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,12 +15,7 @@ import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
-
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-@Entity @JsonIdentityInfo(
-		   generator = ObjectIdGenerators.PropertyGenerator.class,
-		   property = "id")
+@Entity 
 public class Match implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,22 +25,23 @@ public class Match implements Serializable{
 	private String niveauTournoi;
 	private String codeVideoEmded;
 	private String annule;
+	private boolean status;
 	private String repousse;
-	@ManyToMany(targetEntity=Equipe.class) 
+	@ManyToMany(cascade = CascadeType.REMOVE)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Equipe>equipeVisites = new ArrayList<Equipe>();
-	@ManyToMany(targetEntity=Equipe.class) 
+	@ManyToMany(cascade = CascadeType.REMOVE)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Equipe> equipeVisiteurs = new ArrayList<Equipe>();
-	@OneToOne (targetEntity=Reservation.class, mappedBy="match")
+	@OneToOne (targetEntity=Reservation.class, mappedBy="match",cascade = CascadeType.REMOVE)
 	private Reservation reservation;
-	@ManyToOne 
+	@ManyToOne(cascade = CascadeType.REMOVE)
 	private Terrain terrain;
-	@ManyToOne 
+	@ManyToOne(cascade = CascadeType.REMOVE)
 	private Tournoi tournoi;
 	
 	public Match(String scoreVisiteur, String scoreVisite, String niveauTournoi, String codeVideoEmded, String annule,
-			String repousse, List<Equipe> equipeVisites, List<Equipe> equipeVisiteurs, Reservation reservation,
+			boolean status,String repousse, List<Equipe> equipeVisites, List<Equipe> equipeVisiteurs, Reservation reservation,
 			 Terrain terrain,  Tournoi tournoi) {
 		super();
 		this.scoreVisiteur = scoreVisiteur;
@@ -53,6 +50,7 @@ public class Match implements Serializable{
 		this.codeVideoEmded = codeVideoEmded;
 		this.annule = annule;
 		this.repousse = repousse;
+		this.status = status;
 		this.equipeVisites = equipeVisites;
 		this.equipeVisiteurs = equipeVisiteurs;
 		this.reservation = reservation;
@@ -61,7 +59,7 @@ public class Match implements Serializable{
 	}
 
 	public Match(Long id, String scoreVisiteur, String scoreVisite, String niveauTournoi, String codeVideoEmded,
-			String annule, String repousse, List<Equipe> equipeVisites, List<Equipe> equipeVisiteurs,
+			String annule,boolean status, String repousse, List<Equipe> equipeVisites, List<Equipe> equipeVisiteurs,
 			Reservation reservation, Terrain terrain, Tournoi tournoi) {
 		super();
 		this.id = id;
@@ -70,6 +68,7 @@ public class Match implements Serializable{
 		this.niveauTournoi = niveauTournoi;
 		this.codeVideoEmded = codeVideoEmded;
 		this.annule = annule;
+		this.status = status;
 		this.repousse = repousse;
 		this.equipeVisites = equipeVisites;
 		this.equipeVisiteurs = equipeVisiteurs;
@@ -137,18 +136,20 @@ public class Match implements Serializable{
 	public void setRepousse(String repousse) {
 		this.repousse = repousse;
 	}
+	
 
 	public List<Equipe> getEquipeVisites() {
 		return equipeVisites;
 	}
 
-	public void setEquipeVisites(List<Equipe> equipeVisites) {
-		this.equipeVisites = equipeVisites;
-	}
-
 	public List<Equipe> getEquipeVisiteurs() {
 		return equipeVisiteurs;
 	}
+
+	public void setEquipeVisites(List<Equipe> equipeVisites) {
+		this.equipeVisites = equipeVisites;
+	}
+	
 
 	public void setEquipeVisiteurs(List<Equipe> equipeVisiteurs) {
 		this.equipeVisiteurs = equipeVisiteurs;
@@ -161,21 +162,23 @@ public class Match implements Serializable{
 	public void setReservation(Reservation reservation) {
 		this.reservation = reservation;
 	}
-
-	public Terrain getTerrain() {
-		return terrain;
-	}
+	
 
 	public void setTerrain(Terrain terrain) {
 		this.terrain = terrain;
 	}
-
-	public Tournoi getTournoi() {
-		return tournoi;
-	}
+	
 
 	public void setTournoi(Tournoi tournoi) {
 		this.tournoi = tournoi;
+	}
+
+	public boolean isStatus() {
+		return status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
 	}
 	
 }

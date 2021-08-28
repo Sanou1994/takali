@@ -2,6 +2,7 @@ package com.connecsen.oterrain.domaine;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -14,12 +15,7 @@ import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
-
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-@Entity @JsonIdentityInfo(
-		   generator = ObjectIdGenerators.PropertyGenerator.class,
-		   property = "id")
+@Entity 
 public class Tournoi implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,19 +27,19 @@ public class Tournoi implements Serializable{
 	private Double prixPartSa;
 	private Double prixPartEcole;
 	private Double prixPme;
-	private String dateDebut;
-	private String dateFin;
-	@OneToMany(targetEntity=Match.class,cascade = CascadeType.PERSIST, mappedBy="tournoi")
+	private Date dateDebut;
+	private Date dateFin;
+	@OneToMany(targetEntity=Match.class,cascade = CascadeType.REMOVE,mappedBy="tournoi")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Match> matchs = new ArrayList<Match>();
-	@ManyToMany(targetEntity=Equipe.class, mappedBy="tournois")
+	@ManyToMany(targetEntity=Equipe.class, cascade = CascadeType.REMOVE,mappedBy="tournois")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Equipe> equipes = new ArrayList<Equipe>();
 	public Tournoi() {
 		super();
 	}
 	public Tournoi(Long id, String nom, String annee, String description, Double prixPartSrl, Double prixPartSa,
-			Double prixPartEcole, Double prixPme, String dateDebut, String dateFin, List<Match> matchs,
+			Double prixPartEcole, Double prixPme, Date dateDebut, Date dateFin, List<Match> matchs,
 			List<Equipe> equipes) {
 		super();
 		this.id = id;
@@ -60,7 +56,7 @@ public class Tournoi implements Serializable{
 		this.equipes = equipes;
 	}
 	public Tournoi(String nom, String annee, String description, Double prixPartSrl, Double prixPartSa,
-			Double prixPartEcole, Double prixPme, String dateDebut, String dateFin, List<Match> matchs,
+			Double prixPartEcole, Double prixPme, Date dateDebut, Date dateFin, List<Match> matchs,
 			List<Equipe> equipes) {
 		super();
 		this.nom = nom;
@@ -123,23 +119,25 @@ public class Tournoi implements Serializable{
 	public void setPrixPme(Double prixPme) {
 		this.prixPme = prixPme;
 	}
-	public String getDateDebut() {
+	public Date getDateDebut() {
 		return dateDebut;
 	}
-	public void setDateDebut(String dateDebut) {
+	public void setDateDebut(Date dateDebut) {
 		this.dateDebut = dateDebut;
 	}
-	public String getDateFin() {
+	public Date getDateFin() {
 		return dateFin;
 	}
-	public void setDateFin(String dateFin) {
+	public void setDateFin(Date dateFin) {
 		this.dateFin = dateFin;
 	}
-	public List<Match> getMatchs() {
-		return matchs;
-	}
+	
 	public void setMatchs(List<Match> matchs) {
 		this.matchs = matchs;
+	}
+	
+	public List<Match> getMatchs() {
+		return matchs;
 	}
 	public List<Equipe> getEquipes() {
 		return equipes;

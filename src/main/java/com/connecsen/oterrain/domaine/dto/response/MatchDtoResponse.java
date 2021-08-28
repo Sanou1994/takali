@@ -21,6 +21,7 @@ public class MatchDtoResponse {
 	private String niveauTournoi;
 	private String codeVideoEmded;
 	private String annule;
+	private boolean status;
 	private String repousse;
 	private List<Equipe>equipeVisites = new ArrayList<Equipe>();
 	private List<Equipe> equipeVisiteurs = new ArrayList<Equipe>();

@@ -6,7 +6,9 @@ import com.connecsen.oterrain.domaine.Equipe;
 import com.connecsen.oterrain.domaine.Fichier;
 import com.connecsen.oterrain.domaine.HomeOne;
 import com.connecsen.oterrain.domaine.Match;
+import com.connecsen.oterrain.domaine.Multimedia;
 import com.connecsen.oterrain.domaine.Propos;
+import com.connecsen.oterrain.domaine.Publicite;
 import com.connecsen.oterrain.domaine.Reservation;
 import com.connecsen.oterrain.domaine.Role;
 import com.connecsen.oterrain.domaine.Service;
@@ -17,7 +19,9 @@ import com.connecsen.oterrain.domaine.dto.request.EquipeDtoRequest;
 import com.connecsen.oterrain.domaine.dto.request.FichierDtoRequest;
 import com.connecsen.oterrain.domaine.dto.request.HomeOneDtoRequest;
 import com.connecsen.oterrain.domaine.dto.request.MatchDtoRequest;
+import com.connecsen.oterrain.domaine.dto.request.MultimediaDtoRequest;
 import com.connecsen.oterrain.domaine.dto.request.ProposDtoRequest;
+import com.connecsen.oterrain.domaine.dto.request.PubDtoRequest;
 import com.connecsen.oterrain.domaine.dto.request.ReservationDtoRequest;
 import com.connecsen.oterrain.domaine.dto.request.RoleDtoRequest;
 import com.connecsen.oterrain.domaine.dto.request.ServiceDtoRequest;
@@ -28,7 +32,9 @@ import com.connecsen.oterrain.domaine.dto.response.EquipeDtoResponse;
 import com.connecsen.oterrain.domaine.dto.response.FichierDtoResponse;
 import com.connecsen.oterrain.domaine.dto.response.HomeOneDtoResponse;
 import com.connecsen.oterrain.domaine.dto.response.MatchDtoResponse;
+import com.connecsen.oterrain.domaine.dto.response.MultimediaDtoResponse;
 import com.connecsen.oterrain.domaine.dto.response.ProposDtoResponse;
+import com.connecsen.oterrain.domaine.dto.response.PubDtoResponse;
 import com.connecsen.oterrain.domaine.dto.response.ReservationDtoResponse;
 import com.connecsen.oterrain.domaine.dto.response.RoleDtoResponse;
 import com.connecsen.oterrain.domaine.dto.response.ServiceDtoResponse;
@@ -44,76 +50,92 @@ public final class Utility {
 	public static final String TOKEN_PREFIX = "Bearer ";
 	public static final String HEADER_STRING = "Authorization";
 	public static final String SECRET = "javainuse";
-
+	public static final String NOTREEMAIL = "sanouarouna90@gmail.com";
 	
 	// LES URLS D'ACCESS
+	
+	
+	public static final String ADD_MULTIMEDIA = "/multimedia/add";
+	public static final String UPDATE_MULTIMEDIA = "/multimedia/update";
+	public static final String GET_MULTIMEDIA_BY_ID = "/multimedia/multimedias/{id}";
+	public static final String DELETE_MULTIMEDIA_BY_ID = "/multimedia/multimedias/delete/{id}";
+	public static final String GET_ALL_MULTIMEDIAS = "/multimedia/multimedias";
 	
 	public static final String ADD_RESERVATION = "/reservation/add";
 	public static final String UPDATE_RESERVATION = "/reservation/update";
 	public static final String GET_RESERVATION_BY_ID = "/reservation/reservations/{id}";
-	public static final String DELETE_RESERVATION_BY_ID = "/reservation/reservations/{id}";
+	public static final String DELETE_RESERVATION_BY_ID = "/reservation/reservations/delete/{id}";
 	public static final String GET_ALL_RESERVATIONS = "/reservation/reservations";
+	
+	public static final String ADD_PUB = "/pub/add";
+	public static final String UPDATE_PUB = "/pub/update";
+	public static final String GET_PUB_BY_ID = "/acceuil/pub/pubs/{id}";
+	public static final String DELETE_PUB_BY_ID = "/pub/pubs/delete/{id}";
+	public static final String GET_ALL_PUBS = "/acceuil/pub/pubs";
 	
 	public static final String ADD_FICHIER = "/fichier/add";
 	public static final String UPDATE_FICHIER = "/fichier/update";
-	public static final String GET_FICHIER_BY_ID = "/fichier/fichiers/{id}";
-	public static final String DELETE_FICHIER_BY_ID = "/fichier/fichiers/{id}";
-	public static final String GET_ALL_FICHIERS = "/fichier/fichiers";
+	public static final String GET_FICHIER_BY_ID = "/acceuil/fichier/fichiers/{id}";
+	public static final String DELETE_FICHIER_BY_ID = "/fichier/fichiers/delete/{id}";
+	public static final String GET_ALL_FICHIERS = "/acceuil/fichier/fichiers";
 	
 	public static final String ADD_SERVICE = "/service/add";
 	public static final String UPDATE_SERVICE = "/service/update";
-	public static final String GET_SERVICE_BY_ID = "/service/services/{id}";
-	public static final String DELETE_SERVICE_BY_ID = "/service/services/{id}";
-	public static final String GET_ALL_SERVICES = "/service/services";
+	public static final String GET_SERVICE_BY_ID = "/acceuil/service/services/{id}";
+	public static final String DELETE_SERVICE_BY_ID = "/service/services/delete/{id}";
+	public static final String GET_ALL_SERVICES = "/acceuil/service/services";
 	
 	public static final String ADD_PROPOS = "/propos/add";
 	public static final String UPDATE_PROPOS = "/propos/update";
-	public static final String GET_PROPOS_BY_ID = "/propos/propos/{id}";
-	public static final String DELETE_PROPOS_BY_ID = "/propos/propos/{id}";
-	public static final String GET_ALL_PROPOS = "/propos/propos";
+	public static final String GET_PROPOS_BY_ID = "/acceuil/propos/propos/{id}";
+	public static final String DELETE_PROPOS_BY_ID = "/propos/propos/delete/{id}";
+	public static final String GET_ALL_PROPOS = "/acceuil/propos/propos";
 	
 	public static final String ADD_HOMEONE = "/homeone/add";
 	public static final String UPDATE_HOMEONE = "/homeone/update";
-	public static final String GET_HOMEONE_BY_ID = "/homeone/homeones/{id}";
-	public static final String DELETE_HOMEONE_BY_ID = "/homeone/homeones/{id}";
-	public static final String GET_ALL_HOMEONES = "/homeone/homeones";
+	public static final String GET_HOMEONE_BY_ID = "/acceuil/homeone/homeones/{id}";
+	public static final String DELETE_HOMEONE_BY_ID = "/homeone/homeones/delete/{id}";
+	public static final String GET_ALL_HOMEONES = "/acceuil/homeone/homeones";
 	
+	public static final String ADD_EQUIPE_TO_TOURNOI = "/tournoi/add/equipe/{id}";
+	public static final String ADD_MATCH_TO_TOURNOI = "/tournoi/add/match/{id}";
 	public static final String ADD_TOURNOI = "/tournoi/add";
 	public static final String UPDATE_TOURNOI = "/tournoi/update";
 	public static final String GET_TOURNOI_BY_ID = "/tournoi/tournois/{id}";
-	public static final String DELETE_TOURNOI_BY_ID = "/tournoi/tournois/{id}";
+	public static final String DELETE_TOURNOI_BY_ID = "/tournoi/tournois/delete/{id}";
 	public static final String GET_ALL_TOURNOIS = "/tournoi/tournois";
 	
 	public static final String ADD_MATCH = "/match/add";
 	public static final String UPDATE_MATCH = "/match/update";
 	public static final String GET_MATCH_BY_ID = "/match/matchs/{id}";
-	public static final String DELETE_MATCH_BY_ID = "/match/matchs/{id}";
+	public static final String DELETE_MATCH_BY_ID = "/match/matchs/delete/{id}";
 	public static final String GET_ALL_MATCHS = "/match/matchs";
 	
 	public static final String ADD_EQUIPE = "/equipe/add";
 	public static final String UPDATE_EQUIPE = "/equipe/update";
 	public static final String GET_EQUIPE_BY_ID = "/equipe/equipes/{id}";
-	public static final String DELETE_EQUIPE_BY_ID = "/equipe/equipes/{id}";
+	public static final String DELETE_EQUIPE_BY_ID = "/equipe/equipes/delete/{id}";
 	public static final String GET_ALL_EQUIPES = "/equipe/equipes";
 	
 	public static final String ADD_TERRAIN = "/terrain/add";
 	public static final String UPDATE_TERRAIN = "/terrain/update";
 	public static final String GET_TERRAIN_BY_ID = "/terrain/terrains/{id}";
-	public static final String DELETE_TERRAIN_BY_ID = "/terrain/terrains/{id}";
+	public static final String DELETE_TERRAIN_BY_ID = "/terrain/terrains/delete/{id}";
 	public static final String GET_ALL_TERRAINS = "/terrain/terrains";
 	
 	public static final String ADD_USER = "/user/add";
 	public static final String UPDATE_USER = "/user/update";
 	public static final String GET_USER_BY_ID = "/user/users/{id}";
-	public static final String DELETE_USER_BY_ID = "/user/users/{id}";
+	public static final String DELETE_USER_BY_ID = "/user/users/delete/{id}";
 	public static final String GET_ALL_USERS = "/user/users";
 	
 	public static final String ADD_ROLE = "/user/role/add";
 	public static final String UPDATE_ROLE = "/user/role/update";
 	public static final String GET_ROLE_BY_ID = "/user/role/roles/{id}";
-	public static final String DELETE_ROLE_BY_ID = "/user/role/roles/{id}";
+	public static final String DELETE_ROLE_BY_ID = "/user/role/roles/delete/{id}";
 	public static final String GET_ALL_ROLES = "/user/role/roles";
 	
+	public static final String DO_CONTACTED = "/acceuil/user/contacter";
 	public static final String DO_REGISTER = "/user/register";
 	public static final String DO_LOGIN = "/user/login";
 	public static final String DO_FORGOT_PASSWORD = "/user/forgot";
@@ -124,6 +146,39 @@ public final class Utility {
 	public static String getTokenResetPassword() {
 		return RandomString.make(30);
 	}
+	//LES MAPPERS DTO A DAO PUB
+	public static  PubDtoResponse pubConvertToPubDtoResponse( Publicite  pub) {
+		ModelMapper modelMapper = new ModelMapper(); 
+		PubDtoResponse pubDtoResponse = new  PubDtoResponse() ;
+	    return (pub != null)? modelMapper.map(pub,PubDtoResponse.class) : pubDtoResponse;
+	}
+	public static   Publicite  pubDtoResponseConvertToPub( Publicite pubDtoResponse) {
+		ModelMapper modelMapper = new ModelMapper(); 
+		Publicite pub = modelMapper.map(pubDtoResponse,Publicite.class);
+	    return pub;
+	}
+	public static  Publicite  pubDtoRequestConvertToPub(PubDtoRequest pubDtoRequest)  {
+		ModelMapper modelMapper = new ModelMapper();
+		Publicite pub = modelMapper.map(pubDtoRequest,  Publicite.class);
+	    return pub;
+	}
+	
+			//LES MAPPERS DTO A DAO MULTIMEDIA
+			public static  MultimediaDtoResponse multimediaConvertToMultimediaDtoResponse( Multimedia  multimedia) {
+				ModelMapper modelMapper = new ModelMapper(); 
+				MultimediaDtoResponse multimediaDtoResponse = new  MultimediaDtoResponse() ;
+			    return (multimedia != null)? modelMapper.map(multimedia,MultimediaDtoResponse.class) : multimediaDtoResponse;
+			}
+			public static   Multimedia  multimediaDtoResponseConvertToMultimedia( Multimedia multimediaDtoResponse) {
+				ModelMapper modelMapper = new ModelMapper(); 
+				Multimedia multimedia = modelMapper.map(multimediaDtoResponse,Multimedia.class);
+			    return multimedia;
+			}
+			public static  Multimedia  multimediaDtoRequestConvertToMultimedia(MultimediaDtoRequest multimediaDtoRequest)  {
+				ModelMapper modelMapper = new ModelMapper();
+				Multimedia multimedia = modelMapper.map(multimediaDtoRequest,  Multimedia.class);
+			    return multimedia;
+			}
 	
 	//LES MAPPERS DTO A DAO RESERVATION
 		public static  ReservationDtoResponse reservationConvertToReservationDtoResponse( Reservation  reservation) {
@@ -283,6 +338,7 @@ public final class Utility {
 		
 		//LES MAPPERS DTO A DAO TOURNOI
 				public static  TournoiDtoResponse tournoiConvertToTournoiDtoResponse(Tournoi tournoiDtoRequest) {
+					
 					ModelMapper modelMapper = new ModelMapper(); 
 					TournoiDtoResponse tournoiDtoResponse = new TournoiDtoResponse() ;
 				    return (tournoiDtoRequest != null)? modelMapper.map(tournoiDtoRequest, TournoiDtoResponse.class) : tournoiDtoResponse;

@@ -2,14 +2,14 @@ package com.connecsen.oterrain.rest;
 
 import java.util.List;
 
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.connecsen.oterrain.domaine.dto.request.EquipeDtoRequest;
+import com.connecsen.oterrain.domaine.dto.request.MatchDtoRequest;
 import com.connecsen.oterrain.domaine.dto.request.TournoiDtoRequest;
 import com.connecsen.oterrain.domaine.dto.response.TournoiDtoResponse;
 import com.connecsen.oterrain.service.ITournoiService;
@@ -23,14 +23,22 @@ public class TournoiController {
 		super();
 		this.iTournoiService = iTournoiService;
 	}
-
-
+	@PostMapping(Utility.ADD_EQUIPE_TO_TOURNOI)
+	public TournoiDtoResponse ajouterEquipeATournoi(@PathVariable(value = "id") Long tournoiId, @RequestBody EquipeDtoRequest equipe) {
+		TournoiDtoResponse tournoiAdd =iTournoiService.addEquipeToTournoi(tournoiId, equipe);
+		return tournoiAdd;
+	}
+	@PostMapping(Utility.ADD_MATCH_TO_TOURNOI)
+	public TournoiDtoResponse ajouterMatchATournoi(@PathVariable(value = "id") Long tournoiId, @RequestBody MatchDtoRequest match) {
+		TournoiDtoResponse tournoiAdd =iTournoiService.addMatchToTournoi(tournoiId, match);
+		return tournoiAdd;
+	}
 	@PostMapping(Utility.ADD_TOURNOI)
 	public TournoiDtoResponse ajouterTournoi( @RequestBody TournoiDtoRequest tournoi) {
 		TournoiDtoResponse tournoiAdd =iTournoiService.createOrUpdateTournoi(tournoi);
 		return tournoiAdd;
 	}
-	@PutMapping(Utility.UPDATE_TOURNOI)
+	@PostMapping(Utility.UPDATE_TOURNOI)
 	public TournoiDtoResponse getUpdateUser( @RequestBody TournoiDtoRequest user){
 		return iTournoiService.createOrUpdateTournoi(user);
     }
@@ -42,7 +50,7 @@ public class TournoiController {
 	public TournoiDtoResponse getTournoiById(@PathVariable(value = "id") Long userId){
 		return iTournoiService.getTournoiById(userId);
     }
-	@DeleteMapping(Utility.DELETE_TOURNOI_BY_ID)
+	@GetMapping(Utility.DELETE_TOURNOI_BY_ID)
 	public boolean getDeleteTournoi(@PathVariable(value = "id") Long userId){
 		return iTournoiService.deleteTournoi(userId);
     }

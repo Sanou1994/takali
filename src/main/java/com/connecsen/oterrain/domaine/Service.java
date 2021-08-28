@@ -2,6 +2,7 @@ package com.connecsen.oterrain.domaine;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,25 +14,31 @@ public class Service implements Serializable {
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String titre;
-	@OneToOne
+	@OneToOne(cascade =CascadeType.PERSIST)
 	private Multimedia multimedia;
 	private String description;
 	public Service() {
 		super();
 	}
+	
 	public Service(String titre, Multimedia multimedia, String description) {
 		super();
 		this.titre = titre;
 		this.multimedia = multimedia;
 		this.description = description;
+		
 	}
+
 	public Service(Long id, String titre, Multimedia multimedia, String description) {
 		super();
 		this.id = id;
 		this.titre = titre;
 		this.multimedia = multimedia;
 		this.description = description;
+		
 	}
+
+	
 	public Long getId() {
 		return id;
 	}

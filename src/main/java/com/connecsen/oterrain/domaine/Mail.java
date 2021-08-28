@@ -6,7 +6,8 @@ import lombok.NoArgsConstructor;
 
 @Data @AllArgsConstructor @NoArgsConstructor
 public class Mail {
-	private String recipient;
+	private String email;
+	private String name;
     private String subject;
     private String message;
 

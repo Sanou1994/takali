@@ -5,7 +5,11 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
+import com.connecsen.oterrain.domaine.Equipe;
+import com.connecsen.oterrain.domaine.Match;
 import com.connecsen.oterrain.domaine.Tournoi;
+import com.connecsen.oterrain.domaine.dto.request.EquipeDtoRequest;
+import com.connecsen.oterrain.domaine.dto.request.MatchDtoRequest;
 import com.connecsen.oterrain.domaine.dto.request.TournoiDtoRequest;
 import com.connecsen.oterrain.domaine.dto.response.TournoiDtoResponse;
 import com.connecsen.oterrain.repository.TournoiRepository;
@@ -50,6 +54,24 @@ private TournoiRepository tournoiRepository;
 			resultat =true;
 		}
 		return resultat;
+	}
+
+	@Override
+	public TournoiDtoResponse addEquipeToTournoi(Long id, EquipeDtoRequest equipeDtoRequest) {
+		Tournoi tournoi = tournoiRepository.getById(id);
+		Equipe equipe = Utility.equipeDtoRequestConvertToEquipe(equipeDtoRequest);
+		tournoi.getEquipes().add(equipe);
+		TournoiDtoResponse tournoiDtoResponse = Utility.tournoiConvertToTournoiDtoResponse(tournoiRepository.save(tournoi));
+		return tournoiDtoResponse;
+	}
+
+	@Override
+	public TournoiDtoResponse addMatchToTournoi(Long id, MatchDtoRequest matchDtoRequest) {
+		Tournoi tournoi = tournoiRepository.getById(id);
+		Match match = Utility.MatchDtoRequestConvertToMatch(matchDtoRequest);
+		tournoi.getMatchs().add(match);
+		TournoiDtoResponse tournoiDtoResponse = Utility.tournoiConvertToTournoiDtoResponse(tournoiRepository.save(tournoi));
+		return tournoiDtoResponse;
 	}
 
 }

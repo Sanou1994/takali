@@ -3,7 +3,6 @@ package com.connecsen.oterrain.rest;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,7 +35,7 @@ public class HomeOneRestController {
 	public HomeOneDtoResponse getTournoiById(@PathVariable(value = "id") Long userId){
 		return iHomeOneService.getHomeOneById(userId);
     }
-	@DeleteMapping(Utility.DELETE_HOMEONE_BY_ID)
+	@GetMapping(Utility.DELETE_HOMEONE_BY_ID)
 	public boolean getDeleteTournoi(@PathVariable(value = "id") Long userId){
 		return iHomeOneService.deleteHomeOne(userId);
     }

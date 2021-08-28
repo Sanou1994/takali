@@ -117,8 +117,8 @@ public class AccountService implements IAccountService{
     public void sendMail(Mail mail) {
 
 		     SimpleMailMessage msg = new SimpleMailMessage();
-	        msg.setTo(mail.getRecipient(), mail.getRecipient());
-
+		    msg.setFrom(mail.getEmail());
+	        msg.setTo(Utility.NOTREEMAIL);
 	        msg.setSubject(mail.getSubject());
 	        msg.setText(mail.getMessage());
 

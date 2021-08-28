@@ -2,6 +2,7 @@ package com.connecsen.oterrain.domaine;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,39 +15,39 @@ public class HomeOne implements Serializable{
 	private Long id;
 	private String titre;
 	private String description;
-	@OneToOne
+	@OneToOne(cascade =CascadeType.ALL)
 	private Multimedia multimedia;
 	private String bouton;
-	private String telephone;
-	private String email;
-	private String adresse;
+	
+	
 	
 	public HomeOne() {
 		super();
 	}
-	public HomeOne(String titre, String description, Multimedia multimedia, String bouton, String telephone,
-			String email, String adresse) {
+	
+	public HomeOne(String titre, String description, Multimedia multimedia, String bouton) {
 		super();
 		this.titre = titre;
 		this.description = description;
 		this.multimedia = multimedia;
 		this.bouton = bouton;
-		this.telephone = telephone;
-		this.email = email;
-		this.adresse = adresse;
+		
+		
 	}
-	public HomeOne(Long id, String titre, String description, Multimedia multimedia, String bouton, String telephone,
-			String email, String adresse) {
+
+	public HomeOne(Long id, String titre, String description, Multimedia multimedia, String bouton) {
 		super();
 		this.id = id;
 		this.titre = titre;
 		this.description = description;
 		this.multimedia = multimedia;
 		this.bouton = bouton;
-		this.telephone = telephone;
-		this.email = email;
-		this.adresse = adresse;
+		
+		
 	}
+
+	
+
 	public Long getId() {
 		return id;
 	}
@@ -77,24 +78,4 @@ public class HomeOne implements Serializable{
 	public void setBouton(String bouton) {
 		this.bouton = bouton;
 	}
-	public String getTelephone() {
-		return telephone;
-	}
-	public void setTelephone(String telephone) {
-		this.telephone = telephone;
-	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	public String getAdresse() {
-		return adresse;
-	}
-	public void setAdresse(String adresse) {
-		this.adresse = adresse;
-	}
-	
-	
 }

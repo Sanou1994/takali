@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,12 +13,7 @@ import javax.persistence.ManyToMany;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
-
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-@Entity @JsonIdentityInfo(
-		   generator = ObjectIdGenerators.PropertyGenerator.class,
-		   property = "id")
+@Entity
 public class Equipe implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,13 +23,13 @@ public class Equipe implements Serializable{
 	private String typeEntreprise;
 	private Boolean paye;
 	private Boolean archive;
-	@ManyToMany(targetEntity=Match.class, mappedBy="equipeVisites")
+	@ManyToMany(targetEntity=Match.class, mappedBy="equipeVisites",cascade = CascadeType.REMOVE)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Match>matchVisites = new ArrayList<Match>();
-	@ManyToMany(targetEntity=Match.class, mappedBy="equipeVisiteurs")
+	@ManyToMany(targetEntity=Match.class, mappedBy="equipeVisiteurs",cascade = CascadeType.REMOVE)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private  List<Match> matchVisiteurs = new ArrayList<Match>();
-	@ManyToMany(targetEntity=Tournoi.class)
+	@ManyToMany(targetEntity=Tournoi.class,cascade = CascadeType.REMOVE)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private  List<Tournoi>tournois = new ArrayList<Tournoi>();
 	public Equipe(String nomEquipe, String nomEntreprise, String typeEntreprise, Boolean paye, Boolean archive,
@@ -100,21 +96,16 @@ public class Equipe implements Serializable{
 	public void setArchive(Boolean archive) {
 		this.archive = archive;
 	}
-	public List<Match> getMatchVisites() {
-		return matchVisites;
-	}
+	
+	
 	public void setMatchVisites(List<Match> matchVisites) {
 		this.matchVisites = matchVisites;
 	}
-	public List<Match> getMatchVisiteurs() {
-		return matchVisiteurs;
-	}
+	
 	public void setMatchVisiteurs(List<Match> matchVisiteurs) {
 		this.matchVisiteurs = matchVisiteurs;
 	}
-	public List<Tournoi> getTournois() {
-		return tournois;
-	}
+	
 	public void setTournois(List<Tournoi> tournois) {
 		this.tournois = tournois;
 	}

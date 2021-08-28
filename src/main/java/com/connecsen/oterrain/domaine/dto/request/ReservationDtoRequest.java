@@ -1,5 +1,7 @@
 package com.connecsen.oterrain.domaine.dto.request;
 
+import java.util.Date;
+
 import com.connecsen.oterrain.domaine.Match;
 import com.connecsen.oterrain.domaine.Terrain;
 import com.connecsen.oterrain.domaine.Utilisateur;
@@ -10,9 +12,9 @@ import lombok.NoArgsConstructor;
 @Data @NoArgsConstructor @AllArgsConstructor
 public class ReservationDtoRequest {
 	private Long id;
-	private String dateDebut;
+	private Date dateDebut;
 	private String heureDebut;
-	private String dateFin;
+	private Date dateFin;
 	private String heureFin;
 	private Match match;
 	private Utilisateur user;

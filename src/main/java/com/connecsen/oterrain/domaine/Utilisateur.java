@@ -14,17 +14,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
 import com.connecsen.oterrain.utils.Utility;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-
-/**
- * @author akane
- *
- */
-@Entity 
-@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class)
+@Entity
 public class Utilisateur implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -179,10 +171,7 @@ public class Utilisateur implements Serializable {
 	public void setRoles(Role roles) {
 		this.roles = roles;
 	}
-
-	public List<Terrain> getTerrains() {
-		return terrains;
-	}
+	
 
 	public void setTerrains(List<Terrain> terrains) {
 		this.terrains = terrains;

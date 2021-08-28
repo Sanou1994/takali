@@ -6,15 +6,14 @@ import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.connecsen.oterrain.domaine.Login;
+import com.connecsen.oterrain.domaine.Mail;
 import com.connecsen.oterrain.domaine.Utilisateur;
 import com.connecsen.oterrain.domaine.dto.request.RoleDtoRequest;
 import com.connecsen.oterrain.domaine.dto.request.UserDtoRequest;
@@ -47,7 +46,10 @@ public class AccountRestController {
 		}
 		return userNull ;
 	}
-	
+	@PostMapping(Utility.DO_CONTACTED)
+	public void contacteNous(@RequestBody Mail mail) throws MessagingException {	
+			accountService.sendMail(mail);
+    }
 	@PostMapping(Utility.DO_FORGOT_PASSWORD)
 	public boolean sendMail(@RequestBody Login login) throws MessagingException {
 		Utilisateur user =accountService.findUserByUsernameAndEmail(login.getUsername(), login.getEmail());
@@ -61,7 +63,7 @@ public class AccountRestController {
         return resultat;
     }
 	
-	@PutMapping(Utility.DO_UPDATE_PASSWORD)
+	@PostMapping(Utility.DO_UPDATE_PASSWORD)
 	public boolean updatePassword(HttpServletRequest request) throws MessagingException {
 		 String token = request.getParameter("token");
 		 String password = request.getParameter("password");
@@ -77,7 +79,7 @@ public class AccountRestController {
 	public UserDtoResponse getAddOrUpdateUser( @RequestBody UserDtoRequest user){
 		return accountService.createOrUpdateUser(user);
     }
-	@PutMapping(Utility.UPDATE_USER)
+	@PostMapping(Utility.UPDATE_USER)
 	public UserDtoResponse getUpdateUser( @RequestBody UserDtoRequest user){
 		return accountService.createOrUpdateUser(user);
     }
@@ -89,7 +91,7 @@ public class AccountRestController {
 	public UserDtoResponse getUserById(@PathVariable(value = "id") Long userId){
 		return accountService.getUserById(userId);
     }
-	@DeleteMapping(Utility.DELETE_USER_BY_ID)
+	@GetMapping(Utility.DELETE_USER_BY_ID)
 	public boolean getDeleteUser(@PathVariable(value = "id") Long userId){
 		return accountService.deleteUser(userId);
     }
@@ -97,7 +99,7 @@ public class AccountRestController {
 	public RoleDtoResponse getAddOrUpdateRole( @RequestBody RoleDtoRequest role){
 		return accountService.createOrUpdateRole(role);
     }
-	@PutMapping(Utility.UPDATE_ROLE)
+	@PostMapping(Utility.UPDATE_ROLE)
 	public RoleDtoResponse getUpdateRole( @RequestBody RoleDtoRequest role){
 		return accountService.createOrUpdateRole(role);
     }
@@ -109,7 +111,7 @@ public class AccountRestController {
 	public RoleDtoResponse getRoleById(@PathVariable(value = "id") Long roleId){
 		return accountService.getRoleById(roleId);
     }
-	@DeleteMapping(Utility.DELETE_ROLE_BY_ID)
+	@GetMapping(Utility.DELETE_ROLE_BY_ID)
 	public boolean getDeleteRole(@PathVariable(value = "id") Long roleId){
 		return accountService.deleteRole(roleId);
     }

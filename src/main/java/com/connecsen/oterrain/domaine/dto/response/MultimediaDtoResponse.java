@@ -1,37 +1,25 @@
-package com.connecsen.oterrain.domaine;
+package com.connecsen.oterrain.domaine.dto.response;
 
-import java.io.Serializable;
+import com.connecsen.oterrain.domaine.Fichier;
+import com.connecsen.oterrain.domaine.HomeOne;
+import com.connecsen.oterrain.domaine.Propos;
+import com.connecsen.oterrain.domaine.Service;
+import com.connecsen.oterrain.domaine.Terrain;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-@Entity 
-public class Multimedia implements Serializable {
-	
-	private static final long serialVersionUID = 1L;
-	@Id @GeneratedValue(strategy = GenerationType.AUTO)
+import lombok.Data;
+@Data
+public class MultimediaDtoResponse {
 	private Long id;
 	private String file ;
-	@OneToOne(targetEntity=HomeOne.class,mappedBy = "multimedia")
 	private HomeOne homeone;
-	@ManyToOne(targetEntity=Fichier.class)
 	private Fichier fichier;
-	@ManyToOne(targetEntity=Publicite.class)
-	private Publicite publicite;
-	@OneToOne(targetEntity=Propos.class,mappedBy = "multimedia")
 	private Propos propos;
-	@OneToOne(targetEntity=Service.class,mappedBy = "multimedia")
 	private Service service;
-	@ManyToOne(targetEntity=Service.class,fetch = FetchType.EAGER) 
 	private Terrain terrain ;
-	public Multimedia() {
+	public MultimediaDtoResponse() {
 		super();
 	}
-	public Multimedia(String file, HomeOne homeone, Fichier fichier, Propos propos, Service service, Terrain terrain) {
+	public MultimediaDtoResponse(String file, HomeOne homeone, Fichier fichier, Propos propos, Service service, Terrain terrain) {
 		super();
 		this.file = file;
 		this.homeone = homeone;
@@ -40,7 +28,7 @@ public class Multimedia implements Serializable {
 		this.service = service;
 		this.terrain = terrain;
 	}
-	public Multimedia(Long id, String file, HomeOne homeone, Fichier fichier, Propos propos, Service service,
+	public MultimediaDtoResponse(Long id, String file, HomeOne homeone, Fichier fichier, Propos propos, Service service,
 			Terrain terrain) {
 		super();
 		this.id = id;
@@ -83,8 +71,6 @@ public class Multimedia implements Serializable {
 	public void setTerrain(Terrain terrain) {
 		this.terrain = terrain;
 	}
-	
-	
-	
 
+	
 }

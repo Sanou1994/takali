@@ -26,14 +26,14 @@ public class MatchService implements IMatchService{
 	@Override
 	public MatchDtoResponse getMatchById(Long id) {
 		
-		Match tournoi = matchRepository.findById(id).get();
+		Match tournoi = matchRepository.findByStatusAndId(true,id);
 		MatchDtoResponse tournoiDtoResponse = Utility.matchConvertToMatchDtoResponse(matchRepository.save(tournoi));
 		return tournoiDtoResponse;
 	}
 
 	@Override
 	public List<MatchDtoResponse> getAllMatchs() {
-		List<Match> tournois =matchRepository.findAll();
+		List<Match> tournois =matchRepository.findByStatus(true);
 		 List<MatchDtoResponse> tournoiDtoResponses = tournois.stream()
 				 .map(utilisateur -> Utility.matchConvertToMatchDtoResponse(utilisateur)).collect(Collectors.toList());
 		return tournoiDtoResponses;
@@ -42,9 +42,9 @@ public class MatchService implements IMatchService{
 	@Override
 	public boolean deleteMatch(Long id) {
 		boolean resultat = false;
-		Match tournoi = matchRepository.findById(id).get();
+		Match tournoi = matchRepository.findByStatusAndId(true,id);
 		if(tournoi != null) {
-			matchRepository.deleteById(id);
+			tournoi.setStatus(false);
 			resultat =true;
 		}
 		return resultat;
