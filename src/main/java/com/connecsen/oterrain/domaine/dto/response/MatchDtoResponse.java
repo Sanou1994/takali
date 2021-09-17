@@ -22,6 +22,7 @@ public class MatchDtoResponse {
 	private String codeVideoEmded;
 	private String annule;
 	private boolean status;
+	private boolean matchDejaJoue;
 	private String repousse;
 	private List<Equipe>equipeVisites = new ArrayList<Equipe>();
 	private List<Equipe> equipeVisiteurs = new ArrayList<Equipe>();

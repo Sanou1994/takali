@@ -2,11 +2,11 @@ package com.connecsen.oterrain.domaine.dto.request;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import com.connecsen.oterrain.domaine.Equipe;
 import com.connecsen.oterrain.domaine.Match;
+import com.connecsen.oterrain.domaine.Multimedia;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,12 +18,18 @@ public class TournoiDtoRequest implements Serializable{
 	private String nom;
 	private String annee;
 	private String description;
+	private String typeTournoi;
+	private String niveau;
 	private Double prixPartSrl;
 	private Double prixPartSa;
 	private Double prixPartEcole;
 	private Double prixPme;
-	private Date dateDebut;
-	private Date dateFin;
+	private String dateDebut;
+	private String dateFin;
+	private String dateDebutInscription;
+	private String dateFinInscription;
+	private String numero ;
+	private Multimedia multimedia ;
 	private List<Match> matchs = new ArrayList<Match>();
 	private List<Equipe> equipes = new ArrayList<Equipe>();
 }

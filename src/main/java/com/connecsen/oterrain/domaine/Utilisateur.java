@@ -28,6 +28,7 @@ public class Utilisateur implements Serializable {
 	private String typeId;
 	private String numeroId;
 	private String naissance;
+	private boolean userDelete =false;
 	@Column(unique = true)
 	private String email;
 	private String telephone;
@@ -48,7 +49,7 @@ public class Utilisateur implements Serializable {
 	}
 
 	public Utilisateur(Long id, String username, String prenom, String adresse, String typeId, String numeroId,
-			String naissance, String email, String telephone, String password,Role roles,
+			String naissance,boolean userDelete, String email, String telephone, String password,Role roles,
 			List<Terrain> terrains, List<Reservation> reservations) {
 		super();
 		this.id = id;
@@ -57,6 +58,7 @@ public class Utilisateur implements Serializable {
 		this.adresse = adresse;
 		this.typeId = typeId;
 		this.numeroId = numeroId;
+		this.userDelete = userDelete;
 		this.naissance = naissance;
 		this.email = email;
 		this.telephone = telephone;
@@ -67,7 +69,7 @@ public class Utilisateur implements Serializable {
 	}
 
 	public Utilisateur(String username, String prenom, String adresse, String typeId, String numeroId, String naissance,
-			String email, String telephone, String password, Role roles, List<Terrain> terrains,
+			boolean userDelete,String email, String telephone, String password, Role roles, List<Terrain> terrains,
 			List<Reservation> reservations) {
 		super();
 		this.username = username;
@@ -75,6 +77,7 @@ public class Utilisateur implements Serializable {
 		this.adresse = adresse;
 		this.typeId = typeId;
 		this.numeroId = numeroId;
+		this.userDelete = userDelete;
 		this.naissance = naissance;
 		this.email = email;
 		this.telephone = telephone;
@@ -82,6 +85,14 @@ public class Utilisateur implements Serializable {
 		this.roles = roles;
 		this.terrains = terrains;
 		this.reservations = reservations;
+	}
+
+	public boolean isUserDelete() {
+		return userDelete;
+	}
+
+	public void setUserDelete(boolean userDelete) {
+		this.userDelete = userDelete;
 	}
 
 	public Long getId() {

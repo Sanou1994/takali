@@ -26,22 +26,23 @@ public class Match implements Serializable{
 	private String codeVideoEmded;
 	private String annule;
 	private boolean status;
+	private boolean matchDejaJoue = false;
 	private String repousse;
-	@ManyToMany(cascade = CascadeType.REMOVE)
+	@ManyToMany(cascade = CascadeType.PERSIST)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Equipe>equipeVisites = new ArrayList<Equipe>();
-	@ManyToMany(cascade = CascadeType.REMOVE)
+	@ManyToMany(cascade = CascadeType.PERSIST)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Equipe> equipeVisiteurs = new ArrayList<Equipe>();
-	@OneToOne (targetEntity=Reservation.class, mappedBy="match",cascade = CascadeType.REMOVE)
+	@OneToOne (targetEntity=Reservation.class, mappedBy="match",cascade = CascadeType.PERSIST)
 	private Reservation reservation;
-	@ManyToOne(cascade = CascadeType.REMOVE)
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	private Terrain terrain;
-	@ManyToOne(cascade = CascadeType.REMOVE)
+	@ManyToOne(targetEntity=Tournoi.class)
 	private Tournoi tournoi;
 	
 	public Match(String scoreVisiteur, String scoreVisite, String niveauTournoi, String codeVideoEmded, String annule,
-			boolean status,String repousse, List<Equipe> equipeVisites, List<Equipe> equipeVisiteurs, Reservation reservation,
+			boolean matchDejaJoue,boolean status,String repousse, List<Equipe> equipeVisites, List<Equipe> equipeVisiteurs, Reservation reservation,
 			 Terrain terrain,  Tournoi tournoi) {
 		super();
 		this.scoreVisiteur = scoreVisiteur;
@@ -51,6 +52,7 @@ public class Match implements Serializable{
 		this.annule = annule;
 		this.repousse = repousse;
 		this.status = status;
+		this.matchDejaJoue = matchDejaJoue;
 		this.equipeVisites = equipeVisites;
 		this.equipeVisiteurs = equipeVisiteurs;
 		this.reservation = reservation;
@@ -59,7 +61,7 @@ public class Match implements Serializable{
 	}
 
 	public Match(Long id, String scoreVisiteur, String scoreVisite, String niveauTournoi, String codeVideoEmded,
-			String annule,boolean status, String repousse, List<Equipe> equipeVisites, List<Equipe> equipeVisiteurs,
+			String annule,boolean matchDejaJoue,boolean status, String repousse, List<Equipe> equipeVisites, List<Equipe> equipeVisiteurs,
 			Reservation reservation, Terrain terrain, Tournoi tournoi) {
 		super();
 		this.id = id;
@@ -69,6 +71,7 @@ public class Match implements Serializable{
 		this.codeVideoEmded = codeVideoEmded;
 		this.annule = annule;
 		this.status = status;
+		this.matchDejaJoue = matchDejaJoue;
 		this.repousse = repousse;
 		this.equipeVisites = equipeVisites;
 		this.equipeVisiteurs = equipeVisiteurs;
@@ -153,6 +156,14 @@ public class Match implements Serializable{
 
 	public void setEquipeVisiteurs(List<Equipe> equipeVisiteurs) {
 		this.equipeVisiteurs = equipeVisiteurs;
+	}
+
+	public boolean isMatchDejaJoue() {
+		return matchDejaJoue;
+	}
+
+	public void setMatchDejaJoue(boolean matchDejaJoue) {
+		this.matchDejaJoue = matchDejaJoue;
 	}
 
 	public Reservation getReservation() {

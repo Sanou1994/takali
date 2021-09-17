@@ -20,15 +20,21 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.connecsen.oterrain.domaine.ListeHeureReserver;
 import com.connecsen.oterrain.domaine.Login;
 import com.connecsen.oterrain.domaine.Mail;
+import com.connecsen.oterrain.domaine.Reservation;
 import com.connecsen.oterrain.domaine.Role;
+import com.connecsen.oterrain.domaine.Terrain;
 import com.connecsen.oterrain.domaine.Utilisateur;
+import com.connecsen.oterrain.domaine.dto.request.ReservationDtoRequest;
 import com.connecsen.oterrain.domaine.dto.request.RoleDtoRequest;
 import com.connecsen.oterrain.domaine.dto.request.UserDtoRequest;
 import com.connecsen.oterrain.domaine.dto.response.RoleDtoResponse;
 import com.connecsen.oterrain.domaine.dto.response.UserDtoResponse;
+import com.connecsen.oterrain.repository.ListerHeureRepository;
 import com.connecsen.oterrain.repository.RoleRepository;
+import com.connecsen.oterrain.repository.TerrainRepository;
 import com.connecsen.oterrain.repository.UserRepository;
 import com.connecsen.oterrain.security.JwtTokenUtil;
 import com.connecsen.oterrain.utils.Utility;
@@ -40,13 +46,17 @@ public class AccountService implements IAccountService{
 	
 	@Autowired
 	private JwtTokenUtil jwtTokenUtil;
-	
+	 
 	@Autowired
 	private UserDetailsService userDetailsService;
     @Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private TerrainRepository terrainRepository;
+    @Autowired
+    private ListerHeureRepository reserverRepository;
     @Autowired
     private RoleRepository roleRepository;
     @Autowired
@@ -171,7 +181,7 @@ public class AccountService implements IAccountService{
 
 	@Override
 	public List<UserDtoResponse> getAllUsers() {
-		List<Utilisateur> utilisateurs =userRepository.findAll();
+		List<Utilisateur> utilisateurs =userRepository.findByUserDelete(false);
 		 List<UserDtoResponse> utilisateurDtoResponses = utilisateurs.stream()
 				 .map(utilisateur -> Utility.utilisateurConvertToUserDtoResponse(utilisateur)).collect(Collectors.toList());
 		return utilisateurDtoResponses;
@@ -251,6 +261,43 @@ public class AccountService implements IAccountService{
 		throw new Exception("INVALID_CREDENTIALS", e);
 		}
 		}
-
+	@Override
+	public UserDtoResponse addReservationToUser(long idUser, ReservationDtoRequest reservationRequest) {
+		Utilisateur userSave = userRepository.findById(idUser).get();
+		Reservation reservation =Utility.reservationDtoRequestConvertToReservation(reservationRequest);
+		reservation.setUser(userSave);
+		userSave.getReservations().add(reservation);
+		UserDtoResponse userDtoResponse =Utility.utilisateurConvertToUserDtoResponse(userRepository.save(userSave));
+		return userDtoResponse;
+	}
+	@Override
+	public UserDtoResponse addReservationToUserAndTerrain(long idUser, long idTerrain,
+			ReservationDtoRequest reservationDtoRequest) {
+		String[]  date =reservationDtoRequest.getDateReservation().split("/");
+        
+		String[] splitted =reservationDtoRequest.getHeure().split(",");
+		Reservation reservation =Utility.reservationDtoRequestConvertToReservation(reservationDtoRequest);
+		Terrain terrain =terrainRepository.findById(idTerrain).get();
+		Utilisateur user =userRepository.findById(idUser ).get();
+		reservation.setTerrain(terrain);
+		reservation.setUser(user);
+		user.getReservations().add(reservation);
+		terrain.getReservations().add(reservation);
+		for (int i = 0; i < splitted.length; i++) {
+			ListeHeureReserver reserver = new ListeHeureReserver(
+					Long.parseLong(date[0]),
+					Long.parseLong(date[1]),
+					splitted[i],null
+					);
+			ListeHeureReserver reserverSave =reserverRepository.save(reserver);
+			terrain.getListeHeureReserver().add(reserverSave);
+		}
+		terrainRepository.save(terrain);
+		Utilisateur userSave=userRepository.save(user);
+		UserDtoResponse userDtoResponse =Utility.utilisateurConvertToUserDtoResponse(userRepository.save(userSave));
+		return userDtoResponse;
+	}
+	
+	
 	
 	}

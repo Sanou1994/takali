@@ -1,10 +1,14 @@
 package com.connecsen.oterrain.utils;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.modelmapper.ModelMapper;
 
 import com.connecsen.oterrain.domaine.Equipe;
 import com.connecsen.oterrain.domaine.Fichier;
 import com.connecsen.oterrain.domaine.HomeOne;
+import com.connecsen.oterrain.domaine.ListeHeureReserver;
 import com.connecsen.oterrain.domaine.Match;
 import com.connecsen.oterrain.domaine.Multimedia;
 import com.connecsen.oterrain.domaine.Propos;
@@ -18,6 +22,7 @@ import com.connecsen.oterrain.domaine.Utilisateur;
 import com.connecsen.oterrain.domaine.dto.request.EquipeDtoRequest;
 import com.connecsen.oterrain.domaine.dto.request.FichierDtoRequest;
 import com.connecsen.oterrain.domaine.dto.request.HomeOneDtoRequest;
+import com.connecsen.oterrain.domaine.dto.request.ListeHeureReserverDtoRequest;
 import com.connecsen.oterrain.domaine.dto.request.MatchDtoRequest;
 import com.connecsen.oterrain.domaine.dto.request.MultimediaDtoRequest;
 import com.connecsen.oterrain.domaine.dto.request.ProposDtoRequest;
@@ -31,6 +36,7 @@ import com.connecsen.oterrain.domaine.dto.request.UserDtoRequest;
 import com.connecsen.oterrain.domaine.dto.response.EquipeDtoResponse;
 import com.connecsen.oterrain.domaine.dto.response.FichierDtoResponse;
 import com.connecsen.oterrain.domaine.dto.response.HomeOneDtoResponse;
+import com.connecsen.oterrain.domaine.dto.response.ListeHeureReserverDtoResponse;
 import com.connecsen.oterrain.domaine.dto.response.MatchDtoResponse;
 import com.connecsen.oterrain.domaine.dto.response.MultimediaDtoResponse;
 import com.connecsen.oterrain.domaine.dto.response.ProposDtoResponse;
@@ -102,8 +108,11 @@ public final class Utility {
 	public static final String ADD_TOURNOI = "/tournoi/add";
 	public static final String UPDATE_TOURNOI = "/tournoi/update";
 	public static final String GET_TOURNOI_BY_ID = "/tournoi/tournois/{id}";
+	public static final String GET_TOURNOI_BY_TYPETOURNOI = "/tournoi/tournois/typeTournoi/{typeTournoi}";
 	public static final String DELETE_TOURNOI_BY_ID = "/tournoi/tournois/delete/{id}";
 	public static final String GET_ALL_TOURNOIS = "/tournoi/tournois";
+	public static final String GET_ALL_MATCH_DEJA_JOUER_TOURNOIS_BY_ID = "/tournoi/tournois/matchjouer/{id}";
+	public static final String GET_ALL_TOURNOIS_DAY = "/tournoi/tournois/days";
 	
 	public static final String ADD_MATCH = "/match/add";
 	public static final String UPDATE_MATCH = "/match/update";
@@ -118,12 +127,16 @@ public final class Utility {
 	public static final String GET_ALL_EQUIPES = "/equipe/equipes";
 	
 	public static final String ADD_TERRAIN = "/terrain/add";
+	public static final String ADD_RESERVATION_TO_TERRAIN = "/terrain/add/reservation/{id}";
 	public static final String UPDATE_TERRAIN = "/terrain/update";
 	public static final String GET_TERRAIN_BY_ID = "/terrain/terrains/{id}";
 	public static final String DELETE_TERRAIN_BY_ID = "/terrain/terrains/delete/{id}";
 	public static final String GET_ALL_TERRAINS = "/terrain/terrains";
+	public static final String GET_ALL_RESERVATIONS_BY_ID_TERRAIN = "/terrain/reservations";
 	
 	public static final String ADD_USER = "/user/add";
+	public static final String ADD_RESERVATION_TO_USER = "/user/add/reservation/{id}";
+	public static final String ADD_RESERVATION_TO_USER_AND_TERRAIN = "/user/add/reservation/user/{idUser}/terrain/{idTerrain}";
 	public static final String UPDATE_USER = "/user/update";
 	public static final String GET_USER_BY_ID = "/user/users/{id}";
 	public static final String DELETE_USER_BY_ID = "/user/users/delete/{id}";
@@ -141,7 +154,20 @@ public final class Utility {
 	public static final String DO_FORGOT_PASSWORD = "/user/forgot";
 	public static final String DO_UPDATE_PASSWORD = "/user/updatePassword";
 	
+	//GENERATE CALENDAR
 	
+	//CHECK OBJET IS NULL
+	public static boolean checkNull(Object obj) {
+		return (obj !=null)? true : false;
+	}
+	//DATE OF TODAY
+	public static String getToday() {
+		Date yourDate = new Date();
+
+		SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
+		String date = DATE_FORMAT.format(yourDate);
+		return date;
+	}
 	//GENERATEUR DE TOKEN POUR RECUPERER LE MOT DE PASSE
 	public static String getTokenResetPassword() {
 		return RandomString.make(30);
@@ -196,6 +222,23 @@ public final class Utility {
 			Reservation reservation = modelMapper.map(reservationDtoRequest,  Reservation.class);
 		    return reservation;
 		}
+		
+		//LES MAPPERS DTO A DAO  ListeHeureReserver
+				public static  ListeHeureReserverDtoResponse listeHeureReserverConvertToListeHeureReserverDtoResponse(  ListeHeureReserver  listeHeureReserver) {
+					ModelMapper modelMapper = new ModelMapper(); 
+					 ListeHeureReserverDtoResponse listeHeureReserverDtoResponse = new  ListeHeureReserverDtoResponse() ;
+				    return (listeHeureReserver != null)? modelMapper.map(listeHeureReserver, ListeHeureReserverDtoResponse.class) : listeHeureReserverDtoResponse;
+				}
+				public static    ListeHeureReserver  listeHeureReserverDtoResponseConvertToListeHeureReserver(  ListeHeureReserver listeHeureReserverDtoResponse) {
+					ModelMapper modelMapper = new ModelMapper(); 
+					 ListeHeureReserver listeHeureReserver = modelMapper.map(listeHeureReserverDtoResponse, ListeHeureReserver.class);
+				    return listeHeureReserver;
+				}
+				public static   ListeHeureReserver  listeHeureReserverDtoRequestConvertToListeHeureReserver( ListeHeureReserverDtoRequest listeHeureReserverDtoRequest)  {
+					ModelMapper modelMapper = new ModelMapper();
+					 ListeHeureReserver listeHeureReserver = modelMapper.map(listeHeureReserverDtoRequest, ListeHeureReserver.class);
+				    return listeHeureReserver;
+				}
 
 	
 	//LES MAPPERS DTO A DAO HOMEONE

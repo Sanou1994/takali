@@ -1,7 +1,6 @@
 package com.connecsen.oterrain.domaine;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,35 +13,32 @@ public class Reservation implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private Date dateDebut;
-	private String heureDebut;
-	private Date dateFin;
-	private String heureFin;
+	private String statePayement;
+	private String dateReservation;
+	private String heure;
 	@OneToOne 
 	private Match match;
 	@ManyToOne(targetEntity=Utilisateur.class)
 	private Utilisateur user;
 	@ManyToOne 
 	private Terrain terrain;
-	public Reservation(Date dateDebut, String heureDebut, Date dateFin, String heureFin, Match match,
+	public Reservation(String statePayement,String dateReservation, String heure, Match match,
 			Utilisateur user, Terrain terrain) {
 		super();
-		this.dateDebut = dateDebut;
-		this.heureDebut = heureDebut;
-		this.dateFin = dateFin;
-		this.heureFin = heureFin;
+		this.statePayement = statePayement;
+		this.dateReservation = dateReservation;
+		this.heure = heure;
 		this.match = match;
 		this.user = user;
 		this.terrain = terrain;
 	}
-	public Reservation(Long id, Date dateDebut, String heureDebut, Date dateFin, String heureFin, Match match,
+	public Reservation(Long id,String statePayement, String dateReservation,  String heure, Match match,
 			Utilisateur user, Terrain terrain) {
 		super();
 		this.id = id;
-		this.dateDebut = dateDebut;
-		this.heureDebut = heureDebut;
-		this.dateFin = dateFin;
-		this.heureFin = heureFin;
+		this.statePayement = statePayement;
+		this.dateReservation = dateReservation;
+		this.heure = heure;
 		this.match = match;
 		this.user = user;
 		this.terrain = terrain;
@@ -56,37 +52,31 @@ public class Reservation implements Serializable{
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public Date getDateDebut() {
-		return dateDebut;
+	
+	public String getStatePayement() {
+		return statePayement;
 	}
-	public void setDateDebut(Date dateDebut) {
-		this.dateDebut = dateDebut;
+	public void setStatePayement(String statePayement) {
+		this.statePayement = statePayement;
 	}
-	public String getHeureDebut() {
-		return heureDebut;
+	public String getDateReservation() {
+		return dateReservation;
 	}
-	public void setHeureDebut(String heureDebut) {
-		this.heureDebut = heureDebut;
+	public void setDateReservation(String dateReservation) {
+		this.dateReservation = dateReservation;
 	}
-	public Date getDateFin() {
-		return dateFin;
+	
+	public String getHeure() {
+		return heure;
 	}
-	public void setDateFin(Date dateFin) {
-		this.dateFin = dateFin;
-	}
-	public String getHeureFin() {
-		return heureFin;
-	}
-	public void setHeureFin(String heureFin) {
-		this.heureFin = heureFin;
+	public void setHeure(String heure) {
+		this.heure = heure;
 	}
 	
 	public void setMatch(Match match) {
 		this.match = match;
 	}
-	public Utilisateur getUser() {
-		return user;
-	}
+	
 	public void setUser(Utilisateur user) {
 		this.user = user;
 	}

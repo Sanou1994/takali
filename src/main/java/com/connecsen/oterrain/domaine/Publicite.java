@@ -1,46 +1,52 @@
 package com.connecsen.oterrain.domaine;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 @Entity
-
 public class Publicite implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String endroit;
-	private Date dateDebut;
-	private Date dateFin;
-	@OneToMany(cascade =CascadeType.PERSIST,mappedBy = "publicite")
-	private List<Multimedia> multimedias = new ArrayList<Multimedia>();;
+	private String dateDebut;
+	private String dateFin;
+	private String urlPub;
+	@OneToOne(targetEntity=Multimedia.class,cascade =CascadeType.PERSIST)
+	private Multimedia multimedia;
 	
 	public Publicite() {
 		super();
 	}
-	public Publicite(String endroit, Date dateDebut, Date dateFin, List<Multimedia> multimedias) {
+	
+	
+	public Publicite(String endroit, String dateDebut, String dateFin, String urlPub, Multimedia multimedia) {
 		super();
 		this.endroit = endroit;
 		this.dateDebut = dateDebut;
 		this.dateFin = dateFin;
-		this.multimedias = multimedias;
+		this.urlPub = urlPub;
+		this.multimedia = multimedia;
 	}
-	public Publicite(Long id, String endroit, Date dateDebut, Date dateFin, List<Multimedia> multimedias) {
+
+	
+
+	public Publicite(Long id, String endroit, String dateDebut, String dateFin, String urlPub, Multimedia multimedia) {
 		super();
 		this.id = id;
 		this.endroit = endroit;
 		this.dateDebut = dateDebut;
 		this.dateFin = dateFin;
-		this.multimedias = multimedias;
+		this.urlPub = urlPub;
+		this.multimedia = multimedia;
 	}
+
+
 	public Long getId() {
 		return id;
 	}
@@ -53,23 +59,33 @@ public class Publicite implements Serializable{
 	public void setEndroit(String endroit) {
 		this.endroit = endroit;
 	}
-	public Date getDateDebut() {
+	public String getDateDebut() {
 		return dateDebut;
 	}
-	public void setDateDebut(Date dateDebut) {
+	public void setDateDebut(String dateDebut) {
 		this.dateDebut = dateDebut;
 	}
-	public Date getDateFin() {
+	public String getDateFin() {
 		return dateFin;
 	}
-	public void setDateFin(Date dateFin) {
+	public void setDateFin(String dateFin) {
 		this.dateFin = dateFin;
 	}
-	public List<Multimedia> getMultimedias() {
-		return multimedias;
+	public Multimedia getMultimedia() {
+		return multimedia;
 	}
-	public void setMultimedias(List<Multimedia> multimedias) {
-		this.multimedias = multimedias;
+	public void setMultimedia(Multimedia multimedia) {
+		this.multimedia = multimedia;
+	}
+
+
+	public String getUrlPub() {
+		return urlPub;
+	}
+
+
+	public void setUrlPub(String urlPub) {
+		this.urlPub = urlPub;
 	}
 	
 }

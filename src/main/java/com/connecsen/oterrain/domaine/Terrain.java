@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -28,20 +29,22 @@ public class Terrain implements Serializable{
 	private String description;
 	private Double prixHeure;
 	private Double prixDemiHeure;
-	
-	@OneToMany(targetEntity=Multimedia.class,cascade = CascadeType.ALL,mappedBy="terrain")
+	@ManyToMany(targetEntity=ListeHeureReserver.class,cascade = CascadeType.PERSIST)
 	@LazyCollection(LazyCollectionOption.FALSE)
-	private List<Multimedia> multimedia = new ArrayList<Multimedia>();
+	private List<ListeHeureReserver> listeHeureReserver = new ArrayList<ListeHeureReserver>();
+	@ManyToMany(targetEntity=Multimedia.class,cascade = CascadeType.ALL)
+	@LazyCollection(LazyCollectionOption.FALSE)
+	private List<Multimedia> multimedias = new ArrayList<Multimedia>();
 	@OneToMany(targetEntity=Match.class, mappedBy="terrain",cascade = CascadeType.REMOVE)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Match> matchs = new ArrayList<Match>();
-	@OneToMany(targetEntity=Reservation.class, mappedBy="terrain",cascade = CascadeType.REMOVE)
+	@OneToMany(targetEntity=Reservation.class, mappedBy="terrain",cascade = CascadeType.ALL)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Reservation> reservations = new ArrayList<Reservation>();
 	@ManyToOne 
 	private Utilisateur user;
 	public Terrain(String nom, String adresse, String ville, String latitude, String longitude, String disponibilite,
-			String description, Double prixHeure, Double prixDemiHeure, List<Multimedia> multimedia, List<Match> matchs,
+			String description, Double prixHeure, Double prixDemiHeure,List<ListeHeureReserver> listeHeureReserver, List<Multimedia> multimedia, List<Match> matchs,
 			List<Reservation> reservations, Utilisateur user) {
 		super();
 		this.nom = nom;
@@ -53,13 +56,14 @@ public class Terrain implements Serializable{
 		this.description = description;
 		this.prixHeure = prixHeure;
 		this.prixDemiHeure = prixDemiHeure;
-		this.multimedia = multimedia;
+		this.listeHeureReserver = listeHeureReserver;
+		this.multimedias = multimedia;
 		this.matchs = matchs;
 		this.reservations = reservations;
 		this.user = user;
 	}
 	public Terrain(Long id, String nom, String adresse, String ville, String latitude, String longitude,
-			String disponibilite, String description, Double prixHeure, Double prixDemiHeure,
+			String disponibilite, String description, Double prixHeure, Double prixDemiHeure,List<ListeHeureReserver> listeHeureReserver,
 			List<Multimedia> multimedia, List<Match> matchs, List<Reservation> reservations, Utilisateur user) {
 		super();
 		this.id = id;
@@ -72,7 +76,8 @@ public class Terrain implements Serializable{
 		this.description = description;
 		this.prixHeure = prixHeure;
 		this.prixDemiHeure = prixDemiHeure;
-		this.multimedia = multimedia;
+		this.multimedias = multimedia;
+		this.listeHeureReserver = listeHeureReserver;
 		this.matchs = matchs;
 		this.reservations = reservations;
 		this.user = user;
@@ -140,11 +145,11 @@ public class Terrain implements Serializable{
 	public void setPrixDemiHeure(Double prixDemiHeure) {
 		this.prixDemiHeure = prixDemiHeure;
 	}
-	public List<Multimedia> getMultimedia() {
-		return multimedia;
+	public List<Multimedia> getMultimedias() {
+		return multimedias;
 	}
-	public void setMultimedia(List<Multimedia> multimedia) {
-		this.multimedia = multimedia;
+	public void setMultimedias(List<Multimedia> multimedia) {
+		this.multimedias = multimedia;
 	}
 	
 	
@@ -162,6 +167,12 @@ public class Terrain implements Serializable{
 	}
 	public void setUser(Utilisateur user) {
 		this.user = user;
+	}
+	public List<ListeHeureReserver> getListeHeureReserver() {
+		return listeHeureReserver;
+	}
+	public void setListeHeureReserver(List<ListeHeureReserver> listeHeureReserver) {
+		this.listeHeureReserver = listeHeureReserver;
 	}
 	
 	

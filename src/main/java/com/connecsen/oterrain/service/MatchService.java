@@ -51,4 +51,12 @@ public class MatchService implements IMatchService{
 	
 	}
 
+	@Override
+	public List<MatchDtoResponse> getAllMatchsDejaJoue(boolean matchDejaJoue) {
+		List<Match> tournois =matchRepository.findByMatchDejaJoue(matchDejaJoue);
+		 List<MatchDtoResponse> tournoiDtoResponses = tournois.stream()
+				 .map(utilisateur -> Utility.matchConvertToMatchDtoResponse(utilisateur)).collect(Collectors.toList());
+		return tournoiDtoResponses;
+	}
+
 }

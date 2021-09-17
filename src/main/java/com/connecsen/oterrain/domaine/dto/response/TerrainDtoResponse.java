@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.connecsen.oterrain.domaine.ListeHeureReserver;
 import com.connecsen.oterrain.domaine.Match;
+import com.connecsen.oterrain.domaine.Multimedia;
 import com.connecsen.oterrain.domaine.Reservation;
 import com.connecsen.oterrain.domaine.Utilisateur;
 
@@ -23,7 +25,9 @@ public class TerrainDtoResponse implements Serializable{
 	private String disponibilite;
 	private String description;
 	private Double prixHeure;
+	private List<Multimedia> multimedias;
 	private Double prixDemiHeure;
+	private List<ListeHeureReserver> listeHeureReserver = new ArrayList<ListeHeureReserver>();
 	private List<Match> matchs = new ArrayList<Match>();
 	private List<Reservation> reservations = new ArrayList<Reservation>();
 	private Utilisateur user;

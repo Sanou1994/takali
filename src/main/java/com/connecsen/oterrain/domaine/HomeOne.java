@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,7 +16,7 @@ public class HomeOne implements Serializable{
 	private Long id;
 	private String titre;
 	private String description;
-	@OneToOne(cascade =CascadeType.ALL)
+	@OneToOne(cascade =CascadeType.ALL,fetch = FetchType.EAGER)
 	private Multimedia multimedia;
 	private String bouton;
 	

@@ -10,5 +10,6 @@ public interface IMatchService {
 	  public MatchDtoResponse createOrUpdateMatch( MatchDtoRequest tournoiDtoRequest);
 	  public  MatchDtoResponse getMatchById(Long id);
 	  public List<MatchDtoResponse> getAllMatchs();
+	  public List<MatchDtoResponse> getAllMatchsDejaJoue(boolean matchDejaJoue);
 	  public boolean deleteMatch(Long id); 
 }

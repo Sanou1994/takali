@@ -15,25 +15,25 @@ import com.connecsen.oterrain.utils.Utility;
 public class ReservationService implements IReservationService{
 
 	@Autowired
-	private ReservationRepository ReservationRepository;
+	private ReservationRepository reservationRepository;
 	@Override
 	public ReservationDtoResponse createOrUpdateReservation(ReservationDtoRequest tournoiDtoRequest) {
 		Reservation tournoi = Utility.reservationDtoRequestConvertToReservation(tournoiDtoRequest);
-		ReservationDtoResponse tournoiDtoResponse = Utility.reservationConvertToReservationDtoResponse(ReservationRepository.save(tournoi));
+		ReservationDtoResponse tournoiDtoResponse = Utility.reservationConvertToReservationDtoResponse(reservationRepository.save(tournoi));
 		return tournoiDtoResponse;
 	}
 
 	@Override
 	public ReservationDtoResponse getReservationById(Long id) {
 		
-		Reservation tournoi = ReservationRepository.findById(id).get();
-		ReservationDtoResponse tournoiDtoResponse = Utility.reservationConvertToReservationDtoResponse(ReservationRepository.save(tournoi));
+		Reservation tournoi = reservationRepository.findById(id).get();
+		ReservationDtoResponse tournoiDtoResponse = Utility.reservationConvertToReservationDtoResponse(reservationRepository.save(tournoi));
 		return tournoiDtoResponse;
 	}
 
 	@Override
 	public List<ReservationDtoResponse> getAllReservations() {
-		List<Reservation> tournois =ReservationRepository.findAll();
+		List<Reservation> tournois =reservationRepository.findAll();
 		 List<ReservationDtoResponse> tournoiDtoResponses = tournois.stream()
 				 .map(utilisateur -> Utility.reservationConvertToReservationDtoResponse(utilisateur)).collect(Collectors.toList());
 		return tournoiDtoResponses;
@@ -42,9 +42,9 @@ public class ReservationService implements IReservationService{
 	@Override
 	public boolean deleteReservation(Long id) {
 		boolean resultat = false;
-		Reservation tournoi = ReservationRepository.findById(id).get();
+		Reservation tournoi = reservationRepository.findById(id).get();
 		if(tournoi != null) {
-			ReservationRepository.deleteById(id);
+			reservationRepository.deleteById(id);
 			resultat =true;
 		}
 		return resultat;

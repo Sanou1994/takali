@@ -17,6 +17,7 @@ public class MatchDtoRequest {
 	private String codeVideoEmded;
 	private String annule;
 	private boolean status=true;
+	private boolean matchDejaJoue = false;
 	private String repousse;
 	private List<Equipe>equipeVisites = new ArrayList<Equipe>();
 	private List<Equipe> equipeVisiteurs = new ArrayList<Equipe>();
@@ -27,7 +28,7 @@ public class MatchDtoRequest {
 		super();
 	}
 	public MatchDtoRequest(String scoreVisiteur, String scoreVisite, String niveauTournoi, String codeVideoEmded,
-			String annule,  boolean status,String repousse, List<Equipe> equipeVisites, List<Equipe> equipeVisiteurs,
+			String annule,boolean matchDejaJoue,  boolean status,String repousse, List<Equipe> equipeVisites, List<Equipe> equipeVisiteurs,
 			Reservation reservation, Terrain terrain, Tournoi tournoi) {
 		super();
 		this.scoreVisiteur = scoreVisiteur;
@@ -36,6 +37,7 @@ public class MatchDtoRequest {
 		this.codeVideoEmded = codeVideoEmded;
 		this.annule = annule;
 		this.status = status;
+		this.matchDejaJoue = matchDejaJoue;
 		this.repousse = repousse;
 		this.equipeVisites = equipeVisites;
 		this.equipeVisiteurs = equipeVisiteurs;
@@ -44,7 +46,7 @@ public class MatchDtoRequest {
 		this.tournoi = tournoi;
 	}
 	public MatchDtoRequest(Long id, String scoreVisiteur, String scoreVisite, String niveauTournoi,
-			String codeVideoEmded, String annule, boolean status, String repousse, List<Equipe> equipeVisites,
+			String codeVideoEmded, String annule,boolean matchDejaJoue, boolean status, String repousse, List<Equipe> equipeVisites,
 			List<Equipe> equipeVisiteurs, Reservation reservation, Terrain terrain, Tournoi tournoi) {
 		super();
 		this.id = id;
@@ -54,6 +56,7 @@ public class MatchDtoRequest {
 		this.codeVideoEmded = codeVideoEmded;
 		this.annule = annule;
 		this.status = status;
+		this.matchDejaJoue = matchDejaJoue;
 		this.repousse = repousse;
 		this.equipeVisites = equipeVisites;
 		this.equipeVisiteurs = equipeVisiteurs;
@@ -102,6 +105,13 @@ public class MatchDtoRequest {
 	}
 	public void setRepousse(String repousse) {
 		this.repousse = repousse;
+	}
+	
+	public boolean isMatchDejaJoue() {
+		return matchDejaJoue;
+	}
+	public void setMatchDejaJoue(boolean matchDejaJoue) {
+		this.matchDejaJoue = matchDejaJoue;
 	}
 	public List<Equipe> getEquipeVisites() {
 		return equipeVisites;
