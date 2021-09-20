@@ -2,6 +2,7 @@ package com.connecsen.oterrain.domaine.dto.response;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.connecsen.oterrain.domaine.Equipe;
@@ -24,10 +25,10 @@ public class TournoiDtoResponse implements Serializable{
 	private Double prixPartSa;
 	private Double prixPartEcole;
 	private Double prixPme;
-	private String dateDebut;
-	private String dateFin;
-	private String dateDebutInscription;
-	private String dateFinInscription;
+	private Date dateDebut;
+	private Date dateFin;
+	private Date dateDebutInscription;
+	private Date dateFinInscription;
 	private String numero ;
 	private Multimedia multimedia ;
 	private List<Match> matchs = new ArrayList<Match>();

@@ -26,8 +26,8 @@ import com.connecsen.oterrain.domaine.Mail;
 import com.connecsen.oterrain.domaine.Reservation;
 import com.connecsen.oterrain.domaine.Role;
 import com.connecsen.oterrain.domaine.Terrain;
+import com.connecsen.oterrain.domaine.UserDoReservation;
 import com.connecsen.oterrain.domaine.Utilisateur;
-import com.connecsen.oterrain.domaine.dto.request.ReservationDtoRequest;
 import com.connecsen.oterrain.domaine.dto.request.RoleDtoRequest;
 import com.connecsen.oterrain.domaine.dto.request.UserDtoRequest;
 import com.connecsen.oterrain.domaine.dto.response.RoleDtoResponse;
@@ -262,9 +262,8 @@ public class AccountService implements IAccountService{
 		}
 		}
 	@Override
-	public UserDtoResponse addReservationToUser(long idUser, ReservationDtoRequest reservationRequest) {
+	public UserDtoResponse addReservationToUser(long idUser, Reservation reservation) {
 		Utilisateur userSave = userRepository.findById(idUser).get();
-		Reservation reservation =Utility.reservationDtoRequestConvertToReservation(reservationRequest);
 		reservation.setUser(userSave);
 		userSave.getReservations().add(reservation);
 		UserDtoResponse userDtoResponse =Utility.utilisateurConvertToUserDtoResponse(userRepository.save(userSave));
@@ -272,13 +271,20 @@ public class AccountService implements IAccountService{
 	}
 	@Override
 	public UserDtoResponse addReservationToUserAndTerrain(long idUser, long idTerrain,
-			ReservationDtoRequest reservationDtoRequest) {
-		String[]  date =reservationDtoRequest.getDateReservation().split("/");
-        
-		String[] splitted =reservationDtoRequest.getHeure().split(",");
-		Reservation reservation =Utility.reservationDtoRequestConvertToReservation(reservationDtoRequest);
-		Terrain terrain =terrainRepository.findById(idTerrain).get();
+			Reservation reservation) {
+		String[]  date =reservation.getDateReservation().split("/");
 		Utilisateur user =userRepository.findById(idUser ).get();
+		String[] splitted =reservation.getHeure().split(",");
+		UserDoReservation userDoReservation = new UserDoReservation();
+		userDoReservation.setAdresse(user.getAdresse());
+		userDoReservation.setIdUser(user.getId());
+		userDoReservation.setNom(user.getNom());
+		userDoReservation.setPrenom(user.getPrenom());
+		userDoReservation.setTelephone(user.getTelephone());
+		userDoReservation.setTelephone(user.getTelephone());
+		reservation.setUserDoReservation(userDoReservation);
+		Terrain terrain =terrainRepository.findById(idTerrain).get();
+		
 		reservation.setTerrain(terrain);
 		reservation.setUser(user);
 		user.getReservations().add(reservation);
@@ -287,6 +293,7 @@ public class AccountService implements IAccountService{
 			ListeHeureReserver reserver = new ListeHeureReserver(
 					Long.parseLong(date[0]),
 					Long.parseLong(date[1]),
+					Long.parseLong(date[2]),
 					splitted[i],null
 					);
 			ListeHeureReserver reserverSave =reserverRepository.save(reserver);

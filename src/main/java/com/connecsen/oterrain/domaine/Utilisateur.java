@@ -24,6 +24,7 @@ public class Utilisateur implements Serializable {
 	@Column(unique = true)
 	private String username;
 	private String prenom;
+	private String nom;
 	private String adresse;
 	private String typeId;
 	private String numeroId;
@@ -48,13 +49,14 @@ public class Utilisateur implements Serializable {
 		super();
 	}
 
-	public Utilisateur(Long id, String username, String prenom, String adresse, String typeId, String numeroId,
+	public Utilisateur(Long id, String username,String nom, String prenom, String adresse, String typeId, String numeroId,
 			String naissance,boolean userDelete, String email, String telephone, String password,Role roles,
 			List<Terrain> terrains, List<Reservation> reservations) {
 		super();
 		this.id = id;
 		this.username = username;
 		this.prenom = prenom;
+		this.nom = nom;
 		this.adresse = adresse;
 		this.typeId = typeId;
 		this.numeroId = numeroId;
@@ -68,12 +70,13 @@ public class Utilisateur implements Serializable {
 		this.reservations = reservations;
 	}
 
-	public Utilisateur(String username, String prenom, String adresse, String typeId, String numeroId, String naissance,
+	public Utilisateur(String username, String prenom,String nom, String adresse, String typeId, String numeroId, String naissance,
 			boolean userDelete,String email, String telephone, String password, Role roles, List<Terrain> terrains,
 			List<Reservation> reservations) {
 		super();
 		this.username = username;
 		this.prenom = prenom;
+		this.nom = nom;
 		this.adresse = adresse;
 		this.typeId = typeId;
 		this.numeroId = numeroId;
@@ -184,6 +187,10 @@ public class Utilisateur implements Serializable {
 	}
 	
 
+	public List<Terrain> getTerrains() {
+		return terrains;
+	}
+
 	public void setTerrains(List<Terrain> terrains) {
 		this.terrains = terrains;
 	}
@@ -210,6 +217,14 @@ public class Utilisateur implements Serializable {
 
 	public void setMonToken(String monToken) {
 		this.monToken = monToken;
+	}
+
+	public String getNom() {
+		return nom;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
 	}
 
 	

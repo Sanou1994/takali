@@ -1,5 +1,7 @@
 package com.connecsen.oterrain.domaine.dto.response;
 
+import java.util.Date;
+
 import com.connecsen.oterrain.domaine.Multimedia;
 
 import lombok.AllArgsConstructor;
@@ -9,8 +11,8 @@ import lombok.NoArgsConstructor;
 public class PubDtoResponse {
 	private Long id;
 	private String endroit;
-	private String dateDebut;
-	private String dateFin;
+	private Date dateDebut;
+	private Date dateFin;
 	private String urlPub;
 	private Multimedia multimedia;
 }

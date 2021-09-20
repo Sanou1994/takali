@@ -1,6 +1,7 @@
 package com.connecsen.oterrain.domaine.dto.request;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.connecsen.oterrain.domaine.Equipe;
@@ -19,17 +20,26 @@ public class MatchDtoRequest {
 	private boolean status=true;
 	private boolean matchDejaJoue = false;
 	private String repousse;
+	private String nomTournoi;
+	private Date dateDebutTournoi;
+	private Date dateFinTournoi;
 	private List<Equipe>equipeVisites = new ArrayList<Equipe>();
 	private List<Equipe> equipeVisiteurs = new ArrayList<Equipe>();
 	private Reservation reservation;
 	private Terrain terrain;
 	private Tournoi tournoi;
+	private long idTournoi;
 	public MatchDtoRequest() {
 		super();
 	}
+	
+	
+	
+	
 	public MatchDtoRequest(String scoreVisiteur, String scoreVisite, String niveauTournoi, String codeVideoEmded,
-			String annule,boolean matchDejaJoue,  boolean status,String repousse, List<Equipe> equipeVisites, List<Equipe> equipeVisiteurs,
-			Reservation reservation, Terrain terrain, Tournoi tournoi) {
+			String annule, boolean status, boolean matchDejaJoue, String repousse, String nomTournoi,
+			Date dateDebutTournoi, Date dateFinTournoi, List<Equipe> equipeVisites, List<Equipe> equipeVisiteurs,
+			Reservation reservation, Terrain terrain, Tournoi tournoi, long idTournoi) {
 		super();
 		this.scoreVisiteur = scoreVisiteur;
 		this.scoreVisite = scoreVisite;
@@ -39,15 +49,24 @@ public class MatchDtoRequest {
 		this.status = status;
 		this.matchDejaJoue = matchDejaJoue;
 		this.repousse = repousse;
+		this.nomTournoi = nomTournoi;
+		this.dateDebutTournoi = dateDebutTournoi;
+		this.dateFinTournoi = dateFinTournoi;
 		this.equipeVisites = equipeVisites;
 		this.equipeVisiteurs = equipeVisiteurs;
 		this.reservation = reservation;
 		this.terrain = terrain;
 		this.tournoi = tournoi;
+		this.idTournoi = idTournoi;
 	}
+
+
+
+
 	public MatchDtoRequest(Long id, String scoreVisiteur, String scoreVisite, String niveauTournoi,
-			String codeVideoEmded, String annule,boolean matchDejaJoue, boolean status, String repousse, List<Equipe> equipeVisites,
-			List<Equipe> equipeVisiteurs, Reservation reservation, Terrain terrain, Tournoi tournoi) {
+			String codeVideoEmded, String annule, boolean status, boolean matchDejaJoue, String repousse,
+			String nomTournoi, Date dateDebutTournoi, Date dateFinTournoi, List<Equipe> equipeVisites,
+			List<Equipe> equipeVisiteurs, Reservation reservation, Terrain terrain, Tournoi tournoi, long idTournoi) {
 		super();
 		this.id = id;
 		this.scoreVisiteur = scoreVisiteur;
@@ -58,11 +77,25 @@ public class MatchDtoRequest {
 		this.status = status;
 		this.matchDejaJoue = matchDejaJoue;
 		this.repousse = repousse;
+		this.nomTournoi = nomTournoi;
+		this.dateDebutTournoi = dateDebutTournoi;
+		this.dateFinTournoi = dateFinTournoi;
 		this.equipeVisites = equipeVisites;
 		this.equipeVisiteurs = equipeVisiteurs;
 		this.reservation = reservation;
 		this.terrain = terrain;
 		this.tournoi = tournoi;
+		this.idTournoi = idTournoi;
+	}
+
+
+
+
+	public long getIdTournoi() {
+		return idTournoi;
+	}
+	public void setIdTournoi(long idTournoi) {
+		this.idTournoi = idTournoi;
 	}
 	public Long getId() {
 		return id;
@@ -148,6 +181,48 @@ public class MatchDtoRequest {
 	}
 	public void setStatus(boolean status) {
 		this.status = status;
+	}
+
+
+
+
+	public String getNomTournoi() {
+		return nomTournoi;
+	}
+
+
+
+
+	public void setNomTournoi(String nomTournoi) {
+		this.nomTournoi = nomTournoi;
+	}
+
+
+
+
+	public Date getDateDebutTournoi() {
+		return dateDebutTournoi;
+	}
+
+
+
+
+	public void setDateDebutTournoi(Date dateDebutTournoi) {
+		this.dateDebutTournoi = dateDebutTournoi;
+	}
+
+
+
+
+	public Date getDateFinTournoi() {
+		return dateFinTournoi;
+	}
+
+
+
+
+	public void setDateFinTournoi(Date dateFinTournoi) {
+		this.dateFinTournoi = dateFinTournoi;
 	}
 	
 	

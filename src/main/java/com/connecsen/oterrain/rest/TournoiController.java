@@ -43,6 +43,9 @@ public class TournoiController {
 	@PostMapping(Utility.ADD_MATCH_TO_TOURNOI)
 	public TournoiDtoResponse ajouterMatchATournoi(@PathVariable(value = "id") Long tournoiId, @RequestBody MatchDtoRequest match) {
 		TournoiDtoResponse tournoiGot =iTournoiService.getTournoiById(tournoiId);
+		match.setNomTournoi(tournoiGot.getNom());
+		match.setDateDebutTournoi(tournoiGot.getDateDebut());
+		match.setDateFinTournoi(tournoiGot.getDateFin());
 		TournoiDtoResponse tournoiAdd =iTournoiService.addMatchToTournoi(tournoiId, match);
 		String resultat ="echec";
 		if(tournoiGot.getMatchs().size() < tournoiAdd.getMatchs().size())

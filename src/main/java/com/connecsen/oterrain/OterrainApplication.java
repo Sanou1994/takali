@@ -1,5 +1,8 @@
 package com.connecsen.oterrain;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -8,11 +11,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import com.connecsen.oterrain.repository.RoleRepository;
+import com.connecsen.oterrain.repository.UserRepository;
 import com.connecsen.oterrain.service.IAccountService;
 import com.connecsen.oterrain.service.IMatchService;
+import com.connecsen.oterrain.utils.Utility;
 
 @SpringBootApplication
-public class OterrainApplication implements CommandLineRunner{
+public class OterrainApplication implements CommandLineRunner {
 	@Autowired
 	IAccountService iAccountService;
 
@@ -21,9 +27,9 @@ public class OterrainApplication implements CommandLineRunner{
 //	@Autowired
 //    private MatchRepository matchRepository;
 //	@Autowired
-//    private UserRepository userRepository;
+    private UserRepository userRepository;
 //	@Autowired
-//    private RoleRepository roleRepository;
+    private RoleRepository roleRepository;
 //	@Autowired
 //   private EquipeRepository equipeRepository;
 //	@Autowired
@@ -43,12 +49,26 @@ public class OterrainApplication implements CommandLineRunner{
 	public BCryptPasswordEncoder getBCPE() {
 		return new BCryptPasswordEncoder();
 	}
+
+
 	@Override
 	public void run(String... args) throws Exception {
-//		Calendar calendar = Calendar.getInstance();
-//		System.out.println("calendar :"+calendar);
-//		calendar.setTime(new Date());
-//		System.out.println("date complet :"+new Date());
+		System.out.println("########################################");
+		System.out.println(" cvaleur :"+Utility.getDayChoosed().get("lundi"));
+		Calendar calendar = Calendar.getInstance();
+		Calendar now = Calendar.getInstance();
+		System.out.println("calendar :"+ now.get(Calendar.DAY_OF_WEEK));
+		calendar.setTime(new Date());
+		System.out.println("date complet lundi sans calendar  :"+ new Date().getDay());
+		System.out.println("date complet lundi :"+Calendar.MONDAY);
+		System.out.println("date complet mardi :"+Calendar.TUESDAY);
+		System.out.println("date complet mercredi  :"+Calendar.WEDNESDAY);
+		System.out.println("date complet jeudi :"+Calendar.THURSDAY);
+		System.out.println("date complet vendredi :"+Calendar.FRIDAY);
+		System.out.println("date complet samedi :"+Calendar.SATURDAY);
+		System.out.println("date complet dimanche :"+Calendar.SUNDAY);
+		System.out.println("date complet today :"+new Date());
+
 //		System.out.println(Long.valueOf(calendar.get(Calendar.MONTH)+Long.valueOf("1")));
 //		System.out.println("jour :"+Long.valueOf(calendar.get(Calendar.DAY_OF_MONTH)));
 //		System.out.println("year :"+calendar.get(Calendar.YEAR));
@@ -70,13 +90,15 @@ public class OterrainApplication implements CommandLineRunner{
 		  //iAccountService.createOrUpdateRole(role);
 	//Utilisateur user= userRepository.findById((long) 1).get();
 	 //Role role= roleRepository.findByLibelle("ADMIN");
-   //  Role role= roleRepository.findById((long) 1).get();
+	//	RoleDtoResponse roleGot=iAccountService.getRoleById((long) 1);
+	//	Role role =Utility.RoleDtoResponseConvertToRole(roleGot);
 	//	MatchDtoRequest user= new MatchDtoRequest((long) 2, "11", "11", "11", "11", "11", "11", null, null, null, terrain, tournoi);
 		//iMatchService.createOrUpdateMatch(user);
 	//	Terrain terrain = new Terrain("HML", "HML", "HML", "HML", "HML", "HML", "HML", 9, 9, null, null, user);
-	//	UserDtoRequest user= new UserDtoRequest("admin", "admin", "admin", "admin", "admin",false, "admin","a@a", "admin", "admin", "admin", "admin", role, null, null);
+	//	UserDtoRequest user= new UserDtoRequest("admin", "admin", "admin", "admin", "admin","MOUSSA", false, "admin","a@a", "admin", "admin", "admin", "admin", role, null, null);
  //UserDtoResponse userSave=iAccountService.login_up(user);
 	//System.out.println("USER CREER EST :"+tournoiRepository.save(tournoi));
-	
+		
 	}
+	
 }

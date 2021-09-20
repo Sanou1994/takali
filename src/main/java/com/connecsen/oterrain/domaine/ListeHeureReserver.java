@@ -14,21 +14,24 @@ public class ListeHeureReserver implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id ;
+	private long indexJour;
 	private long numeroJour;
 	private long numeroMois;
 	private String heure;
 	@ManyToMany(targetEntity = Terrain.class, mappedBy="listeHeureReserver")
 	private List<Terrain> terrain = new ArrayList<Terrain>();
-	public ListeHeureReserver(long numeroJour, long numeroMois, String heure,  List<Terrain> terrain) {
+	public ListeHeureReserver(long indexJour,long numeroJour, long numeroMois, String heure,  List<Terrain> terrain) {
 		super();
+		this.indexJour = indexJour;
 		this.numeroJour = numeroJour;
 		this.numeroMois = numeroMois;
 		this.heure = heure;
 		this.terrain = terrain;
 	}
-	public ListeHeureReserver(long id, long numeroJour, long numeroMois, String heure,  List<Terrain> terrain) {
+	public ListeHeureReserver(long id,long indexJour, long numeroJour, long numeroMois, String heure,  List<Terrain> terrain) {
 		super();
 		this.id = id;
+		this.indexJour = indexJour;
 		this.numeroJour = numeroJour;
 		this.numeroMois = numeroMois;
 		this.heure = heure;
@@ -42,6 +45,13 @@ public class ListeHeureReserver implements Serializable {
 	}
 	public void setId(long id) {
 		this.id = id;
+	}
+	
+	public long getIndexJour() {
+		return indexJour;
+	}
+	public void setIndexJour(long indexJour) {
+		this.indexJour = indexJour;
 	}
 	public long getNumeroJour() {
 		return numeroJour;

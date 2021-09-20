@@ -1,6 +1,7 @@
 package com.connecsen.oterrain.domaine;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -14,8 +15,8 @@ public class Publicite implements Serializable{
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String endroit;
-	private String dateDebut;
-	private String dateFin;
+	private Date dateDebut;
+	private Date dateFin;
 	private String urlPub;
 	@OneToOne(targetEntity=Multimedia.class,cascade =CascadeType.PERSIST)
 	private Multimedia multimedia;
@@ -25,7 +26,7 @@ public class Publicite implements Serializable{
 	}
 	
 	
-	public Publicite(String endroit, String dateDebut, String dateFin, String urlPub, Multimedia multimedia) {
+	public Publicite(String endroit, Date dateDebut, Date dateFin, String urlPub, Multimedia multimedia) {
 		super();
 		this.endroit = endroit;
 		this.dateDebut = dateDebut;
@@ -36,7 +37,7 @@ public class Publicite implements Serializable{
 
 	
 
-	public Publicite(Long id, String endroit, String dateDebut, String dateFin, String urlPub, Multimedia multimedia) {
+	public Publicite(Long id, String endroit, Date dateDebut, Date dateFin, String urlPub, Multimedia multimedia) {
 		super();
 		this.id = id;
 		this.endroit = endroit;
@@ -59,16 +60,16 @@ public class Publicite implements Serializable{
 	public void setEndroit(String endroit) {
 		this.endroit = endroit;
 	}
-	public String getDateDebut() {
+	public Date getDateDebut() {
 		return dateDebut;
 	}
-	public void setDateDebut(String dateDebut) {
+	public void setDateDebut(Date dateDebut) {
 		this.dateDebut = dateDebut;
 	}
-	public String getDateFin() {
+	public Date getDateFin() {
 		return dateFin;
 	}
-	public void setDateFin(String dateFin) {
+	public void setDateFin(Date dateFin) {
 		this.dateFin = dateFin;
 	}
 	public Multimedia getMultimedia() {

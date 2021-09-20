@@ -18,6 +18,7 @@ public class UserDtoResponse implements Serializable{
 	private Long id;
 	private String username;
 	private String prenom;
+	private String nom;
 	private String adresse;
 	private String typeId;
 	private String numeroId;

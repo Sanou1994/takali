@@ -2,6 +2,7 @@ package com.connecsen.oterrain.domaine;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -33,10 +34,10 @@ public class Tournoi implements Serializable{
 	private Double prixPartSa;
 	private Double prixPartEcole;
 	private Double prixPme;
-	private String dateDebut;
-	private String dateFin;
-	private String dateDebutInscription;
-	private String dateFinInscription;
+	private Date dateDebut;
+	private Date dateFin;
+	private Date dateDebutInscription;
+	private Date dateFinInscription;
 	@OneToMany(targetEntity=Match.class,cascade = {CascadeType.PERSIST,CascadeType.MERGE},mappedBy="tournoi")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Match> matchs = new ArrayList<Match>();
@@ -46,7 +47,7 @@ public class Tournoi implements Serializable{
 	@OneToOne(targetEntity=Multimedia.class,cascade = {CascadeType.PERSIST,CascadeType.MERGE} )
 	private Multimedia multimedia ;
 	public Tournoi(String nom, String annee, String description,String typeTournoi, String niveau, String numero, Double prixPartSrl,
-			Double prixPartSa, Double prixPartEcole, Double prixPme, String dateDebutInscription, String dateFinInscription, String dateDebut, String dateFin, List<Match> matchs,
+			Double prixPartSa, Double prixPartEcole, Double prixPme, Date dateDebutInscription, Date dateFinInscription, Date dateDebut, Date dateFin, List<Match> matchs,
 			List<Equipe> equipes, Multimedia multimedia) {
 		super();
 		this.nom = nom;
@@ -133,16 +134,16 @@ public class Tournoi implements Serializable{
 	public void setPrixPme(Double prixPme) {
 		this.prixPme = prixPme;
 	}
-	public String getDateDebut() {
+	public Date getDateDebut() {
 		return dateDebut;
 	}
-	public void setDateDebut(String dateDebut) {
+	public void setDateDebut(Date dateDebut) {
 		this.dateDebut = dateDebut;
 	}
-	public String getDateFin() {
+	public Date getDateFin() {
 		return dateFin;
 	}
-	public void setDateFin(String dateFin) {
+	public void setDateFin(Date dateFin) {
 		this.dateFin = dateFin;
 	}
 	public List<Match> getMatchs() {
@@ -163,16 +164,16 @@ public class Tournoi implements Serializable{
 	public void setMultimedia(Multimedia multimedia) {
 		this.multimedia = multimedia;
 	}
-	public String getDateDebutInscription() {
+	public Date getDateDebutInscription() {
 		return dateDebutInscription;
 	}
-	public void setDateDebutInscription(String dateDebutInscription) {
+	public void setDateDebutInscription(Date dateDebutInscription) {
 		this.dateDebutInscription = dateDebutInscription;
 	}
-	public String getDateFinInscription() {
+	public Date getDateFinInscription() {
 		return dateFinInscription;
 	}
-	public void setDateFinInscription(String dateFinInscription) {
+	public void setDateFinInscription(Date dateFinInscription) {
 		this.dateFinInscription = dateFinInscription;
 	}
 	

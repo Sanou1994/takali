@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.connecsen.oterrain.domaine.Login;
 import com.connecsen.oterrain.domaine.Mail;
+import com.connecsen.oterrain.domaine.Reservation;
 import com.connecsen.oterrain.domaine.Utilisateur;
-import com.connecsen.oterrain.domaine.dto.request.ReservationDtoRequest;
 import com.connecsen.oterrain.domaine.dto.request.RoleDtoRequest;
 import com.connecsen.oterrain.domaine.dto.request.UserDtoRequest;
 import com.connecsen.oterrain.domaine.dto.response.RoleDtoResponse;
@@ -94,7 +94,7 @@ public class AccountRestController {
     }
 
     @PostMapping(Utility.ADD_RESERVATION_TO_USER_AND_TERRAIN)
-	public UserDtoResponse getAddReservationUserAndTerrain( @PathVariable(value = "idTerrain") Long idTerrain, @PathVariable(value = "idUser") Long idUser, @RequestBody ReservationDtoRequest reservationDtoRequest){
+	public UserDtoResponse getAddReservationUserAndTerrain( @PathVariable(value = "idTerrain") Long idTerrain, @PathVariable(value = "idUser") Long idUser, @RequestBody Reservation reservationDtoRequest){
 		UserDtoResponse resultatCreation = accountService.addReservationToUserAndTerrain(idUser,idTerrain,reservationDtoRequest);
 		UserDtoResponse userGot =accountService.getUserById(idUser);
 		TerrainDtoResponse terrainGot =terrainService.getTerrainById(idTerrain);
@@ -109,9 +109,9 @@ public class AccountRestController {
     }
 
 	@PostMapping(Utility.ADD_RESERVATION_TO_USER)
-	public UserDtoResponse addReservationToUser(@PathVariable(value = "id") Long idUser, @RequestBody ReservationDtoRequest reservationDtoRequest){
+	public UserDtoResponse addReservationToUser(@PathVariable(value = "id") Long idUser, @RequestBody Reservation reservation){
 		UserDtoResponse userGot =accountService.getUserById(idUser);
-		UserDtoResponse resultatCreation = accountService.addReservationToUser(idUser, reservationDtoRequest);
+		UserDtoResponse resultatCreation = accountService.addReservationToUser(idUser, reservation);
 		boolean succesResultat =false;
 		if(resultatCreation.getReservations().size() !=userGot.getReservations().size()) {
 			succesResultat = true;

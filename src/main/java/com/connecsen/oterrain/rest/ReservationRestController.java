@@ -9,8 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.connecsen.oterrain.domaine.dto.request.ReservationDtoRequest;
-import com.connecsen.oterrain.domaine.dto.response.ReservationDtoResponse;
+import com.connecsen.oterrain.domaine.Reservation;
 import com.connecsen.oterrain.service.IReservationService;
 import com.connecsen.oterrain.utils.Utility;
 @RestController
@@ -20,20 +19,20 @@ public class ReservationRestController {
 	private IReservationService iReservationService;
 	
 	@PostMapping(Utility.ADD_RESERVATION)
-	public ReservationDtoResponse ajouterTournoi( @RequestBody ReservationDtoRequest tournoi) {
-		ReservationDtoResponse tournoiAdd =iReservationService.createOrUpdateReservation(tournoi);
+	public Reservation ajouterTournoi( @RequestBody Reservation tournoi) {
+		Reservation tournoiAdd =iReservationService.createOrUpdateReservation(tournoi);
 		return tournoiAdd;
 	}
 	@PostMapping(Utility.UPDATE_RESERVATION)
-	public ReservationDtoResponse getUpdateUser( @RequestBody ReservationDtoRequest user){
+	public Reservation getUpdateUser( @RequestBody Reservation user){
 		return iReservationService.createOrUpdateReservation(user);
     }
 	@GetMapping(Utility.GET_ALL_RESERVATIONS)
-	public List<ReservationDtoResponse> getAllTournoi(){
+	public List<Reservation> getAllTournoi(){
 		return iReservationService.getAllReservations();
     }
 	@GetMapping(Utility.GET_RESERVATION_BY_ID)
-	public ReservationDtoResponse getTournoiById(@PathVariable(value = "id") Long userId){
+	public Reservation getTournoiById(@PathVariable(value = "id") Long userId){
 		return iReservationService.getReservationById(userId);
     }
 	@GetMapping(Utility.DELETE_RESERVATION_BY_ID)

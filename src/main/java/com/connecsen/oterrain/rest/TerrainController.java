@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.connecsen.oterrain.domaine.Reservation;
 import com.connecsen.oterrain.domaine.Reserver;
-import com.connecsen.oterrain.domaine.dto.request.ReservationDtoRequest;
 import com.connecsen.oterrain.domaine.dto.request.TerrainDtoRequest;
 import com.connecsen.oterrain.domaine.dto.response.TerrainDtoResponse;
 import com.connecsen.oterrain.service.ITerrainService;
@@ -28,19 +28,18 @@ public class TerrainController {
 
 
 	@PostMapping(Utility.ADD_TERRAIN)
-	public TerrainDtoResponse ajouterTerrain( @RequestBody TerrainDtoRequest terrain) {
-		TerrainDtoResponse terrainAdd =iTerrainService.createOrUpdateTerrain(terrain);
+	public TerrainDtoResponse ajouterTerrain(@PathVariable(value = "id") Long id, @RequestBody TerrainDtoRequest terrain) {
+		TerrainDtoResponse terrainAdd =iTerrainService.createOrUpdateTerrain(id,terrain);
 		String resultat = "echec";
 		if(terrainAdd != null)
 		{
 			resultat = "success";
 		}
-	logger.info(terrainAdd.getNom() +" terrain is created : "+" by : "+terrainAdd.getUser().getUsername()
-		+"with : "+resultat);
+logger.info(terrainAdd.getNom() +" terrain is created  "+"with : "+resultat);
 		return terrainAdd;
 	}
 	@PostMapping(Utility.ADD_RESERVATION_TO_TERRAIN)
-	public TerrainDtoResponse ajouterReservationTerrain(@PathVariable(value = "id") Long idTerrain, @RequestBody ReservationDtoRequest reservation) {
+	public TerrainDtoResponse ajouterReservationTerrain(@PathVariable(value = "id") Long idTerrain, @RequestBody Reservation reservation) {
 		TerrainDtoResponse terrainGot =iTerrainService.getTerrainById(idTerrain);
 		TerrainDtoResponse terrainAdd =iTerrainService.addReservationToTerrain(idTerrain, reservation);
 		String resultat = "echec";
@@ -54,7 +53,7 @@ public class TerrainController {
 	}
 	@PostMapping(Utility.UPDATE_TERRAIN)
 	public TerrainDtoResponse getUpdateUser( @RequestBody TerrainDtoRequest user){
-		return iTerrainService.createOrUpdateTerrain(user);
+		return iTerrainService.createOrUpdateTerrain(user.getId(),user);
     }
 	@GetMapping(Utility.GET_ALL_TERRAINS)
 	public List<TerrainDtoResponse> getAllTerrain(){

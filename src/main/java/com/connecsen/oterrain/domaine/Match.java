@@ -2,6 +2,7 @@ package com.connecsen.oterrain.domaine;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -17,6 +18,7 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 @Entity 
 public class Match implements Serializable{
+	
 	private static final long serialVersionUID = 1L;
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -28,6 +30,9 @@ public class Match implements Serializable{
 	private boolean status;
 	private boolean matchDejaJoue = false;
 	private String repousse;
+	private String nomTournoi;
+	private Date dateDebutTournoi;
+	private Date dateFinTournoi;
 	@ManyToMany(cascade = CascadeType.PERSIST)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Equipe>equipeVisites = new ArrayList<Equipe>();
@@ -40,10 +45,10 @@ public class Match implements Serializable{
 	private Terrain terrain;
 	@ManyToOne(targetEntity=Tournoi.class)
 	private Tournoi tournoi;
-	
+	private long idTournoi;
 	public Match(String scoreVisiteur, String scoreVisite, String niveauTournoi, String codeVideoEmded, String annule,
-			boolean matchDejaJoue,boolean status,String repousse, List<Equipe> equipeVisites, List<Equipe> equipeVisiteurs, Reservation reservation,
-			 Terrain terrain,  Tournoi tournoi) {
+			boolean matchDejaJoue,boolean status,String repousse,String nomTournoi,Date dateDebutTournoi, Date dateFinTournoi, List<Equipe> equipeVisites, List<Equipe> equipeVisiteurs, Reservation reservation,
+			 Terrain terrain,  Tournoi tournoi,long idTournoi) {
 		super();
 		this.scoreVisiteur = scoreVisiteur;
 		this.scoreVisite = scoreVisite;
@@ -51,6 +56,9 @@ public class Match implements Serializable{
 		this.codeVideoEmded = codeVideoEmded;
 		this.annule = annule;
 		this.repousse = repousse;
+		this.nomTournoi = nomTournoi;
+		this.dateDebutTournoi = dateDebutTournoi;
+		this.dateFinTournoi = dateFinTournoi;
 		this.status = status;
 		this.matchDejaJoue = matchDejaJoue;
 		this.equipeVisites = equipeVisites;
@@ -58,11 +66,13 @@ public class Match implements Serializable{
 		this.reservation = reservation;
 		this.terrain = terrain;
 		this.tournoi = tournoi;
+		this.idTournoi = idTournoi;
+
 	}
 
 	public Match(Long id, String scoreVisiteur, String scoreVisite, String niveauTournoi, String codeVideoEmded,
-			String annule,boolean matchDejaJoue,boolean status, String repousse, List<Equipe> equipeVisites, List<Equipe> equipeVisiteurs,
-			Reservation reservation, Terrain terrain, Tournoi tournoi) {
+			String annule,boolean matchDejaJoue,boolean status, String repousse,String nomTournoi,Date dateDebutTournoi, Date dateFinTournoi, List<Equipe> equipeVisites, List<Equipe> equipeVisiteurs,
+			Reservation reservation, Terrain terrain, Tournoi tournoi,long idTournoi) {
 		super();
 		this.id = id;
 		this.scoreVisiteur = scoreVisiteur;
@@ -73,11 +83,37 @@ public class Match implements Serializable{
 		this.status = status;
 		this.matchDejaJoue = matchDejaJoue;
 		this.repousse = repousse;
+		this.nomTournoi = nomTournoi;
+		this.dateDebutTournoi = dateDebutTournoi;
+		this.dateFinTournoi = dateFinTournoi;
 		this.equipeVisites = equipeVisites;
 		this.equipeVisiteurs = equipeVisiteurs;
 		this.reservation = reservation;
 		this.terrain = terrain;
 		this.tournoi = tournoi;
+		this.idTournoi = idTournoi;
+	}
+
+	public void setNomTournoi(String nomTournoi) {
+		this.nomTournoi = nomTournoi;
+	}
+
+	
+	public void setDateDebutTournoi(Date dateDebutTournoi) {
+		this.dateDebutTournoi = dateDebutTournoi;
+	}
+
+	
+	public void setDateFinTournoi(Date dateFinTournoi) {
+		this.dateFinTournoi = dateFinTournoi;
+	}
+
+	public long getIdTournoi() {
+		return idTournoi;
+	}
+
+	public void setIdTournoi(long idTournoi) {
+		this.idTournoi = idTournoi;
 	}
 
 	public Match() {
@@ -179,6 +215,13 @@ public class Match implements Serializable{
 		this.terrain = terrain;
 	}
 	
+	public Tournoi getTournoi() {
+		Tournoi test = new Tournoi();
+		test.setNom(nomTournoi);;
+		test.setDateDebut(dateDebutTournoi);
+		test.setDateFin(dateFinTournoi);
+		return test;
+	}
 
 	public void setTournoi(Tournoi tournoi) {
 		this.tournoi = tournoi;

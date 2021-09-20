@@ -20,6 +20,7 @@ public class UserDtoRequest implements Serializable{
 	private String adresse;
 	private String typeId;
 	private String numeroId;
+	private String nom;
 	private boolean userDelete =false;
 	private String naissance;
 	private String email;
@@ -30,11 +31,12 @@ public class UserDtoRequest implements Serializable{
 	private Role roles ;
 	private List<Terrain> terrains = new ArrayList<Terrain>();
 	private List<Reservation> reservations = new ArrayList<Reservation>();
-	public UserDtoRequest(String username, String prenom, String adresse, String typeId, String numeroId,
+	public UserDtoRequest(String username,String nom, String prenom, String adresse, String typeId, String numeroId,
 			boolean userDelete,String naissance, String email, String telephone, String monToken, String password,
 			String resetPasswordToken, Role roles, List<Terrain> terrains, List<Reservation> reservations) {
 		super();
 		this.username = username;
+		this.nom = nom;
 		this.prenom = prenom;
 		this.adresse = adresse;
 		this.typeId = typeId;

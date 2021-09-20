@@ -1,7 +1,10 @@
 package com.connecsen.oterrain.utils;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.modelmapper.ModelMapper;
 
@@ -13,7 +16,6 @@ import com.connecsen.oterrain.domaine.Match;
 import com.connecsen.oterrain.domaine.Multimedia;
 import com.connecsen.oterrain.domaine.Propos;
 import com.connecsen.oterrain.domaine.Publicite;
-import com.connecsen.oterrain.domaine.Reservation;
 import com.connecsen.oterrain.domaine.Role;
 import com.connecsen.oterrain.domaine.Service;
 import com.connecsen.oterrain.domaine.Terrain;
@@ -27,7 +29,6 @@ import com.connecsen.oterrain.domaine.dto.request.MatchDtoRequest;
 import com.connecsen.oterrain.domaine.dto.request.MultimediaDtoRequest;
 import com.connecsen.oterrain.domaine.dto.request.ProposDtoRequest;
 import com.connecsen.oterrain.domaine.dto.request.PubDtoRequest;
-import com.connecsen.oterrain.domaine.dto.request.ReservationDtoRequest;
 import com.connecsen.oterrain.domaine.dto.request.RoleDtoRequest;
 import com.connecsen.oterrain.domaine.dto.request.ServiceDtoRequest;
 import com.connecsen.oterrain.domaine.dto.request.TerrainDtoRequest;
@@ -41,7 +42,6 @@ import com.connecsen.oterrain.domaine.dto.response.MatchDtoResponse;
 import com.connecsen.oterrain.domaine.dto.response.MultimediaDtoResponse;
 import com.connecsen.oterrain.domaine.dto.response.ProposDtoResponse;
 import com.connecsen.oterrain.domaine.dto.response.PubDtoResponse;
-import com.connecsen.oterrain.domaine.dto.response.ReservationDtoResponse;
 import com.connecsen.oterrain.domaine.dto.response.RoleDtoResponse;
 import com.connecsen.oterrain.domaine.dto.response.ServiceDtoResponse;
 import com.connecsen.oterrain.domaine.dto.response.TerrainDtoResponse;
@@ -59,6 +59,12 @@ public final class Utility {
 	public static final String NOTREEMAIL = "sanouarouna90@gmail.com";
 	
 	// LES URLS D'ACCESS
+	
+	public static final String ADD_CHOOSEPERIODICDAY_TO_TERRAIN = "/chooseperiodicday/add/terrain/{id}";
+	public static final String UPDATE_CHOOSEPERIODICDAY = "/chooseperiodicday/update";
+	public static final String GET_CHOOSEPERIODICDAY_BY_ID = "/chooseperiodicday/chooseperiodicdays/{id}";
+	public static final String DELETE_CHOOSEPERIODICDAY_BY_ID = "/chooseperiodicday/chooseperiodicdays/delete/{id}";
+	public static final String GET_ALL_CHOOSEPERIODICDAYS = "/chooseperiodicday/chooseperiodicdays";
 	
 	
 	public static final String ADD_MULTIMEDIA = "/multimedia/add";
@@ -119,6 +125,8 @@ public final class Utility {
 	public static final String GET_MATCH_BY_ID = "/match/matchs/{id}";
 	public static final String DELETE_MATCH_BY_ID = "/match/matchs/delete/{id}";
 	public static final String GET_ALL_MATCHS = "/match/matchs";
+	public static final String GET_ALL_MATCH_JOUER_OR_NO = "/match/matchs/jouer/{option}";
+
 	
 	public static final String ADD_EQUIPE = "/equipe/add";
 	public static final String UPDATE_EQUIPE = "/equipe/update";
@@ -126,7 +134,7 @@ public final class Utility {
 	public static final String DELETE_EQUIPE_BY_ID = "/equipe/equipes/delete/{id}";
 	public static final String GET_ALL_EQUIPES = "/equipe/equipes";
 	
-	public static final String ADD_TERRAIN = "/terrain/add";
+	public static final String ADD_TERRAIN = "/terrain/add/{id}";
 	public static final String ADD_RESERVATION_TO_TERRAIN = "/terrain/add/reservation/{id}";
 	public static final String UPDATE_TERRAIN = "/terrain/update";
 	public static final String GET_TERRAIN_BY_ID = "/terrain/terrains/{id}";
@@ -153,9 +161,24 @@ public final class Utility {
 	public static final String DO_LOGIN = "/user/login";
 	public static final String DO_FORGOT_PASSWORD = "/user/forgot";
 	public static final String DO_UPDATE_PASSWORD = "/user/updatePassword";
-	
 	//GENERATE CALENDAR
-	
+	public static int getMonthNumber(Date date) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		return calendar.get(Calendar.MONTH)+1;
+	}
+	//GENERATE CALENDAR
+	public static Map<String,Integer> getDayChoosed() {
+		 Map<String,Integer> map=new HashMap<String,Integer>(); 
+		    map.put("lundi",1);  
+		    map.put("mardi",2);  
+		    map.put("mercredi",3);  
+		    map.put("jeudi",4);;
+		    map.put("vendredi",5);  
+		    map.put("samedi",6);  
+		    map.put("dimanche",7);;
+		return map;
+	}
 	//CHECK OBJET IS NULL
 	public static boolean checkNull(Object obj) {
 		return (obj !=null)? true : false;
@@ -206,23 +229,7 @@ public final class Utility {
 			    return multimedia;
 			}
 	
-	//LES MAPPERS DTO A DAO RESERVATION
-		public static  ReservationDtoResponse reservationConvertToReservationDtoResponse( Reservation  reservation) {
-			ModelMapper modelMapper = new ModelMapper(); 
-			ReservationDtoResponse reservationDtoResponse = new  ReservationDtoResponse() ;
-		    return (reservation != null)? modelMapper.map(reservation,ReservationDtoResponse.class) : reservationDtoResponse;
-		}
-		public static   Reservation  reservationDtoResponseConvertToReservation( Reservation reservationDtoResponse) {
-			ModelMapper modelMapper = new ModelMapper(); 
-			Reservation reservation = modelMapper.map(reservationDtoResponse,Reservation.class);
-		    return reservation;
-		}
-		public static  Reservation  reservationDtoRequestConvertToReservation(ReservationDtoRequest reservationDtoRequest)  {
-			ModelMapper modelMapper = new ModelMapper();
-			Reservation reservation = modelMapper.map(reservationDtoRequest,  Reservation.class);
-		    return reservation;
-		}
-		
+	
 		//LES MAPPERS DTO A DAO  ListeHeureReserver
 				public static  ListeHeureReserverDtoResponse listeHeureReserverConvertToListeHeureReserverDtoResponse(  ListeHeureReserver  listeHeureReserver) {
 					ModelMapper modelMapper = new ModelMapper(); 

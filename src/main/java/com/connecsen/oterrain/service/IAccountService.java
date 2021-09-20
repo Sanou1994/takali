@@ -6,8 +6,8 @@ import javax.mail.MessagingException;
 
 import com.connecsen.oterrain.domaine.Login;
 import com.connecsen.oterrain.domaine.Mail;
+import com.connecsen.oterrain.domaine.Reservation;
 import com.connecsen.oterrain.domaine.Utilisateur;
-import com.connecsen.oterrain.domaine.dto.request.ReservationDtoRequest;
 import com.connecsen.oterrain.domaine.dto.request.RoleDtoRequest;
 import com.connecsen.oterrain.domaine.dto.request.UserDtoRequest;
 import com.connecsen.oterrain.domaine.dto.response.RoleDtoResponse;
@@ -25,7 +25,7 @@ public interface IAccountService {
 	 
 	         //GESTION USER
 	  public String getToken(String username , String password);
-	  public UserDtoResponse addReservationToUserAndTerrain(long idUser,long idTerrain,ReservationDtoRequest reservationDtoRequest);
+	  public UserDtoResponse addReservationToUserAndTerrain(long idUser,long idTerrain,Reservation reservationDtoRequest);
 	  public UserDtoResponse createOrUpdateUser(UserDtoRequest user);
 	  public UserDtoResponse getUserById(Long id);
 	  public List<UserDtoResponse> getAllUsers();
@@ -39,5 +39,5 @@ public interface IAccountService {
       public boolean updateResetPasswordToken(String token, String email);
       public UserDtoResponse getByResetPasswordToken(String token);
       public void updatePassword(Utilisateur user, String newPassword);
-      public UserDtoResponse addReservationToUser(long idUser,ReservationDtoRequest reservation);
+      public UserDtoResponse addReservationToUser(long idUser,Reservation reservation);
 }

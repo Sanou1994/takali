@@ -13,7 +13,6 @@ import com.connecsen.oterrain.repository.MatchRepository;
 import com.connecsen.oterrain.utils.Utility;
 @Service
 public class MatchService implements IMatchService{
-
 	@Autowired
 	private MatchRepository matchRepository;
 	@Override
@@ -45,6 +44,7 @@ public class MatchService implements IMatchService{
 		Match tournoi = matchRepository.findByStatusAndId(true,id);
 		if(tournoi != null) {
 			tournoi.setStatus(false);
+			matchRepository.save(tournoi);
 			resultat =true;
 		}
 		return resultat;

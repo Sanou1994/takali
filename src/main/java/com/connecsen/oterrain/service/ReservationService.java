@@ -1,42 +1,34 @@
 package com.connecsen.oterrain.service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.connecsen.oterrain.domaine.Reservation;
-import com.connecsen.oterrain.domaine.dto.request.ReservationDtoRequest;
-import com.connecsen.oterrain.domaine.dto.response.ReservationDtoResponse;
 import com.connecsen.oterrain.repository.ReservationRepository;
-import com.connecsen.oterrain.utils.Utility;
 @Service
 public class ReservationService implements IReservationService{
 
 	@Autowired
 	private ReservationRepository reservationRepository;
 	@Override
-	public ReservationDtoResponse createOrUpdateReservation(ReservationDtoRequest tournoiDtoRequest) {
-		Reservation tournoi = Utility.reservationDtoRequestConvertToReservation(tournoiDtoRequest);
-		ReservationDtoResponse tournoiDtoResponse = Utility.reservationConvertToReservationDtoResponse(reservationRepository.save(tournoi));
+	public Reservation createOrUpdateReservation(Reservation tournoiDtoRequest) {
+		Reservation tournoiDtoResponse = reservationRepository.save(tournoiDtoRequest);
 		return tournoiDtoResponse;
 	}
 
 	@Override
-	public ReservationDtoResponse getReservationById(Long id) {
+	public Reservation getReservationById(Long id) {
 		
 		Reservation tournoi = reservationRepository.findById(id).get();
-		ReservationDtoResponse tournoiDtoResponse = Utility.reservationConvertToReservationDtoResponse(reservationRepository.save(tournoi));
+		Reservation tournoiDtoResponse = reservationRepository.save(tournoi);
 		return tournoiDtoResponse;
 	}
 
 	@Override
-	public List<ReservationDtoResponse> getAllReservations() {
-		List<Reservation> tournois =reservationRepository.findAll();
-		 List<ReservationDtoResponse> tournoiDtoResponses = tournois.stream()
-				 .map(utilisateur -> Utility.reservationConvertToReservationDtoResponse(utilisateur)).collect(Collectors.toList());
-		return tournoiDtoResponses;
+	public List<Reservation> getAllReservations() {
+		return reservationRepository.findAll();
 	}
 
 	@Override

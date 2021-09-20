@@ -31,6 +31,10 @@ public class MatchController {
 	public List<MatchDtoResponse> getAllTournoi(){
 		return iMatchService.getAllMatchs();
     }
+	@GetMapping(Utility.GET_ALL_MATCH_JOUER_OR_NO)
+	public List<MatchDtoResponse> getAllMAtchJouerOuPas(@PathVariable(value = "option") boolean option){
+		return iMatchService.getAllMatchsDejaJoue(option);
+    }
 	@GetMapping(Utility.GET_MATCH_BY_ID)
 	public MatchDtoResponse getTournoiById(@PathVariable(value = "id") Long userId){
 		return iMatchService.getMatchById(userId);

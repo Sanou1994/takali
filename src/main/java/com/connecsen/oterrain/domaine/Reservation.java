@@ -2,6 +2,7 @@ package com.connecsen.oterrain.domaine;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,6 +14,10 @@ public class Reservation implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	private Long idTerrain;
+	private String nomTerrain;
+	private double montant;
+	private double montantTotal;
 	private String statePayement;
 	private String dateReservation;
 	private String heure;
@@ -22,9 +27,16 @@ public class Reservation implements Serializable{
 	private Utilisateur user;
 	@ManyToOne 
 	private Terrain terrain;
-	public Reservation(String statePayement,String dateReservation, String heure, Match match,
-			Utilisateur user, Terrain terrain) {
+	@OneToOne(cascade = CascadeType.ALL)
+	private UserDoReservation userDoReservation;
+	
+	public Reservation(Long idUserDoReservation,Long idTerrain, String nomTerrain, double montant, double montantTotal, String statePayement,
+			String dateReservation, String heure, Match match, Utilisateur user, Terrain terrain) {
 		super();
+		this.idTerrain = idTerrain;
+		this.nomTerrain = nomTerrain;
+		this.montant = montant;
+		this.montantTotal = montantTotal;
 		this.statePayement = statePayement;
 		this.dateReservation = dateReservation;
 		this.heure = heure;
@@ -32,10 +44,16 @@ public class Reservation implements Serializable{
 		this.user = user;
 		this.terrain = terrain;
 	}
-	public Reservation(Long id,String statePayement, String dateReservation,  String heure, Match match,
-			Utilisateur user, Terrain terrain) {
+	
+	public Reservation(Long id,Long idUserDoReservation, Long idTerrain, String nomTerrain, double montant, double montantTotal,
+			String statePayement, String dateReservation, String heure, Match match, Utilisateur user,
+			Terrain terrain) {
 		super();
 		this.id = id;
+		this.idTerrain = idTerrain;
+		this.nomTerrain = nomTerrain;
+		this.montant = montant;
+		this.montantTotal = montantTotal;
 		this.statePayement = statePayement;
 		this.dateReservation = dateReservation;
 		this.heure = heure;
@@ -43,6 +61,39 @@ public class Reservation implements Serializable{
 		this.user = user;
 		this.terrain = terrain;
 	}
+
+	public Long getIdTerrain() {
+		return idTerrain;
+	}
+
+	public void setIdTerrain(Long idTerrain) {
+		this.idTerrain = idTerrain;
+	}
+
+	public String getNomTerrain() {
+		return nomTerrain;
+	}
+
+	public void setNomTerrain(String nomTerrain) {
+		this.nomTerrain = nomTerrain;
+	}
+
+	public double getMontant() {
+		return montant;
+	}
+
+	public void setMontant(double montant) {
+		this.montant = montant;
+	}
+
+	public double getMontantTotal() {
+		return montantTotal;
+	}
+
+	public void setMontantTotal(double montantTotal) {
+		this.montantTotal = montantTotal;
+	}
+
 	public Reservation() {
 		super();
 	}
@@ -83,6 +134,20 @@ public class Reservation implements Serializable{
 	
 	public void setTerrain(Terrain terrain) {
 		this.terrain = terrain;
+	}
+
+	public UserDoReservation getUserDoReservation() {
+		UserDoReservation userDoReservation = new UserDoReservation();
+		userDoReservation.setAdresse(user.getAdresse());
+		userDoReservation.setIdUser(user.getId());
+		userDoReservation.setNom(user.getNom());
+		userDoReservation.setPrenom(user.getPrenom());
+		userDoReservation.setTelephone(user.getTelephone());
+		return userDoReservation;
+	}
+
+	public void setUserDoReservation(UserDoReservation userDoReservation) {
+		this.userDoReservation = userDoReservation;
 	}
 	
 
