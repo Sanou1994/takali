@@ -30,13 +30,6 @@ public class Match implements Serializable{
 	private boolean status;
 	private boolean matchDejaJoue = false;
 	private String repousse;
-//<<<<<<< HEAD
-//	@ManyToMany(mappedBy = "matchVisites")
-//	private List<Equipe>equipeVisites = new ArrayList<Equipe>();
-//	@ManyToMany(mappedBy = "matchVisiteurs")
-//	private List<Equipe> equipeVisiteurs = new ArrayList<Equipe>();
-//	@OneToOne @NotNull
-//=======
 	private String nomTournoi;
 	private Date dateDebutTournoi;
 	private Date dateFinTournoi;
@@ -47,7 +40,6 @@ public class Match implements Serializable{
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Equipe> equipeVisiteurs = new ArrayList<Equipe>();
 	@OneToOne (targetEntity=Reservation.class, mappedBy="match",cascade = CascadeType.PERSIST)
-//>>>>>>> v1
 	private Reservation reservation;
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	private Terrain terrain;
