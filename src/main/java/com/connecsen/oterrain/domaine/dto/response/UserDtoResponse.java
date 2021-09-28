@@ -2,7 +2,7 @@ package com.connecsen.oterrain.domaine.dto.response;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
 import com.connecsen.oterrain.domaine.Reservation;
 import com.connecsen.oterrain.domaine.Role;
@@ -18,9 +18,11 @@ public class UserDtoResponse implements Serializable{
 	private Long id;
 	private String username;
 	private String prenom;
+	private String nom;
 	private String adresse;
 	private String typeId;
 	private String numeroId;
+	private boolean userDelete;
 	private String naissance;
 	private String email;
 	private String telephone;
@@ -28,7 +30,7 @@ public class UserDtoResponse implements Serializable{
 	private String password;
     private String resetPasswordToken;
 	private Role roles ;
-	private Collection<Terrain> terrains = new ArrayList<Terrain>();
-	private Collection<Reservation> reservations = new ArrayList<Reservation>();
+	private List<Terrain> terrains = new ArrayList<Terrain>();
+	private List<Reservation> reservations = new ArrayList<Reservation>();
 	
 }

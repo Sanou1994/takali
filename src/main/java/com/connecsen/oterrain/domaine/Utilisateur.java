@@ -2,12 +2,10 @@ package com.connecsen.oterrain.domaine;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,11 +16,6 @@ import javax.persistence.Transient;
 import com.connecsen.oterrain.utils.Utility;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSetter;
-
-/**
- * @author akane
- *
- */
 @Entity
 public class Utilisateur implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -31,10 +24,12 @@ public class Utilisateur implements Serializable {
 	@Column(unique = true)
 	private String username;
 	private String prenom;
+	private String nom;
 	private String adresse;
 	private String typeId;
 	private String numeroId;
 	private String naissance;
+	private boolean userDelete =false;
 	@Column(unique = true)
 	private String email;
 	private String telephone;
@@ -43,27 +38,29 @@ public class Utilisateur implements Serializable {
 	private String password;
 	@Column(name = "reset_password_token")
     private String resetPasswordToken;
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne 
 	private Role roles ; 
-	@OneToMany(mappedBy = "user")
-	private Collection<Terrain> terrains = new ArrayList<Terrain>();
-	@OneToMany(mappedBy = "user")
-	private Collection<Reservation> reservations = new ArrayList<Reservation>();
+	@OneToMany(targetEntity=Terrain.class, mappedBy="user")
+	private List<Terrain> terrains = new ArrayList<Terrain>();
+	@OneToMany(targetEntity=Reservation.class, mappedBy = "user")
+	private List<Reservation> reservations = new ArrayList<Reservation>();
 	
 	public Utilisateur() {
 		super();
 	}
 
-	public Utilisateur(Long id, String username, String prenom, String adresse, String typeId, String numeroId,
-			String naissance, String email, String telephone, String password,Role roles,
+	public Utilisateur(Long id, String username,String nom, String prenom, String adresse, String typeId, String numeroId,
+			String naissance,boolean userDelete, String email, String telephone, String password,Role roles,
 			List<Terrain> terrains, List<Reservation> reservations) {
 		super();
 		this.id = id;
 		this.username = username;
 		this.prenom = prenom;
+		this.nom = nom;
 		this.adresse = adresse;
 		this.typeId = typeId;
 		this.numeroId = numeroId;
+		this.userDelete = userDelete;
 		this.naissance = naissance;
 		this.email = email;
 		this.telephone = telephone;
@@ -73,15 +70,17 @@ public class Utilisateur implements Serializable {
 		this.reservations = reservations;
 	}
 
-	public Utilisateur(String username, String prenom, String adresse, String typeId, String numeroId, String naissance,
-			String email, String telephone, String password, Role roles, List<Terrain> terrains,
+	public Utilisateur(String username, String prenom,String nom, String adresse, String typeId, String numeroId, String naissance,
+			boolean userDelete,String email, String telephone, String password, Role roles, List<Terrain> terrains,
 			List<Reservation> reservations) {
 		super();
 		this.username = username;
 		this.prenom = prenom;
+		this.nom = nom;
 		this.adresse = adresse;
 		this.typeId = typeId;
 		this.numeroId = numeroId;
+		this.userDelete = userDelete;
 		this.naissance = naissance;
 		this.email = email;
 		this.telephone = telephone;
@@ -89,6 +88,14 @@ public class Utilisateur implements Serializable {
 		this.roles = roles;
 		this.terrains = terrains;
 		this.reservations = reservations;
+	}
+
+	public boolean isUserDelete() {
+		return userDelete;
+	}
+
+	public void setUserDelete(boolean userDelete) {
+		this.userDelete = userDelete;
 	}
 
 	public Long getId() {
@@ -178,20 +185,21 @@ public class Utilisateur implements Serializable {
 	public void setRoles(Role roles) {
 		this.roles = roles;
 	}
+	
 
-	public Collection<Terrain> getTerrains() {
+	public List<Terrain> getTerrains() {
 		return terrains;
 	}
 
-	public void setTerrains(Collection<Terrain> terrains) {
+	public void setTerrains(List<Terrain> terrains) {
 		this.terrains = terrains;
 	}
 
-	public Collection<Reservation> getReservations() {
+	public List<Reservation> getReservations() {
 		return reservations;
 	}
 
-	public void setReservations(Collection<Reservation> reservations) {
+	public void setReservations(List<Reservation> reservations) {
 		this.reservations = reservations;
 	}
 	 @JsonIgnore
@@ -209,6 +217,14 @@ public class Utilisateur implements Serializable {
 
 	public void setMonToken(String monToken) {
 		this.monToken = monToken;
+	}
+
+	public String getNom() {
+		return nom;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
 	}
 
 	
