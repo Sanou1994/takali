@@ -17,12 +17,17 @@ import org.springframework.web.bind.annotation.RestController;
 import com.connecsen.oterrain.domaine.Login;
 import com.connecsen.oterrain.domaine.Mail;
 import com.connecsen.oterrain.domaine.Reservation;
+import com.connecsen.oterrain.domaine.UpdatePasswordUser;
 import com.connecsen.oterrain.domaine.Utilisateur;
 import com.connecsen.oterrain.domaine.dto.request.RoleDtoRequest;
 import com.connecsen.oterrain.domaine.dto.request.UserDtoRequest;
 import com.connecsen.oterrain.domaine.dto.response.RoleDtoResponse;
 import com.connecsen.oterrain.domaine.dto.response.TerrainDtoResponse;
 import com.connecsen.oterrain.domaine.dto.response.UserDtoResponse;
+import com.connecsen.oterrain.exception.createexception.CreateException;
+import com.connecsen.oterrain.exception.deleteexception.UserDeletedException;
+import com.connecsen.oterrain.exception.nofoundexception.UserNotFoundException;
+import com.connecsen.oterrain.repository.UserRepository;
 import com.connecsen.oterrain.service.IAccountService;
 import com.connecsen.oterrain.service.ITerrainService;
 import com.connecsen.oterrain.utils.Utility;
@@ -34,11 +39,18 @@ public class AccountRestController {
 	private IAccountService accountService;
 	@Autowired
 	private ITerrainService terrainService;
-
+	@Autowired
+	 private UserRepository userRepository;
 	@PostMapping(Utility.DO_REGISTER)
 	public UserDtoResponse register( @RequestBody UserDtoRequest user) {
-		UserDtoResponse userAdd =accountService.login_up(user);
-		logger.info(" new user with role "+userAdd.getRoles().getLibelle() +"created : "+"firstname :"+userAdd.getUsername() +"lastname : "+userAdd.getPrenom());
+		UserDtoResponse userAdd =null;
+		try {
+			 userAdd =accountService.login_up(user);
+			logger.info(" new user with role "+userAdd.getRoles().getLibelle() +"created : "+"firstname :"+userAdd.getUsername() +"lastname : "+userAdd.getPrenom());
+			
+		} catch (Exception e) {
+			throw new CreateException();
+		}
 		return userAdd;
 	}
 	
@@ -73,7 +85,17 @@ public class AccountRestController {
 		logger.info("username : "+  user.getUsername()+"email: "+user.getEmail()+" forgot his password and changed with "+resultat);
         return resultat;
     }
-	
+	@PostMapping(Utility.DO_UPDATE_PASSWORD_USER)
+	public String updatePasswordUser(@RequestBody UpdatePasswordUser updatePasswordUser) {
+		try {
+			accountService.updatePasswordUser(updatePasswordUser);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+        return "";
+    }
 	@PostMapping(Utility.DO_UPDATE_PASSWORD)
 	public String updatePassword(HttpServletRequest request) throws MessagingException {
 		 String token = request.getParameter("token");
@@ -121,26 +143,44 @@ public class AccountRestController {
     }
 	@PostMapping(Utility.UPDATE_USER)
 	public UserDtoResponse getUpdateUser( @RequestBody UserDtoRequest user){
-		UserDtoResponse userGot =accountService.getUserById(user.getId());
-		UserDtoResponse userUpdate = accountService.createOrUpdateUser(user);
-		logger.info("username : "+  userGot.getUsername()+"with role : "+userGot.getRoles().getLibelle()+" tried to update information and old information : "+userGot.toString());
-		logger.info("username : "+  userUpdate.getUsername()+"with role : "+userUpdate.getRoles().getLibelle()+" had tried to update information and new information : "+userUpdate.toString());
-		return accountService.createOrUpdateUser(user);
+		UserDtoResponse userUpdate = null;
+		try {
+			UserDtoResponse userGot =accountService.getUserById(user.getId());
+			 userUpdate = accountService.createOrUpdateUser(user);
+			logger.info("username : "+  userGot.getUsername()+"with role : "+userGot.getRoles().getLibelle()+" tried to update information and old information : "+userGot.toString());
+			logger.info("username : "+  userUpdate.getUsername()+"with role : "+userUpdate.getRoles().getLibelle()+" had tried to update information and new information : "+userUpdate.toString());
+				
+		} catch (Exception e) {
+			throw new CreateException();
+		}
+		return userUpdate;
     }
 	@GetMapping(Utility.GET_ALL_USERS)
-	public List<UserDtoResponse> getAllUser(){
-		return accountService.getAllUsers();
+	public List<Utilisateur> getAllUser(){
+		return userRepository.findAll();
     }
 	@GetMapping(Utility.GET_USER_BY_ID)
 	public UserDtoResponse getUserById(@PathVariable(value = "id") Long userId){
-		return accountService.getUserById(userId);
+		UserDtoResponse userUpdate = null;
+		try {
+			userUpdate =accountService.getUserById(userId);
+		} catch (Exception e) {
+			throw new UserNotFoundException(Long.toString(userId));
+		}
+		return userUpdate ;
     }
 	@GetMapping(Utility.DELETE_USER_BY_ID)
 	public boolean getDeleteUser(@PathVariable(value = "id") Long userId){
-		UserDtoResponse userGot =accountService.getUserById(userId);
-        boolean resultat = accountService.deleteUser(userId);
-		logger.info("username : "+  userGot.getUsername()+"with role : "+userGot.getRoles().getLibelle()+" was deleted  with  : "+resultat);
-		return resultat;
+		 boolean resultat =false;
+		try {
+			UserDtoResponse userGot =accountService.getUserById(userId);
+	       resultat = accountService.deleteUser(userId);
+			logger.info("username : "+  userGot.getUsername()+"with role : "+userGot.getRoles().getLibelle()+" was deleted  with  : "+resultat);
+	
+		} catch (Exception e) {
+			throw new UserDeletedException(userId);
+		}
+				return resultat;
     }
 	@PostMapping(Utility.ADD_ROLE)
 	public RoleDtoResponse getAddOrUpdateRole( @RequestBody RoleDtoRequest role){

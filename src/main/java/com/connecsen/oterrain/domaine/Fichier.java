@@ -1,38 +1,39 @@
 package com.connecsen.oterrain.domaine;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.Lob;
+import javax.persistence.OneToOne;
 @Entity 
 public class Fichier implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@OneToMany(cascade =CascadeType.PERSIST,mappedBy = "fichier")
-	private List<Multimedia> multimedias = new ArrayList<Multimedia>();;
+	@OneToOne(cascade =CascadeType.ALL,fetch = FetchType.EAGER)
+	private Multimedia multimedia;
+	@Lob
 	private String description;
 	private String typeFichier;
 	
 	public Fichier() {
 		super();
 	}
-	public Fichier(List<Multimedia> multimedias, String description, String typeFichier) {
+	public Fichier(Multimedia multimedia, String description, String typeFichier) {
 		super();
-		this.multimedias = multimedias;
+		this.multimedia = multimedia;
 		this.description = description;
 		this.typeFichier = typeFichier;
 	}
-	public Fichier(Long id, List<Multimedia> multimedias, String description, String typeFichier) {
+	public Fichier(Long id, Multimedia multimedia, String description, String typeFichier) {
 		super();
 		this.id = id;
-		this.multimedias = multimedias;
+		this.multimedia = multimedia;
 		this.description = description;
 		this.typeFichier = typeFichier;
 	}
@@ -42,11 +43,11 @@ public class Fichier implements Serializable{
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public List<Multimedia>  getMultimedias() {
-		return multimedias;
+	public Multimedia  getMultimedia() {
+		return multimedia;
 	}
-	public void setMultimedias(List<Multimedia> multimedias ) {
-		this.multimedias = multimedias;
+	public void setMultimedia(Multimedia multimedia ) {
+		this.multimedia = multimedia;
 	}
 	public String getDescription() {
 		return description;

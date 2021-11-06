@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 @Data @AllArgsConstructor @NoArgsConstructor
 public class ListeHeureReserverDtoRequest {
 	private long id ;
-	private long indexJour;
 	private int numeroJour;
 	private int numeroMois;
 	private String heure;

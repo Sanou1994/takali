@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 import com.connecsen.oterrain.domaine.Multimedia;
 import com.connecsen.oterrain.domaine.dto.request.MultimediaDtoRequest;
 import com.connecsen.oterrain.domaine.dto.response.MultimediaDtoResponse;
+import com.connecsen.oterrain.exception.createexception.CreateEquipeException;
+import com.connecsen.oterrain.exception.deleteexception.MultimediaDeletedException;
+import com.connecsen.oterrain.exception.nofoundexception.MultimediaNotFoundException;
 import com.connecsen.oterrain.repository.MultimediaRepository;
 import com.connecsen.oterrain.utils.Utility;
 @Service
@@ -18,16 +21,27 @@ public class MultimediaService implements IMultimediaService{
 	private MultimediaRepository MultimediaRepository;
 	@Override
 	public MultimediaDtoResponse createOrUpdateMultimedia(MultimediaDtoRequest tournoiDtoRequest) {
-		Multimedia tournoi = Utility.multimediaDtoRequestConvertToMultimedia(tournoiDtoRequest);
-		MultimediaDtoResponse tournoiDtoResponse = Utility.multimediaConvertToMultimediaDtoResponse(MultimediaRepository.save(tournoi));
+		MultimediaDtoResponse tournoiDtoResponse =null;
+		try {
+			Multimedia tournoi = Utility.multimediaDtoRequestConvertToMultimedia(tournoiDtoRequest);
+			tournoiDtoResponse = Utility.multimediaConvertToMultimediaDtoResponse(MultimediaRepository.save(tournoi));
+				
+		} catch (Exception e) {
+			throw new CreateEquipeException(tournoiDtoRequest.getFile());
+		}
 		return tournoiDtoResponse;
 	}
 
 	@Override
 	public MultimediaDtoResponse getMultimediaById(Long id) {
-		
-		Multimedia tournoi = MultimediaRepository.findById(id).get();
-		MultimediaDtoResponse tournoiDtoResponse = Utility.multimediaConvertToMultimediaDtoResponse(MultimediaRepository.save(tournoi));
+		MultimediaDtoResponse tournoiDtoResponse =null;
+		try {
+			Multimedia tournoi = MultimediaRepository.findById(id).get();
+			 tournoiDtoResponse = Utility.multimediaConvertToMultimediaDtoResponse(MultimediaRepository.save(tournoi));
+				
+		} catch (Exception e) {
+			throw new MultimediaNotFoundException(id);
+		}
 		return tournoiDtoResponse;
 	}
 
@@ -42,11 +56,16 @@ public class MultimediaService implements IMultimediaService{
 	@Override
 	public boolean deleteMultimedia(Long id) {
 		boolean resultat = false;
-		Multimedia tournoi = MultimediaRepository.findById(id).get();
-		if(tournoi != null) {
-			MultimediaRepository.deleteById(id);
-			resultat =true;
+		try {
+			Multimedia tournoi = MultimediaRepository.findById(id).get();
+			if(tournoi != null) {
+				MultimediaRepository.deleteById(id);
+				resultat =true;
+			}	
+		} catch (Exception e) {
+			throw new MultimediaDeletedException(id);
 		}
+		
 		return resultat;
 	
 	}

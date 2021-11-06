@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 import com.connecsen.oterrain.domaine.Equipe;
 import com.connecsen.oterrain.domaine.dto.request.EquipeDtoRequest;
 import com.connecsen.oterrain.domaine.dto.response.EquipeDtoResponse;
+import com.connecsen.oterrain.exception.createexception.CreateEquipeException;
+import com.connecsen.oterrain.exception.deleteexception.EquipeDeletedException;
+import com.connecsen.oterrain.exception.nofoundexception.EquipeNotFoundException;
 import com.connecsen.oterrain.repository.EquipeRepository;
 import com.connecsen.oterrain.utils.Utility;
 
@@ -19,16 +22,27 @@ public class EquipeService implements IEquipeService {
 	private EquipeRepository equipeRepository;
 	@Override
 	public EquipeDtoResponse createOrUpdateEquipe(EquipeDtoRequest tournoiDtoRequest) {
-		Equipe tournoi = Utility.equipeDtoRequestConvertToEquipe(tournoiDtoRequest);
-		EquipeDtoResponse tournoiDtoResponse = Utility.equipeConvertToEquipeDtoResponse(equipeRepository.save(tournoi));
+		EquipeDtoResponse tournoiDtoResponse =null;
+		try {
+			Equipe tournoi = Utility.equipeDtoRequestConvertToEquipe(tournoiDtoRequest);
+			tournoiDtoResponse = Utility.equipeConvertToEquipeDtoResponse(equipeRepository.save(tournoi));
+				
+		} catch (Exception e) {
+			throw new CreateEquipeException(tournoiDtoRequest.getNomEquipe());
+		}
 		return tournoiDtoResponse;
 	}
 
 	@Override
 	public EquipeDtoResponse getEquipeById(Long id) {
-		
-		Equipe tournoi = equipeRepository.findById(id).get();
-		EquipeDtoResponse tournoiDtoResponse = Utility.equipeConvertToEquipeDtoResponse(equipeRepository.save(tournoi));
+		EquipeDtoResponse tournoiDtoResponse = null;
+		try {
+			Equipe tournoi = equipeRepository.findById(id).get();
+			tournoiDtoResponse = Utility.equipeConvertToEquipeDtoResponse(equipeRepository.save(tournoi));
+				
+		} catch (Exception e) {
+			throw new EquipeNotFoundException(id);
+		}
 		return tournoiDtoResponse;
 	}
 
@@ -43,10 +57,14 @@ public class EquipeService implements IEquipeService {
 	@Override
 	public boolean deleteEquipe(Long id) {
 		boolean resultat = false;
-		Equipe tournoi = equipeRepository.findById(id).get();
-		if(tournoi != null) {
-			equipeRepository.deleteById(id);
-			resultat =true;
+		try {
+			Equipe tournoi = equipeRepository.findById(id).get();
+			if(tournoi != null) {
+				equipeRepository.deleteById(id);
+				resultat =true;
+			}	
+		} catch (Exception e) {
+			throw new EquipeDeletedException(id);
 		}
 		return resultat;
 	

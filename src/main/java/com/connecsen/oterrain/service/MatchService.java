@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 import com.connecsen.oterrain.domaine.Match;
 import com.connecsen.oterrain.domaine.dto.request.MatchDtoRequest;
 import com.connecsen.oterrain.domaine.dto.response.MatchDtoResponse;
+import com.connecsen.oterrain.exception.createexception.CreateMatchException;
+import com.connecsen.oterrain.exception.deleteexception.MatchDeletedException;
+import com.connecsen.oterrain.exception.nofoundexception.MatchNotFoundException;
 import com.connecsen.oterrain.repository.MatchRepository;
 import com.connecsen.oterrain.utils.Utility;
 @Service
@@ -17,16 +20,26 @@ public class MatchService implements IMatchService{
 	private MatchRepository matchRepository;
 	@Override
 	public MatchDtoResponse createOrUpdateMatch(MatchDtoRequest tournoiDtoRequest) {
-		Match tournoi = Utility.MatchDtoRequestConvertToMatch(tournoiDtoRequest);
-		MatchDtoResponse tournoiDtoResponse = Utility.matchConvertToMatchDtoResponse(matchRepository.save(tournoi));
+		MatchDtoResponse tournoiDtoResponse =null;
+		try {
+			Match tournoi = Utility.MatchDtoRequestConvertToMatch(tournoiDtoRequest);
+			tournoiDtoResponse = Utility.matchConvertToMatchDtoResponse(matchRepository.save(tournoi));	
+		} catch (Exception e) {
+			throw new CreateMatchException(tournoiDtoRequest.getNomTournoi());
+		}
 		return tournoiDtoResponse;
 	}
 
 	@Override
 	public MatchDtoResponse getMatchById(Long id) {
-		
-		Match tournoi = matchRepository.findByStatusAndId(true,id);
-		MatchDtoResponse tournoiDtoResponse = Utility.matchConvertToMatchDtoResponse(matchRepository.save(tournoi));
+		MatchDtoResponse tournoiDtoResponse = null;
+		try {
+			Match tournoi = matchRepository.findByStatusAndId(true,id);
+			tournoiDtoResponse = Utility.matchConvertToMatchDtoResponse(matchRepository.save(tournoi));
+				
+		} catch (Exception e) {
+			throw new MatchNotFoundException(id);
+		}
 		return tournoiDtoResponse;
 	}
 
@@ -40,13 +53,19 @@ public class MatchService implements IMatchService{
 
 	@Override
 	public boolean deleteMatch(Long id) {
+		
 		boolean resultat = false;
-		Match tournoi = matchRepository.findByStatusAndId(true,id);
-		if(tournoi != null) {
-			tournoi.setStatus(false);
-			matchRepository.save(tournoi);
-			resultat =true;
+		try {
+			Match tournoi = matchRepository.findByStatusAndId(true,id);
+			if(tournoi != null) {
+				tournoi.setStatus(false);
+				matchRepository.save(tournoi);
+				resultat =true;
+			}
+		} catch (Exception e) {
+			throw new MatchDeletedException(id);
 		}
+		
 		return resultat;
 	
 	}

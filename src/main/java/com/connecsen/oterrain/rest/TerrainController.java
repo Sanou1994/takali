@@ -61,7 +61,9 @@ logger.info(terrainAdd.getNom() +" terrain is created  "+"with : "+resultat);
     }
 	@PostMapping(Utility.GET_ALL_RESERVATIONS_BY_ID_TERRAIN)
 	public List<String> getTerrainAllReservations(@RequestBody Reserver reserver){
-		return iTerrainService.getHoursBusyByTerrainAndMonthAndDay(reserver);
+		List<String> heures =iTerrainService.getHoursBusyByTerrainAndMonthAndDay(reserver);
+		System.out.println("je suis invoque ......."+heures.size());
+		return heures;
     }
 	@GetMapping(Utility.GET_TERRAIN_BY_ID)
 	public TerrainDtoResponse getTerrainById(@PathVariable(value = "id") Long userId){

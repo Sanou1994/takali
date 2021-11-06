@@ -17,7 +17,7 @@ public class ChoosePeriodicDayRestController {
 	private IChoosePeriodicDayService iChoosePeriodicDayService;
 	
 	@PostMapping(Utility.ADD_CHOOSEPERIODICDAY_TO_TERRAIN)
-	public Terrain ajouterChoosePeriodicDay(@PathVariable(value = "id") Long idTerrain, @RequestBody ChoosePeriodicDay choosePeriodicDay) {
+	public Terrain ajouterChoosePeriodicDay(@PathVariable(value ="id") Long idTerrain, @RequestBody ChoosePeriodicDay choosePeriodicDay) {
 		Terrain terrain =iChoosePeriodicDayService.addChoosePeriodicDayToTerrain(idTerrain, choosePeriodicDay);
 		return terrain;
 	}

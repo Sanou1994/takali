@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 import com.connecsen.oterrain.domaine.HomeOne;
 import com.connecsen.oterrain.domaine.dto.request.HomeOneDtoRequest;
 import com.connecsen.oterrain.domaine.dto.response.HomeOneDtoResponse;
+import com.connecsen.oterrain.exception.createexception.CreateEquipeException;
+import com.connecsen.oterrain.exception.deleteexception.HomeOneDeletedException;
+import com.connecsen.oterrain.exception.nofoundexception.HomeOneNotFoundException;
 import com.connecsen.oterrain.repository.HomeOneRepository;
 import com.connecsen.oterrain.utils.Utility;
 @Service
@@ -17,16 +20,27 @@ public class HomeOneService implements IHomeOneService{
 	private HomeOneRepository homeOneRepository;
 	@Override
 	public HomeOneDtoResponse createOrUpdateHomeOne(HomeOneDtoRequest tournoiDtoRequest) {
-		HomeOne tournoi = Utility.homeOneDtoRequestConvertToHomeOne(tournoiDtoRequest);
-		HomeOneDtoResponse tournoiDtoResponse = Utility.homeOneConvertToHomeOneDtoResponse(homeOneRepository.save(tournoi));
+		HomeOneDtoResponse tournoiDtoResponse = null;
+		try {
+			HomeOne tournoi = Utility.homeOneDtoRequestConvertToHomeOne(tournoiDtoRequest);
+			tournoiDtoResponse = Utility.homeOneConvertToHomeOneDtoResponse(homeOneRepository.save(tournoi));
+			
+		} catch (Exception e) {
+			throw new CreateEquipeException(tournoiDtoRequest.getTitre());
+		}
 		return tournoiDtoResponse;
 	}
 
 	@Override
 	public HomeOneDtoResponse getHomeOneById(Long id) {
-		
-		HomeOne tournoi = homeOneRepository.findById(id).get();
-		HomeOneDtoResponse tournoiDtoResponse = Utility.homeOneConvertToHomeOneDtoResponse(homeOneRepository.save(tournoi));
+		HomeOneDtoResponse tournoiDtoResponse = null;
+		try {
+			HomeOne tournoi = homeOneRepository.findById(id).get();
+			tournoiDtoResponse = Utility.homeOneConvertToHomeOneDtoResponse(homeOneRepository.save(tournoi));
+			
+		} catch (Exception e) {
+			throw new HomeOneNotFoundException(id);
+		}
 		return tournoiDtoResponse;
 	}
 
@@ -41,11 +55,17 @@ public class HomeOneService implements IHomeOneService{
 	@Override
 	public boolean deleteHomeOne(Long id) {
 		boolean resultat = false;
-		HomeOne tournoi = homeOneRepository.findById(id).get();
-		if(tournoi != null) {
-			homeOneRepository.deleteById(id);
-			resultat =true;
+		try {
+			HomeOne tournoi = homeOneRepository.findById(id).get();
+			if(tournoi != null) {
+				homeOneRepository.deleteById(id);
+				resultat =true;
+			}	
+		} catch (Exception e) {
+			throw new HomeOneDeletedException(id);
 		}
+		
+		
 		return resultat;
 	
 	}

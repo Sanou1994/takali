@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,6 +13,11 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
+
+import org.hibernate.FetchMode;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import com.connecsen.oterrain.utils.Utility;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -40,9 +46,11 @@ public class Utilisateur implements Serializable {
     private String resetPasswordToken;
 	@ManyToOne 
 	private Role roles ; 
-	@OneToMany(targetEntity=Terrain.class, mappedBy="user")
+	@OneToMany(targetEntity=Terrain.class,cascade = CascadeType.REMOVE, mappedBy="user")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Terrain> terrains = new ArrayList<Terrain>();
-	@OneToMany(targetEntity=Reservation.class, mappedBy = "user")
+	@OneToMany(targetEntity=Reservation.class, cascade = CascadeType.REMOVE,mappedBy = "user")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Reservation> reservations = new ArrayList<Reservation>();
 	
 	public Utilisateur() {

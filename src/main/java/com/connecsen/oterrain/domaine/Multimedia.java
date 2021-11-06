@@ -8,7 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import lombok.AllArgsConstructor;
@@ -22,7 +21,7 @@ public class Multimedia implements Serializable {
 	private String file ;
 	@OneToOne(targetEntity=HomeOne.class,mappedBy = "multimedia")
 	private HomeOne homeone;
-	@ManyToOne(targetEntity=Fichier.class)
+	@OneToOne(targetEntity=Fichier.class,mappedBy = "multimedia")
 	private Fichier fichier;
 	@OneToOne(targetEntity=Publicite.class,mappedBy = "multimedia")
 	private Publicite publicite;

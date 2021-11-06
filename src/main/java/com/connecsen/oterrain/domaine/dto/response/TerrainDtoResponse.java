@@ -28,6 +28,7 @@ public class TerrainDtoResponse implements Serializable{
 	private Double prixHeure;
 	private List<Multimedia> multimedias;
 	private Double prixDemiHeure;
+	private Long idUser;
 	private  List<ChoosePeriodicDay> choosePeriodicDays = new ArrayList<ChoosePeriodicDay>();
 	private List<ListeHeureReserver> listeHeureReserver = new ArrayList<ListeHeureReserver>();
 	private List<Match> matchs = new ArrayList<Match>();

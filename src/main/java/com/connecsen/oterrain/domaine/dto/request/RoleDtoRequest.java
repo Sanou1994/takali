@@ -13,4 +13,9 @@ public class RoleDtoRequest implements Serializable{
 	private Long id;
 	private String libelle ;
 	private List<UserDtoRequest> users = new ArrayList<UserDtoRequest>();
+	public RoleDtoRequest(String libelle) {
+		super();
+		this.libelle = libelle;
+	}
+	
 }

@@ -1,8 +1,9 @@
 package com.connecsen.oterrain.service;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,7 @@ import com.connecsen.oterrain.domaine.dto.response.TournoiDtoResponse;
 import com.connecsen.oterrain.repository.TournoiRepository;
 import com.connecsen.oterrain.utils.Utility;
 @Service
+@Transactional
 public class TournoiService implements ITournoiService{
 private TournoiRepository tournoiRepository;
 	public TournoiService(TournoiRepository tournoiRepository) {
@@ -81,7 +83,7 @@ private TournoiRepository tournoiRepository;
 
 	@Override
 	public List<TournoiDtoResponse> getAllTournoisByTypeTournoi(String typeTournoi) {
-		List<Tournoi> tournois =tournoiRepository.findByTypeTournoiAndDateDebutGreaterThanEqual(typeTournoi,new Date());
+		List<Tournoi> tournois =tournoiRepository.findByTypeTournoi(typeTournoi);
 		 List<TournoiDtoResponse> tournoiDtoResponses = tournois.stream()
 				 .map(utilisateur -> Utility.tournoiConvertToTournoiDtoResponse(utilisateur)).collect(Collectors.toList());
 		return tournoiDtoResponses;

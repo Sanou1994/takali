@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -26,10 +27,12 @@ public class Terrain implements Serializable{
 	private String latitude;
 	private String longitude;
 	private String disponibilite;
+	@Lob
 	private String description;
 	private Double prixHeure;
 	private Double prixDemiHeure;
-	@OneToMany(targetEntity=ChoosePeriodicDay.class,cascade = CascadeType.REMOVE)
+	private Long idUser;
+	@OneToMany(targetEntity=ChoosePeriodicDay.class,mappedBy="terrain",cascade = { CascadeType.PERSIST, CascadeType.REMOVE})
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private  List<ChoosePeriodicDay> choosePeriodicDays = new ArrayList<ChoosePeriodicDay>();
 	@ManyToMany(targetEntity=ListeHeureReserver.class,cascade = CascadeType.PERSIST)
@@ -47,7 +50,7 @@ public class Terrain implements Serializable{
 	@ManyToOne 
 	private Utilisateur user;
 	public Terrain(String nom, String adresse, String ville, String latitude, String longitude, String disponibilite,
-			String description, Double prixHeure, Double prixDemiHeure,List<ChoosePeriodicDay> choosePeriodicDays,List<ListeHeureReserver> listeHeureReserver, List<Multimedia> multimedia, List<Match> matchs,
+			String description, Double prixHeure, Double prixDemiHeure,Long idUser,List<ChoosePeriodicDay> choosePeriodicDays,List<ListeHeureReserver> listeHeureReserver, List<Multimedia> multimedia, List<Match> matchs,
 			List<Reservation> reservations, Utilisateur user) {
 		super();
 		this.nom = nom;
@@ -59,6 +62,7 @@ public class Terrain implements Serializable{
 		this.description = description;
 		this.prixHeure = prixHeure;
 		this.prixDemiHeure = prixDemiHeure;
+		this.idUser = idUser;
 		this.choosePeriodicDays = choosePeriodicDays;
 		this.listeHeureReserver = listeHeureReserver;
 		this.multimedias = multimedia;
@@ -67,7 +71,7 @@ public class Terrain implements Serializable{
 		this.user = user;
 	}
 	public Terrain(Long id, String nom, String adresse, String ville, String latitude, String longitude,
-			String disponibilite, String description, Double prixHeure, Double prixDemiHeure,List<ChoosePeriodicDay> choosePeriodicDays,List<ListeHeureReserver> listeHeureReserver,
+			String disponibilite, String description, Double prixHeure, Double prixDemiHeure,Long idUser,List<ChoosePeriodicDay> choosePeriodicDays,List<ListeHeureReserver> listeHeureReserver,
 			List<Multimedia> multimedia, List<Match> matchs, List<Reservation> reservations, Utilisateur user) {
 		super();
 		this.id = id;
@@ -80,6 +84,7 @@ public class Terrain implements Serializable{
 		this.description = description;
 		this.prixHeure = prixHeure;
 		this.prixDemiHeure = prixDemiHeure;
+		this.idUser = idUser;
 		this.choosePeriodicDays = choosePeriodicDays;
 		this.multimedias = multimedia;
 		this.listeHeureReserver = listeHeureReserver;
@@ -184,6 +189,12 @@ public class Terrain implements Serializable{
 	}
 	public void setListeHeureReserver(List<ListeHeureReserver> listeHeureReserver) {
 		this.listeHeureReserver = listeHeureReserver;
+	}
+	public Long getIdUser() {
+		return idUser;
+	}
+	public void setIdUser(Long idUser) {
+		this.idUser = idUser;
 	}
 	
 	

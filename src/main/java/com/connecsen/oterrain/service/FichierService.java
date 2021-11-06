@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 import com.connecsen.oterrain.domaine.Fichier;
 import com.connecsen.oterrain.domaine.dto.request.FichierDtoRequest;
 import com.connecsen.oterrain.domaine.dto.response.FichierDtoResponse;
+import com.connecsen.oterrain.exception.createexception.CreateFichierException;
+import com.connecsen.oterrain.exception.deleteexception.FichierDeletedException;
+import com.connecsen.oterrain.exception.nofoundexception.FichierNotFoundException;
 import com.connecsen.oterrain.repository.FichierRepository;
 import com.connecsen.oterrain.utils.Utility;
 @Service
@@ -17,17 +20,27 @@ public class FichierService implements IFichierService{
 	private FichierRepository fichierRepository;
 	@Override
 	public FichierDtoResponse createOrUpdateFichier(FichierDtoRequest tournoiDtoRequest) {
-		Fichier tournoi = Utility.fichierDtoRequestConvertToFichier(tournoiDtoRequest);
-		FichierDtoResponse tournoiDtoResponse = Utility.fichierConvertToFichierDtoResponse(fichierRepository.save(tournoi));
+		FichierDtoResponse tournoiDtoResponse = null;
+		try {
+			Fichier tournoi = Utility.fichierDtoRequestConvertToFichier(tournoiDtoRequest);
+			 tournoiDtoResponse = Utility.fichierConvertToFichierDtoResponse(fichierRepository.save(tournoi));
+				
+		} catch (Exception e) {
+			throw new CreateFichierException(tournoiDtoRequest.getTypeFichier());
+		}
 		return tournoiDtoResponse;
 	}
 
 	@Override
 	public FichierDtoResponse getFichierById(Long id) {
-		
-		Fichier tournoi = fichierRepository.findById(id).get();
-		FichierDtoResponse tournoiDtoResponse = Utility.fichierConvertToFichierDtoResponse(fichierRepository.save(tournoi));
-		return tournoiDtoResponse;
+		FichierDtoResponse tournoiDtoResponse = null;
+		try {
+			Fichier tournoi = fichierRepository.findById(id).get();
+			 tournoiDtoResponse = Utility.fichierConvertToFichierDtoResponse(fichierRepository.save(tournoi));	
+		} catch (Exception e) {
+			throw new FichierNotFoundException(id);
+		}
+			return tournoiDtoResponse;
 	}
 
 	@Override
@@ -41,11 +54,16 @@ public class FichierService implements IFichierService{
 	@Override
 	public boolean deleteFichier(Long id) {
 		boolean resultat = false;
-		Fichier tournoi = fichierRepository.findById(id).get();
-		if(tournoi != null) {
-			fichierRepository.deleteById(id);
-			resultat =true;
+		try {
+			Fichier tournoi = fichierRepository.findById(id).get();
+			if(tournoi != null) {
+				fichierRepository.deleteById(id);
+				resultat =true;
+			}
+		} catch (Exception e) {
+			throw new FichierDeletedException(id);
 		}
+		
 		return resultat;
 	
 	}

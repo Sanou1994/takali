@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
@@ -26,12 +27,14 @@ import com.connecsen.oterrain.domaine.Mail;
 import com.connecsen.oterrain.domaine.Reservation;
 import com.connecsen.oterrain.domaine.Role;
 import com.connecsen.oterrain.domaine.Terrain;
+import com.connecsen.oterrain.domaine.UpdatePasswordUser;
 import com.connecsen.oterrain.domaine.UserDoReservation;
 import com.connecsen.oterrain.domaine.Utilisateur;
 import com.connecsen.oterrain.domaine.dto.request.RoleDtoRequest;
 import com.connecsen.oterrain.domaine.dto.request.UserDtoRequest;
 import com.connecsen.oterrain.domaine.dto.response.RoleDtoResponse;
 import com.connecsen.oterrain.domaine.dto.response.UserDtoResponse;
+import com.connecsen.oterrain.exception.nofoundexception.UserNotFoundException;
 import com.connecsen.oterrain.repository.ListerHeureRepository;
 import com.connecsen.oterrain.repository.RoleRepository;
 import com.connecsen.oterrain.repository.TerrainRepository;
@@ -40,6 +43,7 @@ import com.connecsen.oterrain.security.JwtTokenUtil;
 import com.connecsen.oterrain.utils.Utility;
 
 @Service
+@Transactional
 public class AccountService implements IAccountService{
 	@Autowired
 	private AuthenticationManager authenticationManager;
@@ -75,10 +79,16 @@ public class AccountService implements IAccountService{
 	@Override
 	public UserDtoResponse se_connecter(String username,String password) {
 		UserDtoResponse userMap = null;
-		Utilisateur user = userRepository.findByUsername(username);
-		if((user != null)&&(bCryptPasswordEncoder.matches(password, user.getPassword()))){
-			userMap = Utility.utilisateurConvertToUserDtoResponse(user);
+		Utilisateur user = null;
+		try {
+			user = userRepository.findByUsername(username);
+			if((user != null)&&(bCryptPasswordEncoder.matches(password, user.getPassword()))){
+				userMap = Utility.utilisateurConvertToUserDtoResponse(user);
+			}
+		} catch (Exception e) {
+			throw new UserNotFoundException(username);
 		}
+		System.out.println(" objet recu "+user.getNom());
 		return userMap ;
 	}
 	@Override
@@ -182,14 +192,14 @@ public class AccountService implements IAccountService{
 	@Override
 	public List<UserDtoResponse> getAllUsers() {
 		List<Utilisateur> utilisateurs =userRepository.findByUserDelete(false);
-		 List<UserDtoResponse> utilisateurDtoResponses = utilisateurs.stream()
+		List<UserDtoResponse> utilisateurDtoResponses = utilisateurs.stream()
 				 .map(utilisateur -> Utility.utilisateurConvertToUserDtoResponse(utilisateur)).collect(Collectors.toList());
 		return utilisateurDtoResponses;
 		
 	}
 	@Override
 	public boolean deleteUser(Long id) {
-		UserDtoResponse user = getUserById(id);
+		Utilisateur user = userRepository.findById(id).get();
 		boolean resultat =false;
 		if(user != null)
 		{
@@ -232,10 +242,8 @@ public class AccountService implements IAccountService{
 	}
 		
 		final UserDetails userDetails = userDetailsService
-		.loadUserByUsername(username);
-		
+		.loadUserByUsername(username);		
 		final String token = jwtTokenUtil.generateToken(userDetails);
-		
 		return token;
 		
 	}
@@ -293,7 +301,6 @@ public class AccountService implements IAccountService{
 			ListeHeureReserver reserver = new ListeHeureReserver(
 					Long.parseLong(date[0]),
 					Long.parseLong(date[1]),
-					Long.parseLong(date[2]),
 					splitted[i],null
 					);
 			ListeHeureReserver reserverSave =reserverRepository.save(reserver);
@@ -303,6 +310,17 @@ public class AccountService implements IAccountService{
 		Utilisateur userSave=userRepository.save(user);
 		UserDtoResponse userDtoResponse =Utility.utilisateurConvertToUserDtoResponse(userRepository.save(userSave));
 		return userDtoResponse;
+	}
+	@Override
+	public Utilisateur updatePasswordUser(UpdatePasswordUser updatePasswordUser) throws Exception {
+		    Utilisateur user =userRepository.findById(updatePasswordUser.getIdUser()).get();
+		    if((user != null)&&(bCryptPasswordEncoder.matches(updatePasswordUser.getOldPassword(), user.getPassword()))){
+		        String encodedPassword = bCryptPasswordEncoder.encode(updatePasswordUser.getNewPassword()); 
+		    	user.setPassword(encodedPassword);
+			}else {
+				throw new Exception("mot de password error ");
+			}
+	        return userRepository.save(user);
 	}
 	
 	

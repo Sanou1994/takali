@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.transaction.Transactional;
+
 import org.springframework.stereotype.Service;
 
 import com.connecsen.oterrain.domaine.Reservation;
@@ -12,10 +14,12 @@ import com.connecsen.oterrain.domaine.Terrain;
 import com.connecsen.oterrain.domaine.Utilisateur;
 import com.connecsen.oterrain.domaine.dto.request.TerrainDtoRequest;
 import com.connecsen.oterrain.domaine.dto.response.TerrainDtoResponse;
+import com.connecsen.oterrain.exception.createexception.CreateTerrainException;
 import com.connecsen.oterrain.repository.TerrainRepository;
 import com.connecsen.oterrain.repository.UserRepository;
 import com.connecsen.oterrain.utils.Utility;
 @Service
+@Transactional
 public class TerrainService implements ITerrainService {
     private TerrainRepository terrainRepository;
     private UserRepository userRepository;
@@ -28,18 +32,26 @@ public class TerrainService implements ITerrainService {
 
 	@Override
 	public TerrainDtoResponse createOrUpdateTerrain(long id,TerrainDtoRequest terrainDtoRequest) {
-		Terrain terrain = Utility.terrainDtoRequestConvertToTerrain(terrainDtoRequest);
-		Utilisateur user = userRepository.findById(id).get();
-		user.getTerrains().add(terrain);
-		Utilisateur userSave = userRepository.save(user);
-		terrain.setUser(userSave);
-		Terrain terrainT =terrainRepository.save(terrain);
-		TerrainDtoResponse terrainDtoResponse = Utility.terrainConvertToTerrainDtoResponse(terrainRepository.save(terrainT));
+		TerrainDtoResponse terrainDtoResponse =null;
+		try {
+			terrainDtoRequest.setIdUser(id);
+			Terrain terrain = Utility.terrainDtoRequestConvertToTerrain(terrainDtoRequest);
+			Utilisateur user = userRepository.findById(id).get();
+			user.getTerrains().add(terrain);
+			Utilisateur userSave = userRepository.save(user);
+			terrain.setUser(userSave);
+			Terrain terrainT =terrainRepository.save(terrain);
+			terrainDtoResponse = Utility.terrainConvertToTerrainDtoResponse(terrainRepository.save(terrainT));
+			
+		} catch (Exception e) {
+			throw new CreateTerrainException(terrainDtoRequest.getNom());
+		}
 		return terrainDtoResponse;
 	}
 
 	@Override
 	public TerrainDtoResponse getTerrainById(Long id) {
+		
 		Terrain terrain = terrainRepository.findById(id).get();
 		TerrainDtoResponse terrainDtoResponse = Utility.terrainConvertToTerrainDtoResponse(terrainRepository.save(terrain));
 		return terrainDtoResponse;
@@ -75,9 +87,12 @@ public class TerrainService implements ITerrainService {
 
 	@Override
 	public List<String> getHoursBusyByTerrainAndMonthAndDay(Reserver reserver) {
+		ArrayList<String> heures = new ArrayList<String>();
+		
 		Terrain terrain = terrainRepository.findById(reserver.getIdTerrain()).get();
 		String[]  date =reserver.getDate().split("/");
-		List<String> heures = new ArrayList<String>();
+		
+		
 		terrain.getChoosePeriodicDays().forEach(
 				res ->{
 					
@@ -85,6 +100,7 @@ public class TerrainService implements ITerrainService {
 						if(Long.parseLong(date[0]) == Utility.getDayChoosed().get(res.getDays())) {
 							String[]  tab =res.getHeure().split(",");
 							for (int i = 0; i < tab.length; i++) {
+								
 							heures.add(tab[i]);
 							}
 					}
@@ -96,7 +112,6 @@ public class TerrainService implements ITerrainService {
 						heures.add(res.getHeure());
 					}
 				});
-		
 		
 		
 		return heures;

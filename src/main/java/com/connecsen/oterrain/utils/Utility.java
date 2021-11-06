@@ -161,6 +161,7 @@ public final class Utility {
 	public static final String DO_LOGIN = "/user/login";
 	public static final String DO_FORGOT_PASSWORD = "/user/forgot";
 	public static final String DO_UPDATE_PASSWORD = "/user/updatePassword";
+	public static final String DO_UPDATE_PASSWORD_USER = "/user/updatePassword/user";
 	//GENERATE CALENDAR
 	public static int getMonthNumber(Date date) {
 		Calendar calendar = Calendar.getInstance();

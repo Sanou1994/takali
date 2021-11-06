@@ -46,8 +46,12 @@ public class ChoosePeriodicDayService implements IChoosePeriodicDayService{
 
 	@Override
 	public Terrain addChoosePeriodicDayToTerrain(Long idTerrain, ChoosePeriodicDay choosePeriodicDay) {
+		System.out.println("je suis invoque service");
 		Terrain terrain =terrainRepository.findById(idTerrain).get();
-		terrain.getChoosePeriodicDays().add(choosePeriodicDay);
+		System.out.println("je suis terrain : "+terrain.getNom());
+		choosePeriodicDay.setTerrain(terrain);
+		ChoosePeriodicDay save =choosePeriodicDayRepository.save(choosePeriodicDay);
+		terrain.getChoosePeriodicDays().add(save);
 		Terrain terrainSave =terrainRepository.save(terrain);
 		return terrainSave;
 	}

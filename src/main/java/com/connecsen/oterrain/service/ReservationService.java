@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.connecsen.oterrain.domaine.Reservation;
+import com.connecsen.oterrain.exception.createexception.CreateReservationException;
+import com.connecsen.oterrain.exception.deleteexception.ReservationDeletedException;
+import com.connecsen.oterrain.exception.nofoundexception.ReservationNotFoundException;
 import com.connecsen.oterrain.repository.ReservationRepository;
 @Service
 public class ReservationService implements IReservationService{
@@ -14,15 +17,26 @@ public class ReservationService implements IReservationService{
 	private ReservationRepository reservationRepository;
 	@Override
 	public Reservation createOrUpdateReservation(Reservation tournoiDtoRequest) {
-		Reservation tournoiDtoResponse = reservationRepository.save(tournoiDtoRequest);
+		Reservation tournoiDtoResponse =null;
+		try {
+			tournoiDtoResponse = reservationRepository.save(tournoiDtoRequest);
+
+		} catch (Exception e) {
+			throw new CreateReservationException(Long.toString(tournoiDtoRequest.getId()));
+		}
 		return tournoiDtoResponse;
 	}
 
 	@Override
 	public Reservation getReservationById(Long id) {
-		
-		Reservation tournoi = reservationRepository.findById(id).get();
-		Reservation tournoiDtoResponse = reservationRepository.save(tournoi);
+		Reservation tournoiDtoResponse = null;
+		try {
+			Reservation tournoi = reservationRepository.findById(id).get();
+			tournoiDtoResponse = reservationRepository.save(tournoi);
+				
+		} catch (Exception e) {
+			throw new ReservationNotFoundException(id);
+		}
 		return tournoiDtoResponse;
 	}
 
@@ -34,11 +48,16 @@ public class ReservationService implements IReservationService{
 	@Override
 	public boolean deleteReservation(Long id) {
 		boolean resultat = false;
-		Reservation tournoi = reservationRepository.findById(id).get();
-		if(tournoi != null) {
-			reservationRepository.deleteById(id);
-			resultat =true;
+		try {
+			Reservation tournoi = reservationRepository.findById(id).get();
+			if(tournoi != null) {
+				reservationRepository.deleteById(id);
+				resultat =true;
+			}
+		} catch (Exception e) {
+			throw new ReservationDeletedException(id);
 		}
+		
 		return resultat;
 	
 	}

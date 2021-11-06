@@ -18,7 +18,8 @@ public class PubService implements IPubService{
 	@Override
 	public PubDtoResponse createOrUpdatePub(PubDtoRequest tournoiDtoRequest) {
 		Publicite tournoi = Utility.pubDtoRequestConvertToPub(tournoiDtoRequest);
-		PubDtoResponse tournoiDtoResponse = Utility.pubConvertToPubDtoResponse(PubRepository.save(tournoi));
+		Publicite tournoiGot =PubRepository.save(tournoi);
+		PubDtoResponse tournoiDtoResponse = Utility.pubConvertToPubDtoResponse(tournoiGot);
 		return tournoiDtoResponse;
 	}
 
