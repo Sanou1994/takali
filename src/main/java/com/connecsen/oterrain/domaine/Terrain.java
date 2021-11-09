@@ -31,6 +31,7 @@ public class Terrain implements Serializable{
 	private String description;
 	private Double prixHeure;
 	private Double prixDemiHeure;
+	private String statusTerrain ;
 	private Long idUser;
 	@OneToMany(targetEntity=ChoosePeriodicDay.class,mappedBy="terrain",cascade = { CascadeType.PERSIST, CascadeType.REMOVE})
 	@LazyCollection(LazyCollectionOption.FALSE)
@@ -47,11 +48,14 @@ public class Terrain implements Serializable{
 	@OneToMany(targetEntity=Reservation.class, mappedBy="terrain",cascade = CascadeType.ALL)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Reservation> reservations = new ArrayList<Reservation>();
+	@OneToMany(targetEntity=Transaction.class, mappedBy="terrain",cascade = { CascadeType.PERSIST, CascadeType.REMOVE})
+	@LazyCollection(LazyCollectionOption.FALSE)
+	private List<Transaction> transactions = new ArrayList<Transaction>();
 	@ManyToOne 
 	private Utilisateur user;
 	public Terrain(String nom, String adresse, String ville, String latitude, String longitude, String disponibilite,
-			String description, Double prixHeure, Double prixDemiHeure,Long idUser,List<ChoosePeriodicDay> choosePeriodicDays,List<ListeHeureReserver> listeHeureReserver, List<Multimedia> multimedia, List<Match> matchs,
-			List<Reservation> reservations, Utilisateur user) {
+			String description, Double prixHeure, Double prixDemiHeure,String statusTerrain,Long idUser,List<ChoosePeriodicDay> choosePeriodicDays,List<ListeHeureReserver> listeHeureReserver, List<Multimedia> multimedia, List<Match> matchs,
+			List<Reservation> reservations,List<Transaction> transactions, Utilisateur user) {
 		super();
 		this.nom = nom;
 		this.adresse = adresse;
@@ -62,17 +66,19 @@ public class Terrain implements Serializable{
 		this.description = description;
 		this.prixHeure = prixHeure;
 		this.prixDemiHeure = prixDemiHeure;
+		this.statusTerrain = statusTerrain;
 		this.idUser = idUser;
 		this.choosePeriodicDays = choosePeriodicDays;
 		this.listeHeureReserver = listeHeureReserver;
 		this.multimedias = multimedia;
 		this.matchs = matchs;
 		this.reservations = reservations;
+		this.transactions = transactions;
 		this.user = user;
 	}
 	public Terrain(Long id, String nom, String adresse, String ville, String latitude, String longitude,
-			String disponibilite, String description, Double prixHeure, Double prixDemiHeure,Long idUser,List<ChoosePeriodicDay> choosePeriodicDays,List<ListeHeureReserver> listeHeureReserver,
-			List<Multimedia> multimedia, List<Match> matchs, List<Reservation> reservations, Utilisateur user) {
+			String disponibilite, String description, Double prixHeure, Double prixDemiHeure,String statusTerrain,Long idUser,List<ChoosePeriodicDay> choosePeriodicDays,List<ListeHeureReserver> listeHeureReserver,
+			List<Multimedia> multimedia, List<Match> matchs, List<Reservation> reservations,List<Transaction> transactions, Utilisateur user) {
 		super();
 		this.id = id;
 		this.nom = nom;
@@ -84,12 +90,14 @@ public class Terrain implements Serializable{
 		this.description = description;
 		this.prixHeure = prixHeure;
 		this.prixDemiHeure = prixDemiHeure;
+		this.statusTerrain = statusTerrain;
 		this.idUser = idUser;
 		this.choosePeriodicDays = choosePeriodicDays;
 		this.multimedias = multimedia;
 		this.listeHeureReserver = listeHeureReserver;
 		this.matchs = matchs;
 		this.reservations = reservations;
+		this.transactions = transactions;
 		this.user = user;
 	}
 	public Terrain() {
@@ -157,6 +165,12 @@ public class Terrain implements Serializable{
 	}
 	
 	
+	public String getStatusTerrain() {
+		return statusTerrain;
+	}
+	public void setStatusTerrain(String statusTerrain) {
+		this.statusTerrain = statusTerrain;
+	}
 	public List<ChoosePeriodicDay> getChoosePeriodicDays() {
 		return choosePeriodicDays;
 	}
@@ -195,6 +209,12 @@ public class Terrain implements Serializable{
 	}
 	public void setIdUser(Long idUser) {
 		this.idUser = idUser;
+	}
+	public List<Transaction> getTransactions() {
+		return transactions;
+	}
+	public void setTransactions(List<Transaction> transactions) {
+		this.transactions = transactions;
 	}
 	
 	

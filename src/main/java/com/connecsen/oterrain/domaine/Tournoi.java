@@ -40,6 +40,9 @@ public class Tournoi implements Serializable{
 	private Date dateFin;
 	private Date dateDebutInscription;
 	private Date dateFinInscription;
+	@OneToMany(targetEntity=Transaction.class, mappedBy="tournoi",cascade = { CascadeType.PERSIST, CascadeType.REMOVE})
+	@LazyCollection(LazyCollectionOption.FALSE)
+	private List<Transaction> transactions = new ArrayList<Transaction>();
 	@OneToMany(targetEntity=Match.class,cascade = {CascadeType.PERSIST,CascadeType.MERGE},mappedBy="tournoi")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Match> matchs = new ArrayList<Match>();
@@ -49,7 +52,7 @@ public class Tournoi implements Serializable{
 	@OneToOne(targetEntity=Multimedia.class,cascade = {CascadeType.PERSIST,CascadeType.MERGE} )
 	private Multimedia multimedia ;
 	public Tournoi(String nom, String annee, String description,String typeTournoi, String niveau, String numero, Double prixPartSrl,
-			Double prixPartSa, Double prixPartEcole, Double prixPme, Date dateDebutInscription, Date dateFinInscription, Date dateDebut, Date dateFin, List<Match> matchs,
+			Double prixPartSa, Double prixPartEcole, Double prixPme, Date dateDebutInscription, Date dateFinInscription, Date dateDebut, Date dateFin,List<Transaction> transactions, List<Match> matchs,
 			List<Equipe> equipes, Multimedia multimedia) {
 		super();
 		this.nom = nom;
@@ -66,6 +69,7 @@ public class Tournoi implements Serializable{
 		this.dateFinInscription = dateFinInscription;
 		this.dateDebut = dateDebut;
 		this.dateFin = dateFin;
+		this.transactions = transactions;
 		this.matchs = matchs;
 		this.equipes = equipes;
 		this.multimedia = multimedia;
@@ -177,6 +181,12 @@ public class Tournoi implements Serializable{
 	}
 	public void setDateFinInscription(Date dateFinInscription) {
 		this.dateFinInscription = dateFinInscription;
+	}
+	public List<Transaction> getTransactions() {
+		return transactions;
+	}
+	public void setTransactions(List<Transaction> transactions) {
+		this.transactions = transactions;
 	}
 	
 }

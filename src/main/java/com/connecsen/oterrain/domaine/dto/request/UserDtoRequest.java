@@ -7,6 +7,8 @@ import java.util.List;
 import com.connecsen.oterrain.domaine.Reservation;
 import com.connecsen.oterrain.domaine.Role;
 import com.connecsen.oterrain.domaine.Terrain;
+import com.connecsen.oterrain.domaine.Transaction;
+import com.connecsen.oterrain.domaine.Versement;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -31,9 +33,12 @@ public class UserDtoRequest implements Serializable{
 	private Role roles ;
 	private List<Terrain> terrains = new ArrayList<Terrain>();
 	private List<Reservation> reservations = new ArrayList<Reservation>();
+	private List<Transaction> transactions = new ArrayList<Transaction>();
+	private List<Versement> versements = new ArrayList<Versement>();
 	public UserDtoRequest(String username,String nom, String prenom, String adresse, String typeId, String numeroId,
 			boolean userDelete,String naissance, String email, String telephone, String monToken, String password,
-			String resetPasswordToken, Role roles, List<Terrain> terrains, List<Reservation> reservations) {
+			String resetPasswordToken, Role roles, List<Terrain> terrains, List<Reservation> reservations,List<Transaction> transactions,
+			List<Versement> versements) {
 		super();
 		this.username = username;
 		this.nom = nom;
@@ -51,6 +56,8 @@ public class UserDtoRequest implements Serializable{
 		this.roles = roles;
 		this.terrains = terrains;
 		this.reservations = reservations;
+		this.transactions = transactions;
+		this.versements = versements;
 	}
 	
 }

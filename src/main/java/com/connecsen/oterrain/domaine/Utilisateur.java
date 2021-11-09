@@ -14,8 +14,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
-import org.hibernate.FetchMode;
-import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -52,6 +50,12 @@ public class Utilisateur implements Serializable {
 	@OneToMany(targetEntity=Reservation.class, cascade = CascadeType.REMOVE,mappedBy = "user")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Reservation> reservations = new ArrayList<Reservation>();
+	@OneToMany(targetEntity=Transaction.class, cascade = CascadeType.REMOVE,mappedBy = "user")
+	@LazyCollection(LazyCollectionOption.FALSE)
+	private List<Transaction> transactions = new ArrayList<Transaction>();
+	@OneToMany(targetEntity=Versement.class, cascade = CascadeType.REMOVE,mappedBy = "user")
+	@LazyCollection(LazyCollectionOption.FALSE)
+	private List<Versement> versements = new ArrayList<Versement>();
 	
 	public Utilisateur() {
 		super();
@@ -59,7 +63,7 @@ public class Utilisateur implements Serializable {
 
 	public Utilisateur(Long id, String username,String nom, String prenom, String adresse, String typeId, String numeroId,
 			String naissance,boolean userDelete, String email, String telephone, String password,Role roles,
-			List<Terrain> terrains, List<Reservation> reservations) {
+			List<Terrain> terrains, List<Reservation> reservations,List<Transaction> transactions,List<Versement> versements) {
 		super();
 		this.id = id;
 		this.username = username;
@@ -76,11 +80,13 @@ public class Utilisateur implements Serializable {
 		this.roles = roles;
 		this.terrains = terrains;
 		this.reservations = reservations;
+		this.transactions = transactions;
+		this.versements = versements;
 	}
 
 	public Utilisateur(String username, String prenom,String nom, String adresse, String typeId, String numeroId, String naissance,
 			boolean userDelete,String email, String telephone, String password, Role roles, List<Terrain> terrains,
-			List<Reservation> reservations) {
+			List<Reservation> reservations,List<Transaction> transactions,List<Versement> versements) {
 		super();
 		this.username = username;
 		this.prenom = prenom;
@@ -96,6 +102,8 @@ public class Utilisateur implements Serializable {
 		this.roles = roles;
 		this.terrains = terrains;
 		this.reservations = reservations;
+		this.transactions = transactions;
+		this.versements = versements;
 	}
 
 	public boolean isUserDelete() {
@@ -233,6 +241,22 @@ public class Utilisateur implements Serializable {
 
 	public void setNom(String nom) {
 		this.nom = nom;
+	}
+
+	public List<Transaction> getTransactions() {
+		return transactions;
+	}
+
+	public void setTransactions(List<Transaction> transactions) {
+		this.transactions = transactions;
+	}
+
+	public List<Versement> getVersements() {
+		return versements;
+	}
+
+	public void setVersements(List<Versement> versements) {
+		this.versements = versements;
 	}
 
 	

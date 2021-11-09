@@ -9,6 +9,7 @@ import com.connecsen.oterrain.domaine.ListeHeureReserver;
 import com.connecsen.oterrain.domaine.Match;
 import com.connecsen.oterrain.domaine.Multimedia;
 import com.connecsen.oterrain.domaine.Reservation;
+import com.connecsen.oterrain.domaine.Transaction;
 import com.connecsen.oterrain.domaine.Utilisateur;
 
 import lombok.AllArgsConstructor;
@@ -28,11 +29,13 @@ public class TerrainDtoResponse implements Serializable{
 	private Double prixHeure;
 	private List<Multimedia> multimedias;
 	private Double prixDemiHeure;
+	private String statusTerrain;
 	private Long idUser;
 	private  List<ChoosePeriodicDay> choosePeriodicDays = new ArrayList<ChoosePeriodicDay>();
 	private List<ListeHeureReserver> listeHeureReserver = new ArrayList<ListeHeureReserver>();
 	private List<Match> matchs = new ArrayList<Match>();
 	private List<Reservation> reservations = new ArrayList<Reservation>();
+	private List<Transaction> transactions = new ArrayList<Transaction>();
 	private Utilisateur user;
 		
 }

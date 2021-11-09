@@ -7,6 +7,7 @@ import java.util.List;
 import com.connecsen.oterrain.domaine.Reservation;
 import com.connecsen.oterrain.domaine.Role;
 import com.connecsen.oterrain.domaine.Terrain;
+import com.connecsen.oterrain.domaine.Transaction;
 
 public class UserDtoResponse implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -27,12 +28,12 @@ public class UserDtoResponse implements Serializable{
 	private Role roles ;
 	private List<Terrain> terrains = new ArrayList<Terrain>();
 	private List<Reservation> reservations = new ArrayList<Reservation>();
-	
+	private List<Transaction> transactions = new ArrayList<Transaction>();
 	
 	public UserDtoResponse(Long id, String username, String prenom, String nom, String adresse, String typeId,
 			String numeroId, boolean userDelete, String naissance, String email, String telephone, String monToken,
 			String password, String resetPasswordToken, Role roles, List<Terrain> terrains,
-			List<Reservation> reservations) {
+			List<Reservation> reservations,List<Transaction> transactions) {
 		super();
 		this.id = id;
 		this.username = username;
@@ -51,6 +52,7 @@ public class UserDtoResponse implements Serializable{
 		this.roles = roles;
 		this.terrains = terrains;
 		this.reservations = reservations;
+		this.transactions = transactions;
 	}
 
 
@@ -226,6 +228,16 @@ public class UserDtoResponse implements Serializable{
 
 	public void setReservations(List<Reservation> reservations) {
 		this.reservations = reservations;
+	}
+
+
+	public List<Transaction> getTransactions() {
+		return transactions;
+	}
+
+
+	public void setTransactions(List<Transaction> transactions) {
+		this.transactions = transactions;
 	}
 	
 	

@@ -42,16 +42,20 @@ public class AccountRestController {
 	@Autowired
 	 private UserRepository userRepository;
 	@PostMapping(Utility.DO_REGISTER)
-	public UserDtoResponse register( @RequestBody UserDtoRequest user) {
-		UserDtoResponse userAdd =null;
+	public boolean register( @RequestBody UserDtoRequest user) {
+		boolean reponse =false;
+		String token = Utility.getTokenResetPassword();
 		try {
-			 userAdd =accountService.login_up(user);
+			user.setPassword(token);
+			user.setUsername(user.getEmail());
+			UserDtoResponse userAdd =accountService.login_up(user);
 			logger.info(" new user with role "+userAdd.getRoles().getLibelle() +"created : "+"firstname :"+userAdd.getUsername() +"lastname : "+userAdd.getPrenom());
-			
+			accountService.confirmedMessageAccountCreatedSuccess(new Login(user.getEmail(),token, user.getEmail()));
+			reponse =true;
 		} catch (Exception e) {
 			throw new CreateException();
 		}
-		return userAdd;
+		return reponse;
 	}
 	
 	@PostMapping(Utility.DO_LOGIN)
@@ -73,28 +77,29 @@ public class AccountRestController {
 			accountService.sendMail(mail);
     }
 	@PostMapping(Utility.DO_FORGOT_PASSWORD)
-	public String sendMail(@RequestBody Login login) throws MessagingException {
+	public long sendMail(@RequestBody Login login) throws MessagingException {
 		Utilisateur user =accountService.findUserByUsernameAndEmail(login.getUsername(), login.getEmail());
 		String token = Utility.getTokenResetPassword();
-		String resultat  ="echec";
+		long idUser  =0;
 		if(user != null) {
-			accountService.updateResetPasswordToken(token,user.getEmail());
+			idUser=accountService.updateResetPasswordToken(token,user.getEmail());
 			accountService.sendMailWithAttachments(login,token);
-			resultat ="success";
 		}
-		logger.info("username : "+  user.getUsername()+"email: "+user.getEmail()+" forgot his password and changed with "+resultat);
-        return resultat;
+		logger.info("username : "+  user.getUsername()+"email: "+user.getEmail()+" forgot his password and changed ");
+        return idUser;
     }
 	@PostMapping(Utility.DO_UPDATE_PASSWORD_USER)
-	public String updatePasswordUser(@RequestBody UpdatePasswordUser updatePasswordUser) {
+	public boolean updatePasswordUser(@RequestBody UpdatePasswordUser updatePasswordUser) {
+		boolean reponse = false;
 		try {
-			accountService.updatePasswordUser(updatePasswordUser);
+			 Utilisateur user =accountService.updatePasswordUser(updatePasswordUser);
+			reponse = true;
+			logger.info("username : "+  user.getUsername()+"email: "+user.getEmail()+" update password from "+updatePasswordUser.getOldPassword()+" to  "+updatePasswordUser.getNewPassword());
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-        return "";
+        return reponse;
     }
 	@PostMapping(Utility.DO_UPDATE_PASSWORD)
 	public String updatePassword(HttpServletRequest request) throws MessagingException {

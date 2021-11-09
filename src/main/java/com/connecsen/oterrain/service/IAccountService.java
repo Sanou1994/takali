@@ -36,8 +36,9 @@ public interface IAccountService {
 	  public Utilisateur findUserByUsername(String username);
 	  public Utilisateur findUserByUsernameAndEmail(String username,String email);
 	  public void sendMail(Mail mail);
+      public void confirmedMessageAccountCreatedSuccess(Login login) throws MessagingException;
       public void sendMailWithAttachments(Login login,String resetPasswordId) throws MessagingException;
-      public boolean updateResetPasswordToken(String token, String email);
+      public long updateResetPasswordToken(String token, String email);
       public UserDtoResponse getByResetPasswordToken(String token);
       public void updatePassword(Utilisateur user, String newPassword);
       public Utilisateur updatePasswordUser(UpdatePasswordUser updatePasswordUser ) throws Exception;

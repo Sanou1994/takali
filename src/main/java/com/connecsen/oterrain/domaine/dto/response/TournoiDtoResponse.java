@@ -8,6 +8,7 @@ import java.util.List;
 import com.connecsen.oterrain.domaine.Equipe;
 import com.connecsen.oterrain.domaine.Match;
 import com.connecsen.oterrain.domaine.Multimedia;
+import com.connecsen.oterrain.domaine.Transaction;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -33,4 +34,5 @@ public class TournoiDtoResponse implements Serializable{
 	private Multimedia multimedia ;
 	private List<Match> matchs = new ArrayList<Match>();
 	private List<Equipe> equipes = new ArrayList<Equipe>();
+	private List<Transaction> transactions = new ArrayList<Transaction>();
 }

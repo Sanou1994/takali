@@ -88,20 +88,20 @@ public class AccountService implements IAccountService{
 		} catch (Exception e) {
 			throw new UserNotFoundException(username);
 		}
-		System.out.println(" objet recu "+user.getNom());
 		return userMap ;
 	}
 	@Override
-	public boolean updateResetPasswordToken(String token, String email) {
+	public long updateResetPasswordToken(String token, String email) {
 		Utilisateur user = userRepository.findByEmail(email);
-		boolean userFoundResultat = false;
         if (user != null) {
         	user.setResetPasswordToken(token);
+        	String pwdCryp = bCryptPasswordEncoder.encode(token);
+    		user.setPassword(pwdCryp);
         	userRepository.save(user);
         } else {
            
         }
-		return userFoundResultat;
+		return user.getId();
 	}
 
 	@Override
@@ -156,7 +156,7 @@ public class AccountService implements IAccountService{
 	        String link ="www.google.com";
 	        String content = "<p>Salut,</p>"
 	                + "<p>Vous aviez reçu cet email pour changer votre mot de passe.</p>"
-	                + "<p>Copie ce code : <h3>" + resetPasswordId + "</h3> et insère dans le champ qui va s'afficher après avoir cliquer sur ce lien:</p>"
+	                + "<p>Copie ce code : <h3>" + resetPasswordId + "</h3> et inserer comme ancien mot de passe après avoir cliquer sur ce lien:</p>"
 	                + "<p>Clique sur le lien  a travers le champ en bleu :</p>"
 	                + "<p><a href=\"" + link + "\">Changer mon mot de passe</a></p>"
 	                + "<br>"
@@ -169,7 +169,7 @@ public class AccountService implements IAccountService{
 	       
 	        
 	        helper.setText(content, true);
-	       helper.addAttachment("logo.jpg", new ClassPathResource("logo.jpg"));
+	       helper.addAttachment("terrain.png", new ClassPathResource("terrain.png"));
 
 	        javaMailSender.send(msg);
 	    }
@@ -318,9 +318,40 @@ public class AccountService implements IAccountService{
 		        String encodedPassword = bCryptPasswordEncoder.encode(updatePasswordUser.getNewPassword()); 
 		    	user.setPassword(encodedPassword);
 			}else {
-				throw new Exception("mot de password error ");
+				throw new Exception("your oldpassword error ");
 			}
 	        return userRepository.save(user);
+	}
+	@Override
+	public void confirmedMessageAccountCreatedSuccess(Login login) throws MessagingException {
+		 MimeMessage msg = javaMailSender.createMimeMessage();
+
+	        MimeMessageHelper helper = new MimeMessageHelper(msg, true);
+         String subject = "Confirmation de creation de compte";
+	        String link ="www.o-terrain.com/#/login";
+	        String content = "<p>Salut,</p>"
+	                + "<p>Vous aviez reçu cet email car vous aviez crée un compte sur notre plateforme.</p>"
+	                + "<br>"
+	                + "<p>Pour vous connectez utiliser les identifiants ci-dessous.</p>"
+	                + "<br>" 
+	                + "<p>login : <h3>" +login.getEmail()  + "</h3> </p>"
+	                +"<p>mot de passe : <h3>" + login.getPassword()+ "</h3> </p>"
+	                 + "<br>"
+	                + "<p>Clique sur le lien  a travers le champ en bleu pour accéder à notre plateforme:</p>"
+	                + "<p>Veuillez suivre ce lien <a href=\"" + link + "\"></a></p>"
+	                + "<br>"
+	                + "<p>veuillez ne pas repondre à cet email.</p>";
+	        helper.setTo(login.getEmail());
+
+	        helper.setSubject(subject);
+
+	       
+	        
+	        helper.setText(content, true);
+	       helper.addAttachment("terrain.png", new ClassPathResource("terrain.png"));
+
+	        javaMailSender.send(msg);
+		
 	}
 	
 	
