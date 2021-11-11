@@ -96,21 +96,21 @@ public class OterrainApplication implements CommandLineRunner {
 		 // 	 equipe.getTournois().add(tournoi);
 		 //  equipeRepository.save(equipe);
 	//Tournoi tournoiUpdate=tournoiRepository.save(tournoi);
-	//		RoleDtoResponse admin=iAccountService.createOrUpdateRole(new RoleDtoRequest("ADMIN"));
+		//	RoleDtoResponse admin=iAccountService.createOrUpdateRole(new RoleDtoRequest("ADMIN"));
 		//	RoleDtoResponse proprietaire=iAccountService.createOrUpdateRole(new RoleDtoRequest("PROPRIETAIRE_TERRAIN"));
-	//		RoleDtoResponse visiteur=iAccountService.createOrUpdateRole(new RoleDtoRequest("VISITEUR"));
+		//	RoleDtoResponse visiteur=iAccountService.createOrUpdateRole(new RoleDtoRequest("VISITEUR"));
 		//Role role= roleRepository.findById((long) 1).get();
 		//System.out.println(role.getLibelle());
 	 //Role role= roleRepository.findByLibelle("ADMIN");
-	//RoleDtoResponse roleGot =iAccountService.getRoleById((long) 1);
-	//		Role role =Utility.RoleDtoResponseConvertToRole(roleGot);
+		//RoleDtoResponse roleGot =iAccountService.getRoleById((long) 1);
+		//		Role role =Utility.RoleDtoResponseConvertToRole(roleGot);
 	//	MatchDtoRequest user= new MatchDtoRequest((long) 2, "11", "11", "11", "11", "11", "11", null, null, null, terrain, tournoi);
 		//iMatchService.createOrUpdateMatch(user);
 	//	Terrain terrain = new Terrain("HML", "HML", "HML", "HML", "HML", "HML", "HML", 9, 9, null, null, user);
-	//		UserDtoRequest user= new UserDtoRequest("admin", "admin", "admin", "admin", "admin","MOUSSA", false, "admin","a@a", "admin", "admin", "admin", "admin", role, null, null);
-			//UserDtoRequest user= new UserDtoRequest("proprietaire", "proprietaire", "proprietaire", "proprietaire", "proprietaire","proprietaire", false, "proprietaire","b@b", "proprietaire", "proprietaire", "proprietaire", "proprietaire", role, null, null);
+		//	UserDtoRequest user= new UserDtoRequest("admin", "admin", "admin", "admin", "admin","MOUSSA", false, "admin","a@a", "admin", "admin", "admin", "admin", role, null,null,null, null);
+			//UserDtoRequest user= new UserDtoRequest("proprietaire", "proprietaire", "proprietaire", "proprietaire", "proprietaire","proprietaire", false, "proprietaire","b@b", "proprietaire", "proprietaire", "proprietaire", "proprietaire", role,null,null, null, null);
 
-			//   UserDtoResponse userSave=iAccountService.login_up(user);
+		//   UserDtoResponse userSave=iAccountService.login_up(user);
 	//System.out.println("USER CREER EST :"+tournoiRepository.save(tournoi));
 		
 	}

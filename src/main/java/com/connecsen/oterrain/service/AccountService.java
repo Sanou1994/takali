@@ -38,6 +38,7 @@ import com.connecsen.oterrain.exception.nofoundexception.UserNotFoundException;
 import com.connecsen.oterrain.repository.ListerHeureRepository;
 import com.connecsen.oterrain.repository.RoleRepository;
 import com.connecsen.oterrain.repository.TerrainRepository;
+import com.connecsen.oterrain.repository.UserDoReservationRepository;
 import com.connecsen.oterrain.repository.UserRepository;
 import com.connecsen.oterrain.security.JwtTokenUtil;
 import com.connecsen.oterrain.utils.Utility;
@@ -63,6 +64,8 @@ public class AccountService implements IAccountService{
     private ListerHeureRepository reserverRepository;
     @Autowired
     private RoleRepository roleRepository;
+    @Autowired
+    private UserDoReservationRepository userDoReservationRepository;
     @Autowired
    private  JavaMailSender javaMailSender;
     
@@ -289,8 +292,8 @@ public class AccountService implements IAccountService{
 		userDoReservation.setNom(user.getNom());
 		userDoReservation.setPrenom(user.getPrenom());
 		userDoReservation.setTelephone(user.getTelephone());
-		userDoReservation.setTelephone(user.getTelephone());
-		reservation.setUserDoReservation(userDoReservation);
+		UserDoReservation userDoReservationCreate =userDoReservationRepository.save(userDoReservation);
+		reservation.setUserDoReservation(userDoReservationCreate);
 		Terrain terrain =terrainRepository.findById(idTerrain).get();
 		
 		reservation.setTerrain(terrain);
@@ -308,7 +311,7 @@ public class AccountService implements IAccountService{
 		}
 		terrainRepository.save(terrain);
 		Utilisateur userSave=userRepository.save(user);
-		UserDtoResponse userDtoResponse =Utility.utilisateurConvertToUserDtoResponse(userRepository.save(userSave));
+		UserDtoResponse userDtoResponse =Utility.utilisateurConvertToUserDtoResponse(userSave);
 		return userDtoResponse;
 	}
 	@Override

@@ -34,11 +34,12 @@ public class MatchDtoResponse {
 	private Reservation reservation;
 	private Terrain terrain;
 	private Tournoi tournoi;
-	
+	private String date;
+	private String heure;
 	public MatchDtoResponse(String scoreVisiteur, String scoreVisite, String niveauTournoi, String codeVideoEmded,
 			String annule, boolean status, boolean matchDejaJoue, String repousse, String nomTournoi,
 			Date dateDebutTournoi, Date dateFinTournoi, List<Equipe> equipeVisites, List<Equipe> equipeVisiteurs,
-			Reservation reservation, Terrain terrain, Tournoi tournoi) {
+			Reservation reservation, Terrain terrain, Tournoi tournoi,String date,String heure) {
 		super();
 		this.scoreVisiteur = scoreVisiteur;
 		this.scoreVisite = scoreVisite;
@@ -58,12 +59,14 @@ public class MatchDtoResponse {
 		this.tournoi.setNom(nomTournoi);;
 		this.tournoi.setDateDebut(dateDebutTournoi);
 		this.tournoi.setDateFin(dateFinTournoi);
+		this.date = date;
+		this.heure = heure;
 	}
 	
 	public MatchDtoResponse(Long id, String scoreVisiteur, String scoreVisite, String niveauTournoi,
 			String codeVideoEmded, String annule, boolean status, boolean matchDejaJoue, String repousse,
 			String nomTournoi, Date dateDebutTournoi, Date dateFinTournoi, List<Equipe> equipeVisites,
-			List<Equipe> equipeVisiteurs, Reservation reservation, Terrain terrain, Tournoi tournoi) {
+			List<Equipe> equipeVisiteurs, Reservation reservation, Terrain terrain, Tournoi tournoi,String date,String heure) {
 		super();
 		this.id = id;
 		this.scoreVisiteur = scoreVisiteur;
@@ -84,6 +87,24 @@ public class MatchDtoResponse {
 		this.tournoi.setNom(nomTournoi);;
 		this.tournoi.setDateDebut(dateDebutTournoi);
 		this.tournoi.setDateFin(dateFinTournoi);
+		this.date = date;
+		this.heure = heure;
+	}
+
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
+
+	public String getHeure() {
+		return heure;
+	}
+
+	public void setHeure(String heure) {
+		this.heure = heure;
 	}
 
 	public MatchDtoResponse() {

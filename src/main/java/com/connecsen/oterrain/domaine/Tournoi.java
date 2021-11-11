@@ -32,10 +32,6 @@ public class Tournoi implements Serializable{
 	private String typeTournoi;
 	private String niveau ;
 	private String numero ;
-	private Double prixPartSrl;
-	private Double prixPartSa;
-	private Double prixPartEcole;
-	private Double prixPme;
 	private Date dateDebut;
 	private Date dateFin;
 	private Date dateDebutInscription;
@@ -43,17 +39,20 @@ public class Tournoi implements Serializable{
 	@OneToMany(targetEntity=Transaction.class, mappedBy="tournoi",cascade = { CascadeType.PERSIST, CascadeType.REMOVE})
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Transaction> transactions = new ArrayList<Transaction>();
-	@OneToMany(targetEntity=Match.class,cascade = {CascadeType.PERSIST,CascadeType.MERGE},mappedBy="tournoi")
+	@OneToMany(targetEntity=Match.class,cascade = {CascadeType.PERSIST,CascadeType.REMOVE},mappedBy="tournoi")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Match> matchs = new ArrayList<Match>();
 	@ManyToMany(targetEntity=Equipe.class, cascade = {CascadeType.PERSIST,CascadeType.MERGE} )
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Equipe> equipes = new ArrayList<Equipe>();
-	@OneToOne(targetEntity=Multimedia.class,cascade = {CascadeType.PERSIST,CascadeType.MERGE} )
+	@OneToOne(targetEntity=Multimedia.class,cascade = {CascadeType.PERSIST,CascadeType.REMOVE} )
 	private Multimedia multimedia ;
-	public Tournoi(String nom, String annee, String description,String typeTournoi, String niveau, String numero, Double prixPartSrl,
-			Double prixPartSa, Double prixPartEcole, Double prixPme, Date dateDebutInscription, Date dateFinInscription, Date dateDebut, Date dateFin,List<Transaction> transactions, List<Match> matchs,
-			List<Equipe> equipes, Multimedia multimedia) {
+	@OneToMany(targetEntity=Prix.class,cascade = {CascadeType.PERSIST,CascadeType.REMOVE},mappedBy="tournoi")
+	@LazyCollection(LazyCollectionOption.FALSE)
+	private List<Prix> prix = new ArrayList<Prix>();
+	public Tournoi(String nom, String annee, String description,String typeTournoi, String niveau, String numero,
+			 Date dateDebutInscription, Date dateFinInscription, Date dateDebut, Date dateFin,List<Transaction> transactions, List<Match> matchs,
+			List<Equipe> equipes, Multimedia multimedia,List<Prix> prix) {
 		super();
 		this.nom = nom;
 		this.annee = annee;
@@ -61,10 +60,6 @@ public class Tournoi implements Serializable{
 		this.typeTournoi = typeTournoi;
 		this.niveau = niveau;
 		this.numero = numero;
-		this.prixPartSrl = prixPartSrl;
-		this.prixPartSa = prixPartSa;
-		this.prixPartEcole = prixPartEcole;
-		this.prixPme = prixPme;
 		this.dateDebutInscription = dateDebutInscription;
 		this.dateFinInscription = dateFinInscription;
 		this.dateDebut = dateDebut;
@@ -73,6 +68,8 @@ public class Tournoi implements Serializable{
 		this.matchs = matchs;
 		this.equipes = equipes;
 		this.multimedia = multimedia;
+		this.prix = prix;
+
 	}
 	public Long getId() {
 		return id;
@@ -116,30 +113,7 @@ public class Tournoi implements Serializable{
 	public void setNumero(String numero) {
 		this.numero = numero;
 	}
-	public Double getPrixPartSrl() {
-		return prixPartSrl;
-	}
-	public void setPrixPartSrl(Double prixPartSrl) {
-		this.prixPartSrl = prixPartSrl;
-	}
-	public Double getPrixPartSa() {
-		return prixPartSa;
-	}
-	public void setPrixPartSa(Double prixPartSa) {
-		this.prixPartSa = prixPartSa;
-	}
-	public Double getPrixPartEcole() {
-		return prixPartEcole;
-	}
-	public void setPrixPartEcole(Double prixPartEcole) {
-		this.prixPartEcole = prixPartEcole;
-	}
-	public Double getPrixPme() {
-		return prixPme;
-	}
-	public void setPrixPme(Double prixPme) {
-		this.prixPme = prixPme;
-	}
+	
 	public Date getDateDebut() {
 		return dateDebut;
 	}
@@ -188,5 +162,12 @@ public class Tournoi implements Serializable{
 	public void setTransactions(List<Transaction> transactions) {
 		this.transactions = transactions;
 	}
+	public List<Prix> getPrix() {
+		return prix;
+	}
+	public void setPrix(List<Prix> prix) {
+		this.prix = prix;
+	}
+	
 	
 }

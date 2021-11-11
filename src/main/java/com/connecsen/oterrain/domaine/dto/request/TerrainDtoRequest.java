@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.connecsen.oterrain.domaine.ChoosePeriodicDay;
+import com.connecsen.oterrain.domaine.Indisponibilite;
 import com.connecsen.oterrain.domaine.Match;
 import com.connecsen.oterrain.domaine.Multimedia;
 import com.connecsen.oterrain.domaine.Reservation;
@@ -29,14 +29,14 @@ public class TerrainDtoRequest implements Serializable{
 	private Double prixDemiHeure;
 	private String statusTerrain="public";
 	private Long idUser;
-	private  List<ChoosePeriodicDay> choosePeriodicDays = new ArrayList<ChoosePeriodicDay>();
+	private  Indisponibilite indisponibilite ;
 	private List<Multimedia> multimedias = new ArrayList<Multimedia>();
 	private List<Match> matchs = new ArrayList<Match>();
 	private List<Reservation> reservations = new ArrayList<Reservation>();
 	private List<Transaction> transactions = new ArrayList<Transaction>();
 	private Utilisateur user;
 	public TerrainDtoRequest(String nom, String adresse, String ville, String latitude, String longitude,
-			String disponibilite, String description, Double prixHeure, Double prixDemiHeure,String statusTerrain,Long idUser,List<ChoosePeriodicDay> choosePeriodicDays,List<Multimedia> multimedias,List<Match> matchs,
+			String disponibilite, String description, Double prixHeure, Double prixDemiHeure,String statusTerrain,Long idUser,Indisponibilite indisponibilite,List<Multimedia> multimedias,List<Match> matchs,
 			List<Reservation> reservations,List<Transaction> transactions, Utilisateur user) {
 		super();
 		this.nom = nom;
@@ -50,7 +50,7 @@ public class TerrainDtoRequest implements Serializable{
 		this.prixDemiHeure = prixDemiHeure;
 		this.statusTerrain = statusTerrain;
 		this.idUser = idUser;
-		this.choosePeriodicDays = choosePeriodicDays;
+		this.indisponibilite = indisponibilite;
 		this.multimedias = multimedias;
 		this.matchs = matchs;
 		this.reservations = reservations;

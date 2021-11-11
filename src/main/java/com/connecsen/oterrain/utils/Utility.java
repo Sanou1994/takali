@@ -14,39 +14,48 @@ import com.connecsen.oterrain.domaine.HomeOne;
 import com.connecsen.oterrain.domaine.ListeHeureReserver;
 import com.connecsen.oterrain.domaine.Match;
 import com.connecsen.oterrain.domaine.Multimedia;
+import com.connecsen.oterrain.domaine.Prix;
 import com.connecsen.oterrain.domaine.Propos;
 import com.connecsen.oterrain.domaine.Publicite;
 import com.connecsen.oterrain.domaine.Role;
 import com.connecsen.oterrain.domaine.Service;
 import com.connecsen.oterrain.domaine.Terrain;
 import com.connecsen.oterrain.domaine.Tournoi;
+import com.connecsen.oterrain.domaine.Transaction;
 import com.connecsen.oterrain.domaine.Utilisateur;
+import com.connecsen.oterrain.domaine.Versement;
 import com.connecsen.oterrain.domaine.dto.request.EquipeDtoRequest;
 import com.connecsen.oterrain.domaine.dto.request.FichierDtoRequest;
 import com.connecsen.oterrain.domaine.dto.request.HomeOneDtoRequest;
 import com.connecsen.oterrain.domaine.dto.request.ListeHeureReserverDtoRequest;
 import com.connecsen.oterrain.domaine.dto.request.MatchDtoRequest;
 import com.connecsen.oterrain.domaine.dto.request.MultimediaDtoRequest;
+import com.connecsen.oterrain.domaine.dto.request.PrixDtoRequest;
 import com.connecsen.oterrain.domaine.dto.request.ProposDtoRequest;
 import com.connecsen.oterrain.domaine.dto.request.PubDtoRequest;
 import com.connecsen.oterrain.domaine.dto.request.RoleDtoRequest;
 import com.connecsen.oterrain.domaine.dto.request.ServiceDtoRequest;
 import com.connecsen.oterrain.domaine.dto.request.TerrainDtoRequest;
 import com.connecsen.oterrain.domaine.dto.request.TournoiDtoRequest;
+import com.connecsen.oterrain.domaine.dto.request.TransactionDtoRequest;
 import com.connecsen.oterrain.domaine.dto.request.UserDtoRequest;
+import com.connecsen.oterrain.domaine.dto.request.VersementDtoRequest;
 import com.connecsen.oterrain.domaine.dto.response.EquipeDtoResponse;
 import com.connecsen.oterrain.domaine.dto.response.FichierDtoResponse;
 import com.connecsen.oterrain.domaine.dto.response.HomeOneDtoResponse;
 import com.connecsen.oterrain.domaine.dto.response.ListeHeureReserverDtoResponse;
 import com.connecsen.oterrain.domaine.dto.response.MatchDtoResponse;
 import com.connecsen.oterrain.domaine.dto.response.MultimediaDtoResponse;
+import com.connecsen.oterrain.domaine.dto.response.PrixDtoResponse;
 import com.connecsen.oterrain.domaine.dto.response.ProposDtoResponse;
 import com.connecsen.oterrain.domaine.dto.response.PubDtoResponse;
 import com.connecsen.oterrain.domaine.dto.response.RoleDtoResponse;
 import com.connecsen.oterrain.domaine.dto.response.ServiceDtoResponse;
 import com.connecsen.oterrain.domaine.dto.response.TerrainDtoResponse;
 import com.connecsen.oterrain.domaine.dto.response.TournoiDtoResponse;
+import com.connecsen.oterrain.domaine.dto.response.TransactionDtoResponse;
 import com.connecsen.oterrain.domaine.dto.response.UserDtoResponse;
+import com.connecsen.oterrain.domaine.dto.response.VersementDtoResponse;
 
 import net.bytebuddy.utility.RandomString;
 
@@ -59,12 +68,12 @@ public final class Utility {
 	public static final String NOTREEMAIL = "sanouarouna90@gmail.com";
 	
 	// LES URLS D'ACCESS
-	
-	public static final String ADD_CHOOSEPERIODICDAY_TO_TERRAIN = "/chooseperiodicday/add/terrain/{id}";
-	public static final String UPDATE_CHOOSEPERIODICDAY = "/chooseperiodicday/update";
-	public static final String GET_CHOOSEPERIODICDAY_BY_ID = "/chooseperiodicday/chooseperiodicdays/{id}";
-	public static final String DELETE_CHOOSEPERIODICDAY_BY_ID = "/chooseperiodicday/chooseperiodicdays/delete/{id}";
-	public static final String GET_ALL_CHOOSEPERIODICDAYS = "/chooseperiodicday/chooseperiodicdays";
+	public static final String ADD_INDISPONIBILITE = "/indisponibilite/add";
+	public static final String ADD_INDISPONIBILITE_TO_TERRAIN = "/indisponibilite/add/terrain/{id}";
+	public static final String UPDATE_INDISPONIBILITE = "/indisponibilite/update";
+	public static final String GET_INDISPONIBILITE_BY_ID = "/indisponibilite/indisponibilites/{id}";
+	public static final String DELETE_INDISPONIBILITE_BY_ID = "/indisponibilite/indisponibilites/delete/{id}";
+	public static final String GET_ALL_INDISPONIBILITES = "/indisponibilite/indisponibilites";
 	
 	
 	public static final String ADD_MULTIMEDIA = "/multimedia/add";
@@ -84,6 +93,31 @@ public final class Utility {
 	public static final String GET_PUB_BY_ID = "/acceuil/pub/pubs/{id}";
 	public static final String DELETE_PUB_BY_ID = "/pub/pubs/delete/{id}";
 	public static final String GET_ALL_PUBS = "/acceuil/pub/pubs";
+	
+	public static final String ADD_TRANSACTION = "/transaction/add";
+	public static final String UPDATE_TRANSACTION = "/transaction/update";
+	public static final String GET_TRANSACTION_BY_ID = "/transaction/transactions/{id}";
+	public static final String DELETE_TRANSACTION_BY_ID = "/transaction/transactions/delete/{id}";
+	public static final String GET_ALL_TRANSACTIONS = "/transaction/transactions";
+	public static final String ADD_TRANSACTION_TO_USER_AND_TERRAIN = "/user/add/transaction/user/{idUser}/terrain/{idTerrain}";
+	public static final String ADD_TRANSACTION_TO_USER_AND_TOURNOI = "/user/add/transaction/user/{idUser}/tournoi/{idTournoi}";
+
+	public static final String ADD_PRIX = "/prix/add";
+	public static final String UPDATE_PRIX = "/prix/update";
+	public static final String GET_PRIX_BY_ID = "/prix/prixs/{id}";
+	public static final String DELETE_PRIX_BY_ID = "/prix/prixs/delete/{id}";
+	public static final String GET_ALL_PRIX = "/prix/prixs";
+	public static final String ADD_PRIX_TO_TERRAIN = "/user/add/prix/terrain/{idTerrain}";
+	public static final String ADD_PRIX_TO_TOURNOI = "/user/add/prix/tournoi/{idTournoi}";
+
+	
+	public static final String ADD_VERSEMENT = "/versement/add";
+	public static final String UPDATE_VERSEMENT = "/versement/update";
+	public static final String GET_VERSEMENT_BY_ID = "/versement/versements/{id}";
+	public static final String DELETE_VERSEMENT_BY_ID = "/versement/versements/delete/{id}";
+	public static final String GET_ALL_VERSEMENTS = "/versement/versements";
+	public static final String ADD_VERSEMENT_TO_USER = "/user/add/versement/user/{idUser}";
+
 	
 	public static final String ADD_FICHIER = "/fichier/add";
 	public static final String UPDATE_FICHIER = "/fichier/update";
@@ -212,6 +246,56 @@ public final class Utility {
 		Publicite pub = modelMapper.map(pubDtoRequest,  Publicite.class);
 	    return pub;
 	}
+	
+	//LES MAPPERS DTO A DAO PRIX
+		public static  PrixDtoResponse prixConvertToPrixDtoResponse( Prix  prix) {
+			ModelMapper modelMapper = new ModelMapper(); 
+			PrixDtoResponse prixDtoResponse = new PrixDtoResponse() ;
+		    return (prix != null)? modelMapper.map(prix,PrixDtoResponse.class) : prixDtoResponse;
+		}
+		public static   Prix  prixDtoResponseConvertToPrix( PrixDtoResponse prixDtoResponse) {
+			ModelMapper modelMapper = new ModelMapper(); 
+			Prix prix = modelMapper.map(prixDtoResponse,Prix.class);
+		    return prix;
+		}
+		public static  Prix  prixDtoRequestConvertToPrix(PrixDtoRequest prixDtoRequest)  {
+			ModelMapper modelMapper = new ModelMapper();
+			Prix prix = modelMapper.map(prixDtoRequest,  Prix.class);
+		    return prix;
+		}
+	
+	   //LES MAPPERS DTO A DAO TRANSACTION
+		public static  TransactionDtoResponse transactionConvertToTransactionDtoResponse( Transaction  transaction) {
+			ModelMapper modelMapper = new ModelMapper(); 
+			TransactionDtoResponse transactionDtoResponse = new  TransactionDtoResponse() ;
+		    return (transaction != null)? modelMapper.map(transaction,TransactionDtoResponse.class) : transactionDtoResponse;
+		}
+		public static   Transaction  transactionDtoResponseConvertToTransaction( Transaction transactionDtoResponse) {
+			ModelMapper modelMapper = new ModelMapper(); 
+			Transaction transaction = modelMapper.map(transactionDtoResponse,Transaction.class);
+		    return transaction;
+		}
+		public static  Transaction  transactionDtoRequestConvertToTransaction(TransactionDtoRequest transactionDtoRequest)  {
+			ModelMapper modelMapper = new ModelMapper();
+			Transaction transaction = modelMapper.map(transactionDtoRequest,  Transaction.class);
+		    return transaction;
+		}
+		//LES MAPPERS DTO A DAO VERSEMENT
+				public static  VersementDtoResponse versementConvertToVersementDtoResponse( Versement  versement) {
+					ModelMapper modelMapper = new ModelMapper(); 
+					VersementDtoResponse versementDtoResponse = new VersementDtoResponse() ;
+				    return (versement != null)? modelMapper.map(versement,VersementDtoResponse.class) : versementDtoResponse;
+				}
+				public static   Versement  versementDtoResponseConvertToVersement( Versement versementDtoResponse) {
+					ModelMapper modelMapper = new ModelMapper(); 
+					Versement versement = modelMapper.map(versementDtoResponse,Versement.class);
+				    return versement;
+				}
+				public static  Versement  versementDtoRequestConvertToVersement(VersementDtoRequest versementDtoRequest)  {
+					ModelMapper modelMapper = new ModelMapper();
+					Versement versement = modelMapper.map(versementDtoRequest,  Versement.class);
+				    return versement;
+				}
 	
 			//LES MAPPERS DTO A DAO MULTIMEDIA
 			public static  MultimediaDtoResponse multimediaConvertToMultimediaDtoResponse( Multimedia  multimedia) {

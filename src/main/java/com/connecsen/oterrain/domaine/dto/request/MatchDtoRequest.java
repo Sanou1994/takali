@@ -29,6 +29,8 @@ public class MatchDtoRequest {
 	private Terrain terrain;
 	private Tournoi tournoi;
 	private long idTournoi;
+	private String date;
+	private String heure;
 	public MatchDtoRequest() {
 		super();
 	}
@@ -39,7 +41,7 @@ public class MatchDtoRequest {
 	public MatchDtoRequest(String scoreVisiteur, String scoreVisite, String niveauTournoi, String codeVideoEmded,
 			String annule, boolean status, boolean matchDejaJoue, String repousse, String nomTournoi,
 			Date dateDebutTournoi, Date dateFinTournoi, List<Equipe> equipeVisites, List<Equipe> equipeVisiteurs,
-			Reservation reservation, Terrain terrain, Tournoi tournoi, long idTournoi) {
+			Reservation reservation, Terrain terrain, Tournoi tournoi, long idTournoi,String date,String heure) {
 		super();
 		this.scoreVisiteur = scoreVisiteur;
 		this.scoreVisite = scoreVisite;
@@ -58,6 +60,8 @@ public class MatchDtoRequest {
 		this.terrain = terrain;
 		this.tournoi = tournoi;
 		this.idTournoi = idTournoi;
+		this.date = date;
+		this.heure = heure;
 	}
 
 
@@ -66,7 +70,7 @@ public class MatchDtoRequest {
 	public MatchDtoRequest(Long id, String scoreVisiteur, String scoreVisite, String niveauTournoi,
 			String codeVideoEmded, String annule, boolean status, boolean matchDejaJoue, String repousse,
 			String nomTournoi, Date dateDebutTournoi, Date dateFinTournoi, List<Equipe> equipeVisites,
-			List<Equipe> equipeVisiteurs, Reservation reservation, Terrain terrain, Tournoi tournoi, long idTournoi) {
+			List<Equipe> equipeVisiteurs, Reservation reservation, Terrain terrain, Tournoi tournoi, long idTournoi,String date,String heure) {
 		super();
 		this.id = id;
 		this.scoreVisiteur = scoreVisiteur;
@@ -86,6 +90,36 @@ public class MatchDtoRequest {
 		this.terrain = terrain;
 		this.tournoi = tournoi;
 		this.idTournoi = idTournoi;
+		this.date = date;
+		this.heure = heure;
+	}
+
+
+
+
+	public String getDate() {
+		return date;
+	}
+
+
+
+
+	public void setDate(String date) {
+		this.date = date;
+	}
+
+
+
+
+	public String getHeure() {
+		return heure;
+	}
+
+
+
+
+	public void setHeure(String heure) {
+		this.heure = heure;
 	}
 
 

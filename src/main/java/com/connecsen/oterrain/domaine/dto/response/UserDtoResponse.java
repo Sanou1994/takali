@@ -8,6 +8,7 @@ import com.connecsen.oterrain.domaine.Reservation;
 import com.connecsen.oterrain.domaine.Role;
 import com.connecsen.oterrain.domaine.Terrain;
 import com.connecsen.oterrain.domaine.Transaction;
+import com.connecsen.oterrain.domaine.Versement;
 
 public class UserDtoResponse implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -29,11 +30,13 @@ public class UserDtoResponse implements Serializable{
 	private List<Terrain> terrains = new ArrayList<Terrain>();
 	private List<Reservation> reservations = new ArrayList<Reservation>();
 	private List<Transaction> transactions = new ArrayList<Transaction>();
-	
+	private List<Versement> versements = new ArrayList<Versement>();
+
 	public UserDtoResponse(Long id, String username, String prenom, String nom, String adresse, String typeId,
 			String numeroId, boolean userDelete, String naissance, String email, String telephone, String monToken,
 			String password, String resetPasswordToken, Role roles, List<Terrain> terrains,
-			List<Reservation> reservations,List<Transaction> transactions) {
+			List<Reservation> reservations,List<Transaction> transactions,
+			List<Versement> versements) {
 		super();
 		this.id = id;
 		this.username = username;
@@ -53,6 +56,8 @@ public class UserDtoResponse implements Serializable{
 		this.terrains = terrains;
 		this.reservations = reservations;
 		this.transactions = transactions;
+		this.versements = versements;
+
 	}
 
 
@@ -238,6 +243,16 @@ public class UserDtoResponse implements Serializable{
 
 	public void setTransactions(List<Transaction> transactions) {
 		this.transactions = transactions;
+	}
+
+
+	public List<Versement> getVersements() {
+		return versements;
+	}
+
+
+	public void setVersements(List<Versement> versements) {
+		this.versements = versements;
 	}
 	
 	

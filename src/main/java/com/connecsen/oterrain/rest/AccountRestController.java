@@ -121,18 +121,18 @@ public class AccountRestController {
     }
 
     @PostMapping(Utility.ADD_RESERVATION_TO_USER_AND_TERRAIN)
-	public UserDtoResponse getAddReservationUserAndTerrain( @PathVariable(value = "idTerrain") Long idTerrain, @PathVariable(value = "idUser") Long idUser, @RequestBody Reservation reservationDtoRequest){
-		UserDtoResponse resultatCreation = accountService.addReservationToUserAndTerrain(idUser,idTerrain,reservationDtoRequest);
+	public TerrainDtoResponse getAddReservationUserAndTerrain( @PathVariable(value = "idTerrain") Long idTerrain, @PathVariable(value = "idUser") Long idUser, @RequestBody Reservation reservationDtoRequest){
+		TerrainDtoResponse terrainBefore =terrainService.getTerrainById(idTerrain);
+    	accountService.addReservationToUserAndTerrain(idUser,idTerrain,reservationDtoRequest);
 		UserDtoResponse userGot =accountService.getUserById(idUser);
-		TerrainDtoResponse terrainGot =terrainService.getTerrainById(idTerrain);
-
+		TerrainDtoResponse terrainAfter =terrainService.getTerrainById(idTerrain);
 		String succesResultat ="echec";
-		if(resultatCreation.getReservations().size() !=terrainGot.getReservations().size()) {
+		if(terrainBefore.getReservations().size() !=terrainAfter.getReservations().size()) {
 			succesResultat = "success";
 		}
 		logger.info("username : "+  userGot.getUsername()+"with role : "+userGot.getRoles().getLibelle()+" tried to add reservation on bascket of terrain "+
-				terrainGot.getNom()+" with  "+succesResultat);
-		return resultatCreation ;
+				terrainAfter.getNom()+" with  "+succesResultat);
+		return terrainAfter ;
     }
 
 	@PostMapping(Utility.ADD_RESERVATION_TO_USER)

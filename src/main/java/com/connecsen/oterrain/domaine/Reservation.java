@@ -27,11 +27,11 @@ public class Reservation implements Serializable{
 	private Utilisateur user;
 	@ManyToOne 
 	private Terrain terrain;
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(targetEntity=UserDoReservation.class,cascade = CascadeType.ALL)
 	private UserDoReservation userDoReservation;
 	
 	public Reservation(Long idUserDoReservation,Long idTerrain, String nomTerrain, double montant, double montantTotal, String statePayement,
-			String dateReservation, String heure, Match match, Utilisateur user, Terrain terrain) {
+			String dateReservation, String heure, Match match, Utilisateur user, Terrain terrain, UserDoReservation userDoReservation) {
 		super();
 		this.idTerrain = idTerrain;
 		this.nomTerrain = nomTerrain;
@@ -43,11 +43,12 @@ public class Reservation implements Serializable{
 		this.match = match;
 		this.user = user;
 		this.terrain = terrain;
+		this.userDoReservation = userDoReservation;
 	}
 	
 	public Reservation(Long id,Long idUserDoReservation, Long idTerrain, String nomTerrain, double montant, double montantTotal,
 			String statePayement, String dateReservation, String heure, Match match, Utilisateur user,
-			Terrain terrain) {
+			Terrain terrain, UserDoReservation userDoReservation) {
 		super();
 		this.id = id;
 		this.idTerrain = idTerrain;
@@ -60,6 +61,8 @@ public class Reservation implements Serializable{
 		this.match = match;
 		this.user = user;
 		this.terrain = terrain;
+		this.userDoReservation = userDoReservation;
+
 	}
 
 	public Long getIdTerrain() {
@@ -137,13 +140,7 @@ public class Reservation implements Serializable{
 	}
 
 	public UserDoReservation getUserDoReservation() {
-		UserDoReservation userDoReservation = new UserDoReservation();
-		userDoReservation.setAdresse(user.getAdresse());
-		userDoReservation.setIdUser(user.getId());
-		userDoReservation.setNom(user.getNom());
-		userDoReservation.setPrenom(user.getPrenom());
-		userDoReservation.setTelephone(user.getTelephone());
-		return userDoReservation;
+		return this.userDoReservation;
 	}
 
 	public void setUserDoReservation(UserDoReservation userDoReservation) {

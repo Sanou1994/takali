@@ -64,7 +64,6 @@ private TournoiRepository tournoiRepository;
 		Tournoi tournoi = tournoiRepository.getById(id);
 		Equipe equipe = Utility.equipeDtoRequestConvertToEquipe(equipeDtoRequest);
 		tournoi.getEquipes().add(equipe);
-		tournoi.setMultimedia(equipeDtoRequest.getMultimedia());
 		Tournoi tournoiSave =tournoiRepository.save(tournoi);
 		TournoiDtoResponse tournoiDtoResponse = Utility.tournoiConvertToTournoiDtoResponse(tournoiSave);
 		return tournoiDtoResponse;
