@@ -24,6 +24,7 @@ public class UserDtoResponse implements Serializable{
 	private String email;
 	private String telephone;
 	private String monToken;
+	private String compteBancaire;
 	private String password;
     private String resetPasswordToken;
 	private Role roles ;
@@ -34,7 +35,7 @@ public class UserDtoResponse implements Serializable{
 
 	public UserDtoResponse(Long id, String username, String prenom, String nom, String adresse, String typeId,
 			String numeroId, boolean userDelete, String naissance, String email, String telephone, String monToken,
-			String password, String resetPasswordToken, Role roles, List<Terrain> terrains,
+			String compteBancaire,String password, String resetPasswordToken, Role roles, List<Terrain> terrains,
 			List<Reservation> reservations,List<Transaction> transactions,
 			List<Versement> versements) {
 		super();
@@ -51,6 +52,7 @@ public class UserDtoResponse implements Serializable{
 		this.telephone = telephone;
 		this.monToken = monToken;
 		this.password = password;
+		this.compteBancaire = compteBancaire;
 		this.resetPasswordToken = resetPasswordToken;
 		this.roles = roles;
 		this.terrains = terrains;
@@ -253,6 +255,16 @@ public class UserDtoResponse implements Serializable{
 
 	public void setVersements(List<Versement> versements) {
 		this.versements = versements;
+	}
+
+
+	public String getCompteBancaire() {
+		return compteBancaire;
+	}
+
+
+	public void setCompteBancaire(String compteBancaire) {
+		this.compteBancaire = compteBancaire;
 	}
 	
 	

@@ -40,6 +40,7 @@ public class Utilisateur implements Serializable {
 	@Transient
 	private String monToken;
 	private String password;
+	private String compteBancaire;
 	@Column(name = "reset_password_token")
     private String resetPasswordToken;
 	@ManyToOne 
@@ -62,7 +63,7 @@ public class Utilisateur implements Serializable {
 	}
 
 	public Utilisateur(Long id, String username,String nom, String prenom, String adresse, String typeId, String numeroId,
-			String naissance,boolean userDelete, String email, String telephone, String password,Role roles,
+			String naissance,boolean userDelete, String email, String telephone, String password, String compteBancaire,Role roles,
 			List<Terrain> terrains, List<Reservation> reservations,List<Transaction> transactions,List<Versement> versements) {
 		super();
 		this.id = id;
@@ -76,7 +77,8 @@ public class Utilisateur implements Serializable {
 		this.naissance = naissance;
 		this.email = email;
 		this.telephone = telephone;
-		this.password = password;
+		this.password = password;  
+		this.compteBancaire = compteBancaire;
 		this.roles = roles;
 		this.terrains = terrains;
 		this.reservations = reservations;
@@ -85,7 +87,7 @@ public class Utilisateur implements Serializable {
 	}
 
 	public Utilisateur(String username, String prenom,String nom, String adresse, String typeId, String numeroId, String naissance,
-			boolean userDelete,String email, String telephone, String password, Role roles, List<Terrain> terrains,
+			boolean userDelete,String email, String telephone, String password, String compteBancaire, Role roles, List<Terrain> terrains,
 			List<Reservation> reservations,List<Transaction> transactions,List<Versement> versements) {
 		super();
 		this.username = username;
@@ -99,6 +101,7 @@ public class Utilisateur implements Serializable {
 		this.email = email;
 		this.telephone = telephone;
 		this.password = password;
+		this.compteBancaire = compteBancaire;
 		this.roles = roles;
 		this.terrains = terrains;
 		this.reservations = reservations;
@@ -257,6 +260,14 @@ public class Utilisateur implements Serializable {
 
 	public void setVersements(List<Versement> versements) {
 		this.versements = versements;
+	}
+
+	public String getCompteBancaire() {
+		return compteBancaire;
+	}
+
+	public void setCompteBancaire(String compteBancaire) {
+		this.compteBancaire = compteBancaire;
 	}
 
 	
