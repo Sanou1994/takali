@@ -14,10 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.connecsen.oterrain.domaine.dto.request.PrixDtoRequest;
 import com.connecsen.oterrain.domaine.dto.response.PrixDtoResponse;
 import com.connecsen.oterrain.domaine.dto.response.TerrainDtoResponse;
-import com.connecsen.oterrain.domaine.dto.response.TournoiDtoResponse;
 import com.connecsen.oterrain.service.IPrixService;
 import com.connecsen.oterrain.service.ITerrainService;
-import com.connecsen.oterrain.service.ITournoiService;
 import com.connecsen.oterrain.utils.Utility;
 @RestController
 public class PrixRestController {
@@ -26,8 +24,6 @@ public class PrixRestController {
 	private IPrixService iPrixService;
 	@Autowired
 	private ITerrainService terrainService;
-	@Autowired
-	private ITournoiService tournoiService;
 	
 	@PostMapping(Utility.ADD_PRIX)
 	public PrixDtoResponse ajouterPrix( @RequestBody PrixDtoRequest versement) {
@@ -60,19 +56,6 @@ public class PrixRestController {
 				succesResultat = "success";
 			}
 	logger.info(" we add the price : "+ prixDtoRequest.getValeur()+" of the terrain :" +terrainBefore.getNom()+" with : "+succesResultat);
-			return resultatVersement ;
-	    }
-	 
-	 @PostMapping(Utility.ADD_PRIX_TO_TOURNOI)
-		public PrixDtoResponse getAddPrixToTournoi( @PathVariable(value = "idTournoi") Long idTournoi, @RequestBody PrixDtoRequest prixDtoRequest){
-		 TournoiDtoResponse tournoiBefore =tournoiService.getTournoiById(idTournoi);
-		 PrixDtoResponse resultatVersement = iPrixService.addPrixToTournoi(idTournoi,prixDtoRequest);
-		 TournoiDtoResponse tournoiGot =tournoiService.getTournoiById(idTournoi);
-		String succesResultat ="echec";
-			if(tournoiBefore.getPrix().size() !=tournoiGot.getPrix().size()) {
-				succesResultat = "success";
-			}
-	logger.info(" we add the price : "+ prixDtoRequest.getValeur()+" of the tournoi :" +tournoiBefore.getNom()+" with : "+succesResultat);
 			return resultatVersement ;
 	    }
 	 

@@ -108,7 +108,7 @@ public class TransactionService implements ITransactionService{
 	@Override
 	public TransactionDtoResponse updateTransaction(UpdateTransactionObjet updateTransactionObjet) {
 		Transaction transaction =transactionRepository.findById(updateTransactionObjet.getId()).get();
-		transaction.setStatus(updateTransactionObjet.isStatus());
+		transaction.setStatus(updateTransactionObjet.getStatus());
 		TransactionDtoResponse tournoiDtoResponse = Utility.transactionConvertToTransactionDtoResponse(transactionRepository.save(transaction));
 		return tournoiDtoResponse;
 	}

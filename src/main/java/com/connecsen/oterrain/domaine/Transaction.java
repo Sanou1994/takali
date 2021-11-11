@@ -17,17 +17,17 @@ public class Transaction implements Serializable{
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private Date date=new Date();
-	private long order_number;
+	private String order_number;
 	private double montant;
 	private String typeTransaction;
-	private boolean status;
+	private String status;
 	@ManyToOne
 	private Terrain terrain;
 	@ManyToOne
 	private Tournoi tournoi;
 	@ManyToOne
 	private Utilisateur user;
-	public Transaction(Date date, long order_number, double montant, String typeTransaction, boolean status,
+	public Transaction(Date date, String order_number, double montant, String typeTransaction, String status,
 			Terrain terrain, Tournoi tournoi, Utilisateur user) {
 		super();
 		this.date = date;
@@ -51,10 +51,10 @@ public class Transaction implements Serializable{
 	public void setDate(Date date) {
 		this.date = date;
 	}
-	public long getOrder_number() {
+	public String getOrder_number() {
 		return order_number;
 	}
-	public void setOrder_number(long order_number) {
+	public void setOrder_number(String order_number) {
 		this.order_number = order_number;
 	}
 	public double getMontant() {
@@ -69,10 +69,10 @@ public class Transaction implements Serializable{
 	public void setTypeTransaction(String typeTransaction) {
 		this.typeTransaction = typeTransaction;
 	}
-	public boolean isStatus() {
+	public String isStatus() {
 		return status;
 	}
-	public void setStatus(boolean status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 	

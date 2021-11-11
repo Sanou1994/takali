@@ -33,6 +33,10 @@ public class Tournoi implements Serializable{
 	private String niveau ;
 	private String numero ;
 	private Date dateDebut;
+	private Double prixPartSrl;
+	private Double prixPartSa;
+	private Double prixPartEcole;
+	private Double prixPme;
 	private Date dateFin;
 	private Date dateDebutInscription;
 	private Date dateFinInscription;
@@ -47,12 +51,9 @@ public class Tournoi implements Serializable{
 	private List<Equipe> equipes = new ArrayList<Equipe>();
 	@OneToOne(targetEntity=Multimedia.class,cascade = {CascadeType.PERSIST,CascadeType.REMOVE} )
 	private Multimedia multimedia ;
-	@OneToMany(targetEntity=Prix.class,cascade = {CascadeType.PERSIST,CascadeType.REMOVE},mappedBy="tournoi")
-	@LazyCollection(LazyCollectionOption.FALSE)
-	private List<Prix> prix = new ArrayList<Prix>();
-	public Tournoi(String nom, String annee, String description,String typeTournoi, String niveau, String numero,
-			 Date dateDebutInscription, Date dateFinInscription, Date dateDebut, Date dateFin,List<Transaction> transactions, List<Match> matchs,
-			List<Equipe> equipes, Multimedia multimedia,List<Prix> prix) {
+	public Tournoi(String nom, String annee, String description,String typeTournoi, String niveau, String numero, Double prixPartSrl,
+			Double prixPartSa, Double prixPartEcole, Double prixPme, Date dateDebutInscription, Date dateFinInscription, Date dateDebut, Date dateFin, List<Match> matchs,
+			List<Equipe> equipes, Multimedia multimedia) {
 		super();
 		this.nom = nom;
 		this.annee = annee;
@@ -60,16 +61,17 @@ public class Tournoi implements Serializable{
 		this.typeTournoi = typeTournoi;
 		this.niveau = niveau;
 		this.numero = numero;
+		this.prixPartSrl = prixPartSrl;
+		this.prixPartSa = prixPartSa;
+		this.prixPartEcole = prixPartEcole;
+		this.prixPme = prixPme;
 		this.dateDebutInscription = dateDebutInscription;
 		this.dateFinInscription = dateFinInscription;
 		this.dateDebut = dateDebut;
 		this.dateFin = dateFin;
-		this.transactions = transactions;
 		this.matchs = matchs;
 		this.equipes = equipes;
 		this.multimedia = multimedia;
-		this.prix = prix;
-
 	}
 	public Long getId() {
 		return id;
@@ -162,12 +164,31 @@ public class Tournoi implements Serializable{
 	public void setTransactions(List<Transaction> transactions) {
 		this.transactions = transactions;
 	}
-	public List<Prix> getPrix() {
-		return prix;
+	public Double getPrixPartSrl() {
+		return prixPartSrl;
 	}
-	public void setPrix(List<Prix> prix) {
-		this.prix = prix;
+	public void setPrixPartSrl(Double prixPartSrl) {
+		this.prixPartSrl = prixPartSrl;
 	}
+	public Double getPrixPartSa() {
+		return prixPartSa;
+	}
+	public void setPrixPartSa(Double prixPartSa) {
+		this.prixPartSa = prixPartSa;
+	}
+	public Double getPrixPartEcole() {
+		return prixPartEcole;
+	}
+	public void setPrixPartEcole(Double prixPartEcole) {
+		this.prixPartEcole = prixPartEcole;
+	}
+	public Double getPrixPme() {
+		return prixPme;
+	}
+	public void setPrixPme(Double prixPme) {
+		this.prixPme = prixPme;
+	}
+	
 	
 	
 }

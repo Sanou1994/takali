@@ -42,7 +42,18 @@ public class AccountRestController {
 	@Autowired
 	 private UserRepository userRepository;
 	@PostMapping(Utility.DO_REGISTER)
-	public boolean register( @RequestBody UserDtoRequest user) {
+	public UserDtoResponse register( @RequestBody UserDtoRequest user) {
+		UserDtoResponse userAdd =null;
+		try {
+			userAdd =accountService.login_up(user);
+			logger.info(" new user with role "+userAdd.getRoles().getLibelle() +"created : "+"firstname :"+userAdd.getUsername() +"lastname : "+userAdd.getPrenom());
+		} catch (Exception e) {
+			throw new CreateException();
+		}
+		return userAdd;
+	}
+	@PostMapping(Utility.DO_REGISTER_BY_ADMIN)
+	public boolean registerByAmdin( @RequestBody UserDtoRequest user) {
 		boolean reponse =false;
 		String token = Utility.getTokenResetPassword();
 		try {

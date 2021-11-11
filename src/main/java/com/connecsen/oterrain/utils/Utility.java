@@ -108,7 +108,6 @@ public final class Utility {
 	public static final String DELETE_PRIX_BY_ID = "/prix/prixs/delete/{id}";
 	public static final String GET_ALL_PRIX = "/prix/prixs";
 	public static final String ADD_PRIX_TO_TERRAIN = "/user/add/prix/terrain/{idTerrain}";
-	public static final String ADD_PRIX_TO_TOURNOI = "/user/add/prix/tournoi/{idTournoi}";
 
 	
 	public static final String ADD_VERSEMENT = "/versement/add";
@@ -192,6 +191,7 @@ public final class Utility {
 	
 	public static final String DO_CONTACTED = "/acceuil/user/contacter";
 	public static final String DO_REGISTER = "/user/register";
+	public static final String DO_REGISTER_BY_ADMIN = "/user/register/admin";
 	public static final String DO_LOGIN = "/user/login";
 	public static final String DO_FORGOT_PASSWORD = "/user/forgot";
 	public static final String DO_UPDATE_PASSWORD = "/user/updatePassword";

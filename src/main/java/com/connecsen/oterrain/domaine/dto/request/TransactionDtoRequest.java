@@ -9,11 +9,11 @@ import lombok.NoArgsConstructor;
 public class TransactionDtoRequest {
 	private Long id;
 	private Date date =new Date() ;
-	private long order_number;
+	private String order_number;
 	private double montant;
 	private String typeTransaction;
-	private boolean status;
-	public TransactionDtoRequest(Date date, long order_number, double montant, String typeTransaction, boolean status) {
+	private String status;
+	public TransactionDtoRequest(Date date, String order_number, double montant, String typeTransaction, String status) {
 		super();
 		this.date = date;
 		this.order_number = order_number;

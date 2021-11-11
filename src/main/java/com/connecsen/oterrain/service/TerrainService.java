@@ -8,7 +8,6 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
-import com.connecsen.oterrain.domaine.Indisponibilite;
 import com.connecsen.oterrain.domaine.Reservation;
 import com.connecsen.oterrain.domaine.Reserver;
 import com.connecsen.oterrain.domaine.Terrain;
@@ -88,103 +87,31 @@ public class TerrainService implements ITerrainService {
 
 	@Override
 	public List<String> getHoursBusyByTerrainAndMonthAndDay(Reserver reserver) {
-		List<String> heures= new ArrayList<String>();
-		boolean testHeure =false;
+ArrayList<String> heures = new ArrayList<String>();
+		
 		Terrain terrain = terrainRepository.findById(reserver.getIdTerrain()).get();
-		Indisponibilite indisponibilite = terrain.getIndisponibilite();
 		String[]  date =reserver.getDate().split("/");
 		
-		if(indisponibilite != null) {
-			String[]  heurePrecises =indisponibilite.getDatePrecise().split("/");
-			/*indisponibilite.getDays()!= null
-			 * indisponibilite.getHeures()!= null
-			 * indisponibilite.getDatePrecise()!= null
-			 * ###################################################################################*/
-			if((indisponibilite.getDays()!= null)&&(indisponibilite.getHeures()!= null)
-					&&(indisponibilite.getDatePrecise()!= null)){
-				
-			for (int i = 0; i < indisponibilite.getDays().size(); i++) {
-								
-								if(indisponibilite.getDays().get(i) == Integer.parseInt(date[0])) {
-									 testHeure =true;
-								}
-							}
-						
-
-			if((!testHeure)&&(heurePrecises[0]==date[1])
-					&&(heurePrecises[1]==date[2])
-					&&(heurePrecises[2]==date[3])
-					) {
-						heures=indisponibilite.getHeures();
-						
-						for (int i = 0; i < indisponibilite.getHeurePrecises().size(); i++) {
-							
-							heures.add(indisponibilite.getHeurePrecises().get(i));
-						}
-							
-			}else if((!testHeure)&&((heurePrecises[0]!=date[1])
-					|| (heurePrecises[1]!=date[2])
-					|| (heurePrecises[2]!=date[3])
-					)) {
-						heures=indisponibilite.getHeures();
-							
-			}
-			
-			
-			}
-			
-			/*indisponibilite.getDays()== null
-			 * indisponibilite.getHeures()!= null
-			 * indisponibilite.getDatePrecise()!= null
-			*###################################################################################*/
-			
-			if((indisponibilite.getDays()== null)&&(indisponibilite.getHeures()!= null)
-			         &&(indisponibilite.getHeurePrecises() != null) &&(indisponibilite.getDatePrecise()!= null)){
-				
-			
-			
-			
-			
-			}
-			
-			/*###################################################################################*/
-			if((indisponibilite.getDays()!= null)&&(indisponibilite.getHeures()!= null)
-					&&(indisponibilite.getHeurePrecises() != null) &&(indisponibilite.getDatePrecise()!= null)){
-				
-			}
-			
-			/*###################################################################################*/
-			if((indisponibilite.getDays()!= null)&&(indisponibilite.getHeures()!= null)
-					&&(indisponibilite.getHeurePrecises() != null) &&(indisponibilite.getDatePrecise()!= null)){
-				
-			}
-			
-			/*###################################################################################*/
-			if((indisponibilite.getDays()!= null)&&(indisponibilite.getHeures()!= null)
-					&&(indisponibilite.getHeurePrecises() != null) &&(indisponibilite.getDatePrecise()!= null)){
-				
-			}
-			
-			/*###################################################################################*/
-			if((indisponibilite.getDays()!= null)&&(indisponibilite.getHeures()!= null)
-					&&(indisponibilite.getHeurePrecises() != null) &&(indisponibilite.getDatePrecise()!= null)){
-				
-			}
-			
-			
-				
-	} 
+		
+		/*
+		 * terrain.getChoosePeriodicDays().forEach( res ->{
+		 * 
+		 * if((Utility.getMonthNumber(res.getDateDebut()) <=
+		 * Long.parseLong(date[2]))&&(Utility.getMonthNumber(res.getDateFin())>=Long.
+		 * parseLong(date[2]))) { if(Long.parseLong(date[0]) ==
+		 * Utility.getDayChoosed().get(res.getDays())) { String[] tab
+		 * =res.getHeure().split(","); for (int i = 0; i < tab.length; i++) {
+		 * 
+		 * heures.add(tab[i]); } } } });
+		 */
+		terrain.getListeHeureReserver().forEach(
+				res ->{
+					if((res.getNumeroMois()==Long.parseLong(date[2]))&&(res.getNumeroJour()==Long.parseLong(date[1]))) {
+						heures.add(res.getHeure());
+					}
+				});
 		
 		
-       for (int i = 0; i < terrain.getListeHeureReserver().size(); i++) {
-			
-    	   if((terrain.getListeHeureReserver().get(i).getNumeroMois()==Long.parseLong(date[2]))
-    			   &&(terrain.getListeHeureReserver().get(i).getNumeroJour()==Long.parseLong(date[1]))) {
-				heures.add(terrain.getListeHeureReserver().get(i).getHeure());
-			}
-		}
-		
-
 		return heures;
 	}
 

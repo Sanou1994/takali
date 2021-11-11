@@ -1,9 +1,5 @@
 package com.connecsen.oterrain.domaine;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,22 +12,14 @@ import lombok.NoArgsConstructor;
 public class Indisponibilite {
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	@ElementCollection(targetClass=Integer.class)
-	private List<Integer>days=new ArrayList<Integer>();
-	@ElementCollection(targetClass=String.class)
-	private List<String> heures=new ArrayList<String>();
-	@ElementCollection(targetClass=String.class)
-	private List<String> heurePrecises=new ArrayList<String>();
-	private String datePrecise;
+	private String day;
+	private String heure;
     @OneToOne(targetEntity=Terrain.class, mappedBy="indisponibilite")
     private Terrain terrain;
-	public Indisponibilite( List<Integer> days, List<String> heures,
-			List<String> heurePrecises, String datePrecise, Terrain terrain) {
+	public Indisponibilite(String day, String heure, Terrain terrain) {
 		super();
-		this.days = days;
-		this.heures = heures;
-		this.heurePrecises = heurePrecises;
-		this.datePrecise = datePrecise;
+		this.day = day;
+		this.heure = heure;
 		this.terrain = terrain;
 	}
 	public long getId() {
@@ -40,37 +28,21 @@ public class Indisponibilite {
 	public void setId(long id) {
 		this.id = id;
 	}
-	public List<Integer> getDays() {
-		return days;
+	public String getDay() {
+		return day;
 	}
-	public void setDays(List<Integer> days) {
-		this.days = days;
+	public void setDay(String day) {
+		this.day = day;
 	}
-	public List<String> getHeures() {
-		return heures;
+	public String getHeure() {
+		return heure;
 	}
-	public void setHeures(List<String> heures) {
-		this.heures = heures;
+	public void setHeure(String heure) {
+		this.heure = heure;
 	}
-	public List<String> getHeurePrecises() {
-		return heurePrecises;
-	}
-	public void setHeurePrecises(List<String> heurePrecises) {
-		this.heurePrecises = heurePrecises;
-	}
-	public String getDatePrecise() {
-		return datePrecise;
-	}
-	public void setDatePrecise(String datePrecise) {
-		this.datePrecise = datePrecise;
-	}
-	
 	public void setTerrain(Terrain terrain) {
 		this.terrain = terrain;
 	}
-    
-   
-	
 	
     
 }

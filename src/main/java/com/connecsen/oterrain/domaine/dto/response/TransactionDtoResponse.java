@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 public class TransactionDtoResponse {
 	private Long id;
 	private Date date;
-	private long order_number;
+	private String order_number;
 	private double montant;
 	private String typeTransaction;
-	private boolean status;
+	private String status;
 }

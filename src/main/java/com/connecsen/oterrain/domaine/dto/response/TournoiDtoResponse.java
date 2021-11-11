@@ -8,7 +8,6 @@ import java.util.List;
 import com.connecsen.oterrain.domaine.Equipe;
 import com.connecsen.oterrain.domaine.Match;
 import com.connecsen.oterrain.domaine.Multimedia;
-import com.connecsen.oterrain.domaine.Prix;
 import com.connecsen.oterrain.domaine.Transaction;
 
 import lombok.AllArgsConstructor;
@@ -23,6 +22,10 @@ public class TournoiDtoResponse implements Serializable{
 	private String description;
 	private String typeTournoi;
 	private String niveau;
+	private Double prixPartSrl;
+	private Double prixPartSa;
+	private Double prixPartEcole;
+	private Double prixPme;
 	private Date dateDebut;
 	private Date dateFin;
 	private Date dateDebutInscription;
@@ -32,5 +35,4 @@ public class TournoiDtoResponse implements Serializable{
 	private List<Match> matchs = new ArrayList<Match>();
 	private List<Equipe> equipes = new ArrayList<Equipe>();
 	private List<Transaction> transactions = new ArrayList<Transaction>();
-	private List<Prix> prix = new ArrayList<Prix>();
 }

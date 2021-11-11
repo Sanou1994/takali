@@ -12,6 +12,5 @@ public interface IPrixService {
 	  public List<PrixDtoResponse> getAllPrix();
 	  public boolean deletePrix(Long id);
 	  public PrixDtoResponse addPrixToTerrain( long idTerrain,PrixDtoRequest prix);
-	  public PrixDtoResponse addPrixToTournoi( long idTournoi,PrixDtoRequest prix);
 
 }

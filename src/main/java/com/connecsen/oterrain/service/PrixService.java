@@ -8,19 +8,15 @@ import org.springframework.stereotype.Service;
 
 import com.connecsen.oterrain.domaine.Prix;
 import com.connecsen.oterrain.domaine.Terrain;
-import com.connecsen.oterrain.domaine.Tournoi;
 import com.connecsen.oterrain.domaine.dto.request.PrixDtoRequest;
 import com.connecsen.oterrain.domaine.dto.response.PrixDtoResponse;
 import com.connecsen.oterrain.repository.PrixRepository;
 import com.connecsen.oterrain.repository.TerrainRepository;
-import com.connecsen.oterrain.repository.TournoiRepository;
 import com.connecsen.oterrain.utils.Utility;
 @Service
 public class PrixService implements IPrixService{
 	@Autowired
 	private TerrainRepository terrainRepository;
-	@Autowired
-	private TournoiRepository tournoiRepository;
 	@Autowired
 	private PrixRepository prixRepository;
 	
@@ -71,19 +67,5 @@ public class PrixService implements IPrixService{
 		PrixDtoResponse prixDtoResponse = Utility. prixConvertToPrixDtoResponse( prixGot);
 		return  prixDtoResponse;
 	}
-
-	@Override
-	public PrixDtoResponse addPrixToTournoi(long idTournoi,
-			PrixDtoRequest prixDtoRequest) {
-		Prix prix = Utility.prixDtoRequestConvertToPrix(prixDtoRequest);
-		Tournoi tournoi =tournoiRepository.findById(idTournoi).get();
-		prix.setTournoi(tournoi);
-		Prix prixGot = prixRepository.save(prix);
-		tournoi.getPrix().add(prixGot);
-		tournoiRepository.save(tournoi);
-		PrixDtoResponse prixDtoResponse = Utility. prixConvertToPrixDtoResponse( prixGot);
-		return  prixDtoResponse;
-	}
-
 
 }
