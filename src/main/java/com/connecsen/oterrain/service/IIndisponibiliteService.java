@@ -7,7 +7,8 @@ import com.connecsen.oterrain.domaine.Terrain;
 
 public interface IIndisponibiliteService {
 	//GESTION ChoosePeriodicDay
-	  public Indisponibilite createOrUpdateIndisponibilite( Indisponibilite choosePeriodicDay);
+	  public Indisponibilite createIndisponibilite( Indisponibilite choosePeriodicDay);
+	  public Indisponibilite updateIndisponibilite( Indisponibilite choosePeriodicDay);
 	  public  Indisponibilite getIndisponibiliteById(Long id);
 	  public List<Indisponibilite> getAllIndisponibilites();
 	  public void deleteIndisponibiliteDay(Long id); 

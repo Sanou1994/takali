@@ -19,9 +19,15 @@ public class IndisponibiliteRestController {
 	private IIndisponibiliteService iIndisponibiliteService;
 	@PostMapping(Utility.ADD_INDISPONIBILITE)
 	public Indisponibilite ajouterIndisponibilite( @RequestBody Indisponibilite choosePeriodicDay) {
-		Indisponibilite indisponibilite =iIndisponibiliteService.createOrUpdateIndisponibilite(choosePeriodicDay);
+		Indisponibilite indisponibilite =iIndisponibiliteService.createIndisponibilite(choosePeriodicDay);
 		return indisponibilite;
 	}
+	@PostMapping(Utility.UPDATE_INDISPONIBILITE)
+	public Indisponibilite modifierIndisponibilite( @RequestBody Indisponibilite choosePeriodicDay) {
+		Indisponibilite indisponibilite =iIndisponibiliteService.updateIndisponibilite(choosePeriodicDay);
+		return indisponibilite;
+	}
+	
 	@PostMapping(Utility.ADD_INDISPONIBILITE_TO_TERRAIN)
 	public Terrain ajouterIndisponibiliteTerrain(@PathVariable(value ="id") Long idTerrain, @RequestBody Indisponibilite choosePeriodicDay) {
 		Terrain terrain =iIndisponibiliteService.addIndisponibiliteToTerrain(idTerrain, choosePeriodicDay);

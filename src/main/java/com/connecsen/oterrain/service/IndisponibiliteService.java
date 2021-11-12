@@ -21,7 +21,7 @@ public class IndisponibiliteService implements IIndisponibiliteService{
 	}
 
 	@Override
-	public Indisponibilite createOrUpdateIndisponibilite(Indisponibilite choosePeriodicDay) {
+	public Indisponibilite createIndisponibilite(Indisponibilite choosePeriodicDay) {
 		// TODO Auto-generated method stub
 		return choosePeriodicDayRepository.save(choosePeriodicDay);
 	}
@@ -52,6 +52,27 @@ public class IndisponibiliteService implements IIndisponibiliteService{
 		terrain.setIndisponibilite(save);
 		Terrain terrainSave =terrainRepository.save(terrain);
 		return terrainSave;
+	}
+
+	@Override
+	public Indisponibilite updateIndisponibilite(Indisponibilite choosePeriodicDay) {
+		Indisponibilite save =null;
+		if(choosePeriodicDay != null) {
+			   if((choosePeriodicDay.getDay() !=null)&&(choosePeriodicDay.getHeure() !=null)){
+				  save =choosePeriodicDayRepository.save(choosePeriodicDay);
+				   
+			   }else if((choosePeriodicDay.getDay() !=null)&&(choosePeriodicDay.getHeure() ==null)){
+				   Indisponibilite saveGot = choosePeriodicDayRepository.findById(choosePeriodicDay.getId()).get();
+				   saveGot.setDay(choosePeriodicDay.getDay());
+				   save =choosePeriodicDayRepository.save(choosePeriodicDay);
+			   }else if((choosePeriodicDay.getDay() ==null)&&(choosePeriodicDay.getHeure() !=null)){
+				   Indisponibilite saveGot = choosePeriodicDayRepository.findById(choosePeriodicDay.getId()).get();
+				   saveGot.setHeure(choosePeriodicDay.getHeure());
+				   save =choosePeriodicDayRepository.save(choosePeriodicDay);
+			   } 
+		}
+		
+		return save;
 	}
 
 
