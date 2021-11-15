@@ -1,8 +1,6 @@
 package com.connecsen.oterrain;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -12,21 +10,13 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import com.connecsen.oterrain.domaine.Role;
-import com.connecsen.oterrain.domaine.dto.request.RoleDtoRequest;
-import com.connecsen.oterrain.domaine.dto.request.UserDtoRequest;
-import com.connecsen.oterrain.domaine.dto.response.RoleDtoResponse;
-import com.connecsen.oterrain.domaine.dto.response.UserDtoResponse;
 import com.connecsen.oterrain.repository.RoleRepository;
 import com.connecsen.oterrain.repository.UserRepository;
 import com.connecsen.oterrain.service.IAccountService;
 import com.connecsen.oterrain.service.IMatchService;
 import com.connecsen.oterrain.utils.Utility;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 
 @SpringBootApplication
 public class OterrainApplication implements CommandLineRunner {
@@ -78,7 +68,7 @@ public class OterrainApplication implements CommandLineRunner {
 		System.out.println("date complet vendredi :"+Calendar.FRIDAY);
 		System.out.println("date complet samedi :"+Calendar.SATURDAY);
 		System.out.println("date complet dimanche :"+Calendar.SUNDAY);
-
+        System.out.println("debut");
 //		System.out.println(Long.valueOf(calendar.get(Calendar.MONTH)+Long.valueOf("1")));
 //		System.out.println("jour :"+Long.valueOf(calendar.get(Calendar.DAY_OF_MONTH)));
 //		System.out.println("year :"+calendar.get(Calendar.YEAR));
@@ -96,23 +86,23 @@ public class OterrainApplication implements CommandLineRunner {
 		 // 	 equipe.getTournois().add(tournoi);
 		 //  equipeRepository.save(equipe);
 	//Tournoi tournoiUpdate=tournoiRepository.save(tournoi);
-		//	RoleDtoResponse admin=iAccountService.createOrUpdateRole(new RoleDtoRequest("ADMIN"));
-		//	RoleDtoResponse proprietaire=iAccountService.createOrUpdateRole(new RoleDtoRequest("PROPRIETAIRE_TERRAIN"));
-		//	RoleDtoResponse visiteur=iAccountService.createOrUpdateRole(new RoleDtoRequest("VISITEUR"));
+        //	RoleDtoResponse admin=iAccountService.createOrUpdateRole(new RoleDtoRequest("ADMIN"));
+        //	RoleDtoResponse proprietaire=iAccountService.createOrUpdateRole(new RoleDtoRequest("PROPRIETAIRE_TERRAIN"));
+        //	RoleDtoResponse visiteur=iAccountService.createOrUpdateRole(new RoleDtoRequest("VISITEUR"));
 		//Role role= roleRepository.findById((long) 1).get();
 		//System.out.println(role.getLibelle());
 	 //Role role= roleRepository.findByLibelle("ADMIN");
-		//RoleDtoResponse roleGot =iAccountService.getRoleById((long) 1);
-		//		Role role =Utility.RoleDtoResponseConvertToRole(roleGot);
+        //RoleDtoResponse roleGot =iAccountService.getRoleById((long) 1);
+        //	Role role =Utility.RoleDtoResponseConvertToRole(roleGot);
 	//	MatchDtoRequest user= new MatchDtoRequest((long) 2, "11", "11", "11", "11", "11", "11", null, null, null, terrain, tournoi);
 		//iMatchService.createOrUpdateMatch(user);
 	//	Terrain terrain = new Terrain("HML", "HML", "HML", "HML", "HML", "HML", "HML", 9, 9, null, null, user);
-		//	UserDtoRequest user= new UserDtoRequest("admin", "admin", "admin", "admin", "admin","MOUSSA", false, "admin","a@a", "admin", "admin", "admin", "admin", role, null,null,null, null);
+        //	UserDtoRequest user= new UserDtoRequest("admin", "admin", "admin", "admin", "admin","MOUSSA", false, "admin","a@a", "admin", "admin", "admin", "admin","AAA5555", role, null,null,null, null);
 			//UserDtoRequest user= new UserDtoRequest("proprietaire", "proprietaire", "proprietaire", "proprietaire", "proprietaire","proprietaire", false, "proprietaire","b@b", "proprietaire", "proprietaire", "proprietaire", "proprietaire", role,null,null, null, null);
 
-		//   UserDtoResponse userSave=iAccountService.login_up(user);
+        //  UserDtoResponse userSave=iAccountService.login_up(user);
 	//System.out.println("USER CREER EST :"+tournoiRepository.save(tournoi));
-		
+        //  System.out.println("fin");
 	}
 	
 }

@@ -8,7 +8,6 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
-import com.connecsen.oterrain.domaine.Indisponibilite;
 import com.connecsen.oterrain.domaine.Reservation;
 import com.connecsen.oterrain.domaine.Reserver;
 import com.connecsen.oterrain.domaine.Terrain;
@@ -92,76 +91,14 @@ public class TerrainService implements ITerrainService {
 			
 			Terrain terrain = terrainRepository.findById(reserver.getIdTerrain()).get();
 			String[]  date =reserver.getDate().split("/");
-			if(terrain.getIndisponibilite()!=null) {
-				Indisponibilite Disponibilite =terrain.getIndisponibilite();
-				if((Disponibilite.getDay() !=null)) {
-					String[]  day =Disponibilite.getDay().split(",");
-					boolean resultat = false;
-					// tester jour
-					for (int i = 0; i < day.length; i++) {
-						
-						if(day[i].equals(date[0])) {
-							resultat =true;
-						}
-					}
-					
-					if(!resultat) {
-						if(Disponibilite.getHeure() !=null) {
-							String[]  heure =Disponibilite.getHeure().split(",");
-							for (int i = 0; i < heure.length; i++) {
-								
-								heures.add(heure[i]);
-							}
-							
-							terrain.getListeHeureReserver().forEach(
-									res ->{
-										if((res.getNumeroMois()==Long.parseLong(date[2]))&&(res.getNumeroJour()==Long.parseLong(date[1]))) {
-											heures.add(res.getHeure());
-										}
-									});
-							
-						}else {
-							terrain.getListeHeureReserver().forEach(
-									res ->{
-										if((res.getNumeroMois()==Long.parseLong(date[2]))&&(res.getNumeroJour()==Long.parseLong(date[1]))) {
-											heures.add(res.getHeure());
-										}
-									});
-						}
-						
-					}
-								
-					
-				}else {
-					
-					String[]  heure =Disponibilite.getHeure().split(",");
-					for (int i = 0; i < heure.length; i++) {
-						
-						heures.add(heure[i]);
-					}
-					
-					terrain.getListeHeureReserver().forEach(
-							res ->{
-								if((res.getNumeroMois()==Long.parseLong(date[2]))&&(res.getNumeroJour()==Long.parseLong(date[1]))) {
-									heures.add(res.getHeure());
-								}
-							});
-					
-					
-					
-				}
-				
-			}else if(terrain.getListeHeureReserver() !=null){
-				terrain.getListeHeureReserver().forEach(
-						res ->{
-							if((res.getNumeroMois()==Long.parseLong(date[2]))&&(res.getNumeroJour()==Long.parseLong(date[1]))) {
-								heures.add(res.getHeure());
-							}
-						});	
-			}else {
-				heures.add("aucune disponbilite et aucune reservation");
-			}
 			
+			terrain.getListeHeureReserver().forEach(
+					res ->{
+						if((res.getNumeroMois()==Long.parseLong(date[1]))&&(res.getNumeroJour()==Long.parseLong(date[0]))) {
+							heures.add(res.getHeure());
+						}
+					});
+							
 			return heures;
 		}
 

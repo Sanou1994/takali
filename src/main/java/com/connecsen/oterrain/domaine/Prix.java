@@ -21,16 +21,14 @@ public class Prix implements Serializable{
 	private String jour;
 	@ManyToOne
 	private Terrain terrain;
-	@ManyToOne
-	private Tournoi tournoi;
 	
-	public Prix(String typeDePrix, double valeur, String jour, Terrain terrain, Tournoi tournoi) {
+	
+	public Prix(String typeDePrix, double valeur, String jour, Terrain terrain) {
 		super();
 		this.typeDePrix = typeDePrix;
 		this.valeur = valeur;
 		this.jour = jour;
 		this.terrain = terrain;
-		this.tournoi = tournoi;
 	}
 	public Long getId() {
 		return id;
@@ -59,10 +57,6 @@ public class Prix implements Serializable{
 	public void setTerrain(Terrain terrain) {
 		this.terrain = terrain;
 	}
-	public void setTournoi(Tournoi tournoi) {
-		this.tournoi = tournoi;
-	}
-
 	
 	
 }
