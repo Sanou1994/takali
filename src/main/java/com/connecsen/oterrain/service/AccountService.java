@@ -68,7 +68,8 @@ public class AccountService implements IAccountService{
     private UserDoReservationRepository userDoReservationRepository;
     @Autowired
    private  JavaMailSender javaMailSender;
-    
+    @Autowired
+	private IReservationService iReservationService;
     
 	@Override
 	public UserDtoResponse login_up(UserDtoRequest user) {
@@ -281,10 +282,13 @@ public class AccountService implements IAccountService{
 		return userDtoResponse;
 	}
 	@Override
-	public UserDtoResponse addReservationToUserAndTerrain(long idUser, long idTerrain,
-			Reservation reservation) {
+	public UserDtoResponse addReservationToUserAndTerrain(long idReservation) {
+		 Reservation reservation= iReservationService.getReservationById(idReservation);
+		Terrain terrain =terrainRepository.findById(reservation.getIdTerrain()).get();
+		
 		String[]  date =reservation.getDateReservation().split("/");
-		Utilisateur user =userRepository.findById(idUser ).get();
+		Utilisateur user =userRepository.findById(terrain.getIdUser()).get();
+		
 		String[] splitted =reservation.getHeure().split(",");
 		UserDoReservation userDoReservation = new UserDoReservation();
 		userDoReservation.setAdresse(user.getAdresse());
@@ -294,12 +298,7 @@ public class AccountService implements IAccountService{
 		userDoReservation.setTelephone(user.getTelephone());
 		UserDoReservation userDoReservationCreate =userDoReservationRepository.save(userDoReservation);
 		reservation.setUserDoReservation(userDoReservationCreate);
-		Terrain terrain =terrainRepository.findById(idTerrain).get();
-		
-		reservation.setTerrain(terrain);
-		reservation.setUser(user);
-		user.getReservations().add(reservation);
-		terrain.getReservations().add(reservation);
+	
 		for (int i = 0; i < splitted.length; i++) {
 			ListeHeureReserver reserver = new ListeHeureReserver(
 					Long.parseLong(date[0]),
@@ -355,6 +354,21 @@ public class AccountService implements IAccountService{
 
 	        javaMailSender.send(msg);
 		
+	}
+	@Override
+	public UserDtoResponse addReservationToUserAndTerrainWithoutPaid(long idUser, long idTerrain,
+			Reservation reservationDtoRequest) {
+		Utilisateur user =userRepository.findById(idUser ).get();
+		Terrain terrain =terrainRepository.findById(idTerrain).get();
+		 Reservation reservation= iReservationService.createOrUpdateReservation(reservationDtoRequest);
+		reservation.setTerrain(terrain);
+		reservation.setUser(user);
+		user.getReservations().add(reservation);
+		terrain.getReservations().add(reservation);
+		terrainRepository.save(terrain);
+		Utilisateur userSave=userRepository.save(user);
+		UserDtoResponse userDtoResponse =Utility.utilisateurConvertToUserDtoResponse(userSave);
+		return userDtoResponse;
 	}
 	
 	

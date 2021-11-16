@@ -84,6 +84,7 @@ public final class Utility {
 	
 	public static final String ADD_RESERVATION = "/reservation/add";
 	public static final String UPDATE_RESERVATION = "/reservation/update";
+	public static final String UPDATE_RESERVATION_BY_STATUS = "/reservation/update/status";
 	public static final String GET_RESERVATION_BY_ID = "/reservation/reservations/{id}";
 	public static final String DELETE_RESERVATION_BY_ID = "/reservation/reservations/delete/{id}";
 	public static final String GET_ALL_RESERVATIONS = "/reservation/reservations";
@@ -163,6 +164,7 @@ public final class Utility {
 	
 	public static final String ADD_EQUIPE = "/equipe/add";
 	public static final String UPDATE_EQUIPE = "/equipe/update";
+	public static final String UPDATE_EQUIPE_BY_PAYE = "/equipe/update/paye";
 	public static final String GET_EQUIPE_BY_ID = "/equipe/equipes/{id}";
 	public static final String DELETE_EQUIPE_BY_ID = "/equipe/equipes/delete/{id}";
 	public static final String GET_ALL_EQUIPES = "/equipe/equipes";

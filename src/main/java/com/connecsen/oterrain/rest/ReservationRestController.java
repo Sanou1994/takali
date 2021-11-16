@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.connecsen.oterrain.domaine.Reservation;
+import com.connecsen.oterrain.domaine.UpdateReservation;
 import com.connecsen.oterrain.service.IReservationService;
 import com.connecsen.oterrain.utils.Utility;
 @RestController
@@ -27,6 +28,11 @@ public class ReservationRestController {
 	public Reservation getUpdateUser( @RequestBody Reservation user){
 		return iReservationService.createOrUpdateReservation(user);
     }
+	@PostMapping(Utility.UPDATE_RESERVATION_BY_STATUS)
+	public Reservation getUpdateReservation( @RequestBody UpdateReservation user){
+		return iReservationService.updateReservationByStatus(user);
+    }
+	
 	@GetMapping(Utility.GET_ALL_RESERVATIONS)
 	public List<Reservation> getAllTournoi(){
 		return iReservationService.getAllReservations();

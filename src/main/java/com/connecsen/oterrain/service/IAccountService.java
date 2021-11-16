@@ -26,7 +26,8 @@ public interface IAccountService {
 	 
 	         //GESTION USER
 	  public String getToken(String username , String password);
-	  public UserDtoResponse addReservationToUserAndTerrain(long idUser,long idTerrain,Reservation reservationDtoRequest);
+	  public UserDtoResponse addReservationToUserAndTerrain(long idReservation);
+	  public UserDtoResponse addReservationToUserAndTerrainWithoutPaid(long idUser,long idTerrain,Reservation reservationDtoRequest);
 	  public UserDtoResponse createOrUpdateUser(UserDtoRequest user);
 	  public UserDtoResponse getUserById(Long id);
 	  public List<UserDtoResponse> getAllUsers();

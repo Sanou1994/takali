@@ -132,9 +132,9 @@ public class AccountRestController {
     }
 
     @PostMapping(Utility.ADD_RESERVATION_TO_USER_AND_TERRAIN)
-	public TerrainDtoResponse getAddReservationUserAndTerrain( @PathVariable(value = "idTerrain") Long idTerrain, @PathVariable(value = "idUser") Long idUser, @RequestBody Reservation reservationDtoRequest){
+	public TerrainDtoResponse addReservationToUserAndTerrainWithoutPaid( @PathVariable(value = "idTerrain") Long idTerrain, @PathVariable(value = "idUser") Long idUser, @RequestBody Reservation reservationDtoRequest){
 		TerrainDtoResponse terrainBefore =terrainService.getTerrainById(idTerrain);
-    	accountService.addReservationToUserAndTerrain(idUser,idTerrain,reservationDtoRequest);
+    	accountService.addReservationToUserAndTerrainWithoutPaid(idUser,idTerrain,reservationDtoRequest);
 		UserDtoResponse userGot =accountService.getUserById(idUser);
 		TerrainDtoResponse terrainAfter =terrainService.getTerrainById(idTerrain);
 		String succesResultat ="echec";

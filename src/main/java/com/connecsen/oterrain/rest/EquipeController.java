@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.connecsen.oterrain.domaine.UpdateEquipe;
 import com.connecsen.oterrain.domaine.dto.request.EquipeDtoRequest;
 import com.connecsen.oterrain.domaine.dto.response.EquipeDtoResponse;
 import com.connecsen.oterrain.service.IEquipeService;
@@ -29,6 +30,11 @@ public class EquipeController {
 	public EquipeDtoResponse getUpdateUser( @RequestBody EquipeDtoRequest user){
 		return iEquipeService.createOrUpdateEquipe(user);
     }
+	@PostMapping(Utility.UPDATE_EQUIPE_BY_PAYE)
+	public EquipeDtoResponse getUpdateEquipeByPaye( @RequestBody UpdateEquipe user){
+		return iEquipeService.updateEquipeByPaye(user);
+    }
+	
 	@GetMapping(Utility.GET_ALL_EQUIPES)
 	public List<EquipeDtoResponse> getAllTournoi(){
 		return iEquipeService.getAllEquipes();

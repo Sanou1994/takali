@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.connecsen.oterrain.domaine.Equipe;
+import com.connecsen.oterrain.domaine.UpdateEquipe;
 import com.connecsen.oterrain.domaine.dto.request.EquipeDtoRequest;
 import com.connecsen.oterrain.domaine.dto.response.EquipeDtoResponse;
 import com.connecsen.oterrain.exception.createexception.CreateEquipeException;
@@ -68,6 +69,21 @@ public class EquipeService implements IEquipeService {
 		}
 		return resultat;
 	
+	}
+
+	@Override
+	public EquipeDtoResponse updateEquipeByPaye(UpdateEquipe updateEquipe) {
+		EquipeDtoResponse tournoiDtoResponse =null;
+		try {
+			Equipe tournoi = equipeRepository.findById(updateEquipe.getId()).get();
+			tournoi.setPaye(updateEquipe.isPaye());
+			tournoiDtoResponse = Utility.equipeConvertToEquipeDtoResponse(equipeRepository.save(tournoi));
+				
+		} catch (Exception e) {
+			throw new CreateEquipeException(tournoiDtoResponse.getNomEquipe());
+		}
+		return tournoiDtoResponse;
+
 	}
 
 }
