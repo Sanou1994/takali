@@ -51,7 +51,7 @@ public class Terrain implements Serializable{
 	private List<Transaction> transactions = new ArrayList<Transaction>();
 	@ManyToOne 
 	private Utilisateur user;
-	@OneToMany(targetEntity=Prix.class, mappedBy="terrain",cascade = { CascadeType.PERSIST, CascadeType.REMOVE})
+	@OneToMany(targetEntity=Prix.class, mappedBy="terrain",cascade = CascadeType.ALL)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Prix> prix = new ArrayList<Prix>();
 	public Terrain(String nom, String adresse, String ville, String latitude, String longitude, String disponibilite,

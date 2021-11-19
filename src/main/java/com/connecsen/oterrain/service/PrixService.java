@@ -10,6 +10,7 @@ import com.connecsen.oterrain.domaine.Prix;
 import com.connecsen.oterrain.domaine.Terrain;
 import com.connecsen.oterrain.domaine.dto.request.PrixDtoRequest;
 import com.connecsen.oterrain.domaine.dto.response.PrixDtoResponse;
+import com.connecsen.oterrain.domaine.dto.response.TerrainDtoResponse;
 import com.connecsen.oterrain.repository.PrixRepository;
 import com.connecsen.oterrain.repository.TerrainRepository;
 import com.connecsen.oterrain.utils.Utility;
@@ -24,6 +25,22 @@ public class PrixService implements IPrixService{
 	public PrixDtoResponse createOrUpdatePrix(PrixDtoRequest tournoiDtoRequest) {
 		Prix prix = Utility.prixDtoRequestConvertToPrix(tournoiDtoRequest);
 		PrixDtoResponse tournoiDtoResponse = Utility.prixConvertToPrixDtoResponse(prixRepository.save(prix));
+		return tournoiDtoResponse;
+	}
+	@Override
+	public TerrainDtoResponse updatePrix(long idTerrain,PrixDtoRequest tournoiDtoRequest) {
+		Terrain terrain =terrainRepository.findById(idTerrain).get();
+		for (int i = 0; i < terrain.getPrix().size(); i++) {
+			if(terrain.getPrix().get(i).getId()==tournoiDtoRequest.getId()) {
+				terrain.getPrix().get(i).setTypeDePrix(tournoiDtoRequest.getTypeDePrix());
+				terrain.getPrix().get(i).setJour(tournoiDtoRequest.getJour());
+				terrain.getPrix().get(i).setValeur(tournoiDtoRequest.getValeur());
+			}
+			
+		}
+		
+		Terrain terrainSave =terrainRepository.save(terrain);
+		TerrainDtoResponse tournoiDtoResponse = Utility.terrainConvertToTerrainDtoResponse(terrainSave);
 		return tournoiDtoResponse;
 	}
 

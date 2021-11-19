@@ -31,8 +31,8 @@ public class PrixRestController {
 		return versementAdd;
 	}
 	@PostMapping(Utility.UPDATE_PRIX)
-	public PrixDtoResponse getUpdatePrix( @RequestBody PrixDtoRequest versement){
-		return iPrixService.createOrUpdatePrix(versement);
+	public TerrainDtoResponse getUpdatePrix(@PathVariable(value = "idTerrain") Long idTerrain, @RequestBody PrixDtoRequest versement){
+		return iPrixService.updatePrix(idTerrain,versement);
     }
 	@GetMapping(Utility.GET_ALL_PRIX)
 	public List<PrixDtoResponse> getAllPrix(){

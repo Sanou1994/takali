@@ -104,7 +104,7 @@ public final class Utility {
 	public static final String ADD_TRANSACTION_TO_USER_AND_TOURNOI = "/user/add/transaction/user/{idUser}/tournoi/{idTournoi}";
 
 	public static final String ADD_PRIX = "/prix/add";
-	public static final String UPDATE_PRIX = "/prix/update";
+	public static final String UPDATE_PRIX = "/prix/update/{idTerrain}";
 	public static final String GET_PRIX_BY_ID = "/prix/prixs/{id}";
 	public static final String DELETE_PRIX_BY_ID = "/prix/prixs/delete/{id}";
 	public static final String GET_ALL_PRIX = "/prix/prixs";
