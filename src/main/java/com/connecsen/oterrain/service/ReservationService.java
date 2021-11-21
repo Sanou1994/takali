@@ -14,8 +14,6 @@ import com.connecsen.oterrain.repository.ReservationRepository;
 @Service
 public class ReservationService implements IReservationService{
 	@Autowired
-	private IAccountService accountService;
-	@Autowired
 	private ReservationRepository reservationRepository;
 	@Override
 	public Reservation createOrUpdateReservation(Reservation tournoiDtoRequest) {
@@ -69,11 +67,8 @@ public class ReservationService implements IReservationService{
 		Reservation tournoiDtoResponse =null;
 		try {
 			Reservation reservation = reservationRepository.findById(updateReservation.getId()).get();
-			if(updateReservation.getStatus().equals("PAYE")) {
 				reservation.setStatePayement(updateReservation.getStatus());
-				accountService.addReservationToUserAndTerrain(updateReservation.getId());
 				tournoiDtoResponse = reservationRepository.save(reservation);
-			}
 
 		} catch (Exception e) {
 			throw new CreateReservationException(Long.toString(tournoiDtoResponse.getId()));

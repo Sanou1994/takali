@@ -48,7 +48,6 @@ import com.connecsen.oterrain.utils.Utility;
 public class AccountService implements IAccountService{
 	@Autowired
 	private AuthenticationManager authenticationManager;
-	
 	@Autowired
 	private JwtTokenUtil jwtTokenUtil;
 	 
@@ -361,7 +360,7 @@ public class AccountService implements IAccountService{
 		Utilisateur user =userRepository.findById(idUser ).get();
 		Terrain terrain =terrainRepository.findById(idTerrain).get();
 		 Reservation reservation= iReservationService.createOrUpdateReservation(reservationDtoRequest);
-		reservation.setTerrain(terrain);
+		 reservation.setTerrain(terrain);
 		reservation.setUser(user);
 		user.getReservations().add(reservation);
 		terrain.getReservations().add(reservation);

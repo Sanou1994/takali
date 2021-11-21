@@ -1,33 +1,23 @@
 package com.connecsen.oterrain;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import com.connecsen.oterrain.domaine.Role;
-import com.connecsen.oterrain.domaine.dto.request.RoleDtoRequest;
-import com.connecsen.oterrain.domaine.dto.request.UserDtoRequest;
-import com.connecsen.oterrain.domaine.dto.response.RoleDtoResponse;
-import com.connecsen.oterrain.domaine.dto.response.UserDtoResponse;
 import com.connecsen.oterrain.repository.RoleRepository;
 import com.connecsen.oterrain.repository.UserRepository;
 import com.connecsen.oterrain.service.IAccountService;
 import com.connecsen.oterrain.service.IMatchService;
-import com.connecsen.oterrain.utils.Utility;
-
+@Configuration
 @SpringBootApplication
 public class OterrainApplication implements CommandLineRunner {
 	@Autowired
-	IAccountService iAccountService;
-	
+	IAccountService iAccountService; 
 	@Autowired(required=true)
 	IMatchService iMatchService;
 //	@Autowired
@@ -42,10 +32,10 @@ public class OterrainApplication implements CommandLineRunner {
 //    private TournoiRepository tournoiRepository;
 //	@Autowired
 //    private TerrainRepository terrainRepository;
+
 	public static void main(String[] args) {
 		SpringApplication.run(OterrainApplication.class, args);
 	}
-
 
 	@Bean
 	public ModelMapper modelMapper() {
@@ -57,23 +47,8 @@ public class OterrainApplication implements CommandLineRunner {
 	}
 	@Override
 	public void run(String... args) throws Exception {
-		System.out.println("########################################");
+				
 		
-		System.out.println(" cvaleur :"+Utility.getDayChoosed().get("lundi"));
-		Calendar calendar = Calendar.getInstance();
-		Calendar now = Calendar.getInstance();
-		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd 00:00:00");  
-		System.out.println("calendar :"+ now.get(Calendar.DAY_OF_WEEK));
-		calendar.setTime(new Date());
-		System.out.println("date complet lundi sans calendar allo :"+ format1.format(new Date()));
-		System.out.println("date complet lundi :"+Calendar.MONDAY);
-		System.out.println("date complet mardi :"+Calendar.TUESDAY);
-		System.out.println("date complet mercredi  :"+Calendar.WEDNESDAY);
-		System.out.println("date complet jeudi :"+Calendar.THURSDAY);
-		System.out.println("date complet vendredi :"+Calendar.FRIDAY);
-		System.out.println("date complet samedi :"+Calendar.SATURDAY);
-		System.out.println("date complet dimanche :"+Calendar.SUNDAY);
-        System.out.println("debut");
 //		System.out.println(Long.valueOf(calendar.get(Calendar.MONTH)+Long.valueOf("1")));
 //		System.out.println("jour :"+Long.valueOf(calendar.get(Calendar.DAY_OF_MONTH)));
 //		System.out.println("year :"+calendar.get(Calendar.YEAR));
