@@ -1,0 +1,560 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Bulle De Gones
+{% endblock %}
+
+{% block stylesheets %}
+
+
+	<!-- <link rel="apple-touch-icon" href="apple-icon.png"> -->
+	<link rel="shortcut icon" href="images/logo.jpg">
+
+
+	<link rel="stylesheet" href="{{asset(" vendors/bootstrap/dist/css/bootstrap.min.css")}}">
+	<link rel="stylesheet" href="{{asset(" vendors/font-awesome/css/font-awesome.min.css")}}">
+	<link rel="stylesheet" href="{{asset(" vendors/flag-icon-css/css/flag-icon.min.css")}}">
+	<link rel="stylesheet" href="{{asset(" vendors/datatables.net-bs4/css/dataTables.bootstrap4.min.css")}}">
+	<link rel="stylesheet" href="{{asset(" vendors/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css")}}">
+	<link rel="stylesheet" href='//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css'>
+
+
+	<link rel="stylesheet" href="{{asset(" css/styles.css")}}">
+
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+
+
+{% endblock %}
+
+{% block body %}
+	{% include "Admin/Crud/__partials/__side_bar.html.twig" %}
+	{% include "Admin/Crud/__partials/__header.html.twig" %}
+
+	<div class="content mt-3"> 
+		<div class="animated fadeIn">
+			{{ form_start(form) }}
+			<div class="row">
+			<div class="col-md-12">
+				<div id="accordion">
+					<div class="card">
+						<div class="card-header">
+							<strong class="card-title">Nouvel agenda</strong>
+						</div>
+						   <div class="card-body">
+							<div class="col-md-12">
+								<h2 class="infos-gen  text-center">Dates</h2>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class=" form-control-label">Date de debut</label>
+									{{ form_row(form.dateDebut) }}
+								</div>
+
+							</div>
+
+							<div class="col-md-6"> 
+								<div class="form-group">
+									<label class=" form-control-label">Date de fin</label>
+									{{ form_row(form.dateFinAt) }}
+								</div>
+							</div>
+							<div class="col-md-12">
+								<hr>
+								<h3 class="infos-gen  text-center">Detailler agendas en jour</h3>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class=" form-control-label">Tous les jours</label>
+									{{ form_row(form.touslesjours,{'attr':{'class':'form-control','placeholder':'Tous les
+								jours'}})}}
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class=" form-control-label">Lundi</label>
+									{{ form_row(form.lundi,{'attr':{'class':'form-control','placeholder':'Lundi'}})}}
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class=" form-control-label">Mardi</label>
+									{{ form_row(form.mardi,{'attr':{'class':'form-control','placeholder':'Mardi'}})}}
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class=" form-control-label">Mercredi</label>
+									{{ form_row(form.mercredi,{'attr':{'class':'form-control','placeholder':'Mercredi'}})}}
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class=" form-control-label">Jeudi</label>
+									{{ form_row(form.jeudi,{'attr':{'class':'form-control','placeholder':'Jeudi'}})}}
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class=" form-control-label">Vendredi</label>
+									{{ form_row(form.vendredi,{'attr':{'class':'form-control','placeholder':'Vendredi'}})}}
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class=" form-control-label">Samedi</label>
+									{{ form_row(form.samedi,{'attr':{'class':'form-control','placeholder':'Samedi'}})}}
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class=" form-control-label">Dimanche</label>
+									{{ form_row(form.dimanche,{'attr':{'class':'form-control','placeholder':'Dimanche'}})}}
+								</div>
+							</div>
+
+							<div class="col-md-6">
+								<div class="row form-group">
+									<div class="col col-md-9">
+
+										<label class=" form-control-label">Scinder en plusieurs agendas
+											<span class="text-danger">pas encore fait(PEF)</span>
+										</label>
+									</div>
+									<div class="col col-md-3">
+										<div class="form-check">
+											<div class="radio">
+												<label for="radio1" class="form-check-label ">
+													<input type="radio" id="radio1" name="radios" value="option1" class="form-check-input">OUI
+												</label>
+											</div>
+											<div class="radio">
+												<label for="radio2" class="form-check-label ">
+													<input type="radio" id="radio2" name="radios" value="option2" class="form-check-input">NON
+												</label>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-md-12">
+								<hr class="p-3">
+								<h2 class="infos-gen text-center">Infos générales</h2>
+							</div>
+
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="article" class=" form-control-label">Titre</label>
+									{{form_row(form.titre,{'attr':{'class':'form-control','placeholder':'Titre de
+								l\'agenda'}})}}
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="article" class=" form-control-label">Auteur</label>
+								{{form_row(form.user,{'attr':{'class':'form-control'}})}}
+
+							</div>
+						</div>
+						<div class="col-md-12">
+							<div class="form-group">
+								<label for="article" class=" form-control-label">Qualification</label>
+								{{form_row(form.qualification,{'attr':{'class':'form-control','placeholder':'Qualification
+								'}})}}
+
+							</div>
+						</div>
+
+
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="article" class=" form-control-label">Age</label>
+
+								{{form_row(form.ageDe,{'attr':{'class':'form-control','placeholder':'exemple : De 10 ans
+								a 15 ans'}})}}
+							</div>
+						</div>
+
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="article" class=" form-control-label">Tarif enfant</label>
+								{{form_row(form.tarifEnfant,{'attr':{'class':'form-control','placeholder':'Le tarif pour
+								enfant'}})}}
+
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="article" class=" form-control-label">Tarif adulte</label>
+								{{form_row(form.tarifAdulte,{'attr':{'class':'form-control','placeholder':'Le tarif pour
+								adulte'}})}}
+
+							</div>
+						</div>
+
+						<div class="col-md-12">
+							<div class="form-group">
+								<div class="col col-md-12">
+									<div class="form-check">
+										<label for="article" class=" form-control-label">Choisir un emplacement
+											(optionnel)</label>
+										{{form_row(form.emplacement,{'attr':{'class':'form-control js-emplacement'}})}}
+									</div>
+								</div>
+							</div>
+
+						</div>
+
+						<div class="col-md-12 d-none js-niveau">
+							<div class="form-group">
+								<label for="hierarchie" class=" form-control-label">Niveau</label>
+								{{form_row(form.niveauEmplacement,{'attr':{'class':'form-control'}})}}
+							</div>
+						</div>
+
+						<div class="col-md-12">
+							<div class="form-group">
+								<label for="article" class=" form-control-label">Durée en minutes
+									{{form_row(form.dureeEnMinute,{'attr':{'class':'form-control','placeholder':'Exemple 12H:15min'}})}}
+							</div>
+						</div>
+
+						<div class="col-md-12">
+							<div class="row form-group">
+								<div class="col col-md-12">
+									<label for="textarea-input" class=" form-control-label">Contenu de l'agenda</label>
+								</div>
+								<div class="col-12 col-md-12">
+									{{form_row(form.contenu,{'attr':{'class':'form-control'}})}}
+
+								</div>
+							</div>
+						</div>
+
+						<div class="col-md-12">
+							<div class="row form-group">
+
+								<div class="col-12 col-md-12">
+									<label for="textarea-input" class=" form-control-label">Accroche</label>
+
+									{{form_row(form.accroche,{'attr':{'class':'form-control','rows':'4'}})}}
+
+								</div>
+							</div>
+						</div>
+
+						<div class="col-md-12">
+							<hr>
+							<h2 class="infos-gen text-center">Classifications</h2>
+						</div>
+						<div class="col-md-12">
+							<div class="form-group">
+								<label for="hierarchie" class=" form-control-label">Sous Rubrique
+								</label>
+								{{form_row(form.sousRubrique,{'attr':{'class':'form-control'}})}}
+							</div>
+
+						</div>
+
+						<div class="col-md-12">
+							<div class="row form-group">
+								<div class="col col-md-3">
+									<label class=" form-control-label">Pictos</label>
+									
+								</div>
+								
+								<div class="col col-md-9">
+									<div class="form-check">
+										<div class="checkbox">
+								
+											{{form_row(form.urlPicto)}}
+										
+										</div>
+
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-md-12">
+							<h2 class="infos-gen text-center">Sélectionner un lieu
+							</h4=2>
+						</div>
+						<div class="col-md-9">
+							<div class="form-group">
+								{{form_row(form.lieu,{'attr':{'class':'form-control'}})}}
+								<a href="{{path('lieu_new')}}" class="btn  btn-link btn-sm">
+								<a href="#" class="btn  btn-link btn-sm" id="myBtn">
+									<i class="fa fa-plus-circle"></i>
+									Ajouter un lieu
+								</a>
+						
+							</div>
+						</div>
+						<div class="col-md-12">
+							<h4 class="infos-gen">Visuel et vidéo
+							</h4>
+						</div>
+						<div class="col-md-12">
+							<div class="form-group">
+								<label for="file-input" class=" form-control-label">Visuel
+								</label>
+								<div class="mb-2">
+									<img class="img-thumbnail d-none " id="img-visuel-js" style="width: 150px;height:150px;" src="{{asset('uploads/images/')}}{{form.vars.value.visuel}}" alt="">
+								</div>
+								{{form_row(form.visuel)}}
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="article" class=" form-control-label">Copyright</label>
+								{{form_row(form.copyright,{'attr':{'class':'form-control','placeholder':'Copyright'}})}}
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="article" class=" form-control-label">Code embed de la vidéo</label>
+								{{form_row(form.codeEmbedVideo,{'attr':{'class':'form-control','placeholder':'code embed
+								de la vidéo'}})}}
+
+							</div>
+						
+						</div>
+
+						<div class="col-md-6">
+							<div class="form-group form-check">
+								{{form_row(form.isPublished,{'attr':{'class':'form-check-input'}})}}
+								<label class="form-check-label" for="exampleCheck1">Voulez-vous publier l agenda</label>
+							</div>
+						</div>
+						
+
+						<div class="form-actions form-group">
+
+							<button type="submit" class="btn btn-primary btn-sm">{{ button_label|default('Enregistrer')
+								}}</button>
+
+							<a href="{{path('agenda_index')}}" class="btn text-danger  btn-link btn-sm">Annuler
+							</a>
+						</div>
+					</div>
+				</div>
+				</div>
+			</div>
+		</div>
+		{{ form_end(form) }}
+	</div>
+	<!-- .animated -->
+</div>
+
+
+<div id="myModal" class="modal">
+	<!-- Modal content -->
+	<div class="modal-content">
+		<span class="close">&times;</span>
+		<!--<p>Some text in the Modal..</p>-->
+	
+{{ form_start(formLieu,{'attr':{'id':'formLieu','action':path("agenda_new")}}) }}		
+
+<div class="form-group">
+	{{ form_row(formLieu.nom,{'attr':{'class':'form-control','placeholder':'Nom du lieu'}}) }}
+</div>
+<div class="form-group">
+	{{ form_row(formLieu.codePostal,{'attr':{'class':'form-control','placeholder':'Code postal'}}) }}
+</div>
+<div class="form-group">
+	{{ form_row(formLieu.SiteWeb,{'attr':{'class':'form-control','placeholder':'Site internet'}}) }}
+</div>
+<div class="form-group">
+	{{ form_row(formLieu.Latitude,{'attr':{'class':'form-control','placeholder':'Latitude'}}) }}
+</div>
+
+<div class="form-group">
+	{{ form_row(formLieu.Adresse,{'attr':{'class':'form-control','placeholder':'Adresse'}}) }}
+</div>
+<div class="form-group">
+	{{ form_row(formLieu.Ville,{'attr':{'class':'form-control','placeholder':'Ville'}}) }}
+</div>
+<div class="form-group">
+	{{ form_row(formLieu.Telephone,{'attr':{'class':'form-control','placeholder':'Téléphone'}})}}
+</div>
+<div class="form-group">
+	{{ form_row(formLieu.Longitude,{'attr':{'class':'form-control','placeholder':'Longitude'}})}}
+</div>
+		<div class="enregistrerRecherche col-md-12">
+			<button type="submit" class="btn btn-primary btn-sm" onclick="valider()"  >{{ button_label|default('Enregistrer')}}</button>
+			<a href="{{path('agenda_new')}}" class="btn text-danger  btn-link btn-sm">Annuler
+			</a>
+		</div>
+
+{{ form_end(formLieu) }}
+</div>
+</div>
+
+{% endblock body %}
+
+{% block javascripts %}
+
+
+
+<script src="{{asset('vendors/jquery/dist/jquery.min.js')}}"></script>
+<script src="{{asset('vendors/popper.js/dist/umd/popper.min.js')}}"></script>
+<script src="{{asset('vendors/bootstrap/dist/js/bootstrap.min.js')}}"></script>
+<script src="{{asset(" js/main.js")}}"></script>
+<script src="{{asset('vendors/chart.js/dist/Chart.bundle.min.js')}}"></script>
+<script src="{{asset('js/dashboard.js')}}"></script>
+<script src="{{asset('js/widgets.js')}}"></script>
+<script src="{{asset('vendors/datatables.net/js/jquery.dataTables.min.js')}}"></script>
+<script src="{{asset('vendors/datatables.net-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
+<script src="{{asset('vendors/datatables.net-buttons/js/dataTables.buttons.min.js')}}"></script>
+<script src="{{asset('vendors/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js')}}"></script>
+<script src="{{asset('vendors/jszip/dist/jszip.min.js')}}"></script>
+<script src="{{asset('vendors/pdfmake/build/pdfmake.min.js')}}"></script>
+<script src="{{asset('vendors/pdfmake/build/vfs_fonts.js')}}"></script>
+<script src="{{asset('vendors/datatables.net-buttons/js/buttons.html5.min.js')}}"></script>
+<script src="{{asset('vendors/datatables.net-buttons/js/buttons.print.min.js')}}"></script>
+<script src="{{asset('vendors/datatables.net-buttons/js/buttons.colVis.min.js')}}"></script>
+<script src="{{asset('js/init-scripts/data-table/datatables-init.js')}}"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<script>
+	$(document).ready(function () {
+$('#agenda_sousRubrique,#agenda_lieu,#agenda_user,#agenda_niveauEmplacement,#agenda_emplacement').select2();
+});
+</script>
+<script>/*	$(".js-emplacement").on("change",function(){
+        //Getting Value
+		var selValue = $(".js-emplacement").val();
+		if(selValue == 'Une'){
+			$('.js-niveau').fadeIn('3000');
+		}
+        
+    }); */</script><script>
+
+function upload(event) {
+
+        let reader = new FileReader();
+        reader.onload = function () {
+        var output = document.getElementById('img-visuel-js');
+       output.classList.remove('d-none')
+       output.src = reader.result;
+   };
+reader.readAsDataURL(event.target.files[0]);
+}
+document.querySelector('input#agenda_visuel').addEventListener('change', upload)
+
+// emplacement
+function selectEmplacement(e) {
+console.log('tes')
+}
+document.querySelector('select#agenda_emplacement').addEventListener('change', selectEmplacement)});
+
+</script>
+<script>
+<script>	
+		$('#agenda_urlPicto label').text('');
+	
+		$('#agenda_urlPicto label[for="agenda_urlPicto_0"]').click(function() {
+			$( "div" ).remove( ".clicked" );	
+			$( "div" ).remove( ".clicked1" );
+			$( "div" ).remove( ".clicked2" );
+			$('#agenda_urlPicto label[for="agenda_urlPicto_0"]').append('<div class="clicked"></div>');
+			
+		});
+		
+		$('#agenda_urlPicto label[for="agenda_urlPicto_1"]').click(function() {
+			$( "div" ).remove( ".clicked1" );
+			$( "div" ).remove( ".clicked" );
+			$( "div" ).remove( ".clicked2" );
+			$('#agenda_urlPicto label[for="agenda_urlPicto_1"]').append('<div class="clicked1"></div>');
+		});
+		
+		$('#agenda_urlPicto label[for="agenda_urlPicto_2"]').click(function() {
+			$( "div" ).remove( ".clicked2" );
+			$( "div" ).remove( ".clicked" );
+			$( "div" ).remove( ".clicked1" );
+			$('#agenda_urlPicto label[for="agenda_urlPicto_2"]').append('<div class="clicked2"></div>');
+		});
+ 
+</script>
+
+
+<script>
+	//Debut Popup Ajout Lieu
+
+	  // Get the modal
+	  var modal = document.getElementById("myModal");
+
+	  // Get the button that opens the modal
+	 var btn = document.getElementById("myBtn");
+  
+	  // Get the <span> element that closes the modal
+	  var span = document.getElementsByClassName("close")[0];
+  
+	  // When the user clicks the button, open the modal 
+	  btn.onclick = function () {
+		  modal.style.display = "block";
+	  }
+		function valider (){
+			const url = document.querySelector('#formLieu').action;	
+			let nom = $('#lieu_nom').val();
+			let code = $('#lieu_codePostal').val();
+			let site = $('#lieu_SiteWeb').val();
+			let latitude = $('#lieu_Latitude').val();
+			let adresse = $('#lieu_Adresse').val();
+			let ville = $('#lieu_Ville').val();
+			let telephone = $('#lieu_Telephone').val();
+			let longitude = $('#lieu_Longitude').val();
+			$.ajax({
+				url: url,
+				method: 'POST',
+				data: {nom:nom,code:code,site:site,latitude:latitude,adresse:adresse,ville:ville,telephone:telephone,longitude:longitude},
+				dataType: 'text',
+				success: function (data) {
+				
+				},
+			})
+		}	
+
+		//Fin Popup Ajout Lieu
+</script>
+<script>
+	
+   function upload(event){
+	let reader = new FileReader();
+	reader.onload = function(){
+		var output = document.getElementById('img-visuel-js');
+		output.classList.remove('d-none')
+		output.src = reader.result;
+	  };
+	  reader.readAsDataURL(event.target.files[0]);
+   }
+   document.querySelector('input#agenda_visuel').addEventListener('change',upload)
+
+   //emplacement
+  function selectEmplacement(e){
+
+  }
+   document.querySelector('select#agenda_emplacement').addEventListener('change',selectEmplacement)
+
+   $(function (){
+	   $('#agenda_emplacement').on('change',function(){
+		   let optionSelected = $('#agenda_emplacement option:selected').text()
+		   if(optionSelected === 'A La Une'){
+			   $('.js-niveau').removeClass('d-none')
+		   }else{
+			   $('.js-niveau').addClass('d-none')
+		   }
+	   })
+   })
+
+</script>
+<script>
+  $( function() {
+    $( "#sortable" ).sortable();
+    $( "#sortable" ).disableSelection();
+  } );
+  </script>
+
+  
+{% endblock javascripts %}
