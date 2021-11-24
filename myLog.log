@@ -17861,3 +17861,172 @@ com.connecsen.oterrain.exception.deleteexception.ReservationDeletedException: re
 [2021-11-24T21:47:28.028Z] [org.apache.juli.logging.DirectJDKLog] [http-nio-8080-exec-1] [173] [INFO ] Initializing Spring DispatcherServlet 'dispatcherServlet'
 [2021-11-24T21:47:28.028Z] [org.springframework.web.servlet.FrameworkServlet] [http-nio-8080-exec-1] [525] [INFO ] Initializing Servlet 'dispatcherServlet'
 [2021-11-24T21:47:28.028Z] [org.springframework.web.servlet.FrameworkServlet] [http-nio-8080-exec-1] [547] [INFO ] Completed initialization in 11 ms
+[2021-11-24T22:00:04.004Z] [org.springframework.orm.jpa.AbstractEntityManagerFactoryBean] [Thread-6] [651] [INFO ] Closing JPA EntityManagerFactory for persistence unit 'default'
+[2021-11-24T22:00:04.004Z] [com.zaxxer.hikari.HikariDataSource] [Thread-6] [350] [INFO ] HikariPool-1 - Shutdown initiated...
+[2021-11-24T22:00:04.004Z] [com.zaxxer.hikari.HikariDataSource] [Thread-6] [352] [INFO ] HikariPool-1 - Shutdown completed.
+[2021-11-24T22:00:06.006Z] [org.springframework.boot.StartupInfoLogger] [restartedMain] [55] [INFO ] Starting OterrainApplication using Java 1.8.0_271 on DESKTOP-B0QDJ37 with PID 14956 (C:\Users\AROUNA\connecsen\o-terrain\target\classes started by AROUNA in C:\Users\AROUNA\connecsen\o-terrain)
+[2021-11-24T22:00:06.006Z] [org.springframework.boot.SpringApplication] [restartedMain] [663] [INFO ] The following profiles are active: dev
+[2021-11-24T22:00:11.011Z] [org.springframework.data.repository.config.RepositoryConfigurationDelegate] [restartedMain] [132] [INFO ] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+[2021-11-24T22:00:13.013Z] [org.springframework.data.repository.config.RepositoryConfigurationDelegate] [restartedMain] [201] [INFO ] Finished Spring Data repository scanning in 2128 ms. Found 19 JPA repository interfaces.
+[2021-11-24T22:00:15.015Z] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker] [restartedMain] [376] [INFO ] Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@4d154e40' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2021-11-24T22:00:15.015Z] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker] [restartedMain] [376] [INFO ] Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2021-11-24T22:00:16.016Z] [org.springframework.boot.web.embedded.tomcat.TomcatWebServer] [restartedMain] [108] [INFO ] Tomcat initialized with port(s): 8080 (http)
+[2021-11-24T22:00:16.016Z] [org.apache.juli.logging.DirectJDKLog] [restartedMain] [173] [INFO ] Initializing ProtocolHandler ["http-nio-8080"]
+[2021-11-24T22:00:16.016Z] [org.apache.juli.logging.DirectJDKLog] [restartedMain] [173] [INFO ] Starting service [Tomcat]
+[2021-11-24T22:00:16.016Z] [org.apache.juli.logging.DirectJDKLog] [restartedMain] [173] [INFO ] Starting Servlet engine: [Apache Tomcat/9.0.48]
+[2021-11-24T22:00:17.017Z] [org.apache.juli.logging.DirectJDKLog] [restartedMain] [173] [INFO ] Initializing Spring embedded WebApplicationContext
+[2021-11-24T22:00:17.017Z] [org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext] [restartedMain] [290] [INFO ] Root WebApplicationContext: initialization completed in 10931 ms
+[2021-11-24T22:00:17.017Z] [org.hibernate.jpa.internal.util.LogHelper] [restartedMain] [31] [INFO ] HHH000204: Processing PersistenceUnitInfo [name: default]
+[2021-11-24T22:00:17.017Z] [com.zaxxer.hikari.HikariDataSource] [restartedMain] [110] [INFO ] HikariPool-2 - Starting...
+[2021-11-24T22:00:18.018Z] [com.zaxxer.hikari.HikariDataSource] [restartedMain] [123] [INFO ] HikariPool-2 - Start completed.
+[2021-11-24T22:00:18.018Z] [org.hibernate.dialect.Dialect] [restartedMain] [175] [INFO ] HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+[2021-11-24T22:00:27.027Z] [org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator] [restartedMain] [52] [INFO ] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+[2021-11-24T22:00:27.027Z] [org.springframework.orm.jpa.AbstractEntityManagerFactoryBean] [restartedMain] [437] [INFO ] Initialized JPA EntityManagerFactory for persistence unit 'default'
+[2021-11-24T22:00:27.027Z] [org.springframework.context.support.AbstractApplicationContext] [restartedMain] [591] [WARN ] Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'oterrainApplication': Unsatisfied dependency expressed through field 'taskScheduler'; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+[2021-11-24T22:00:27.027Z] [org.springframework.orm.jpa.AbstractEntityManagerFactoryBean] [restartedMain] [651] [INFO ] Closing JPA EntityManagerFactory for persistence unit 'default'
+[2021-11-24T22:00:27.027Z] [com.zaxxer.hikari.HikariDataSource] [restartedMain] [350] [INFO ] HikariPool-2 - Shutdown initiated...
+[2021-11-24T22:00:27.027Z] [com.zaxxer.hikari.HikariDataSource] [restartedMain] [352] [INFO ] HikariPool-2 - Shutdown completed.
+[2021-11-24T22:00:27.027Z] [org.apache.juli.logging.DirectJDKLog] [restartedMain] [173] [INFO ] Stopping service [Tomcat]
+[2021-11-24T22:00:28.028Z] [org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLoggingListener] [restartedMain] [136] [INFO ] 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+[2021-11-24T22:00:29.029Z] [org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter] [restartedMain] [40] [ERROR] 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Field taskScheduler in com.connecsen.oterrain.OterrainApplication required a bean of type 'org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler' that could not be found.
+
+The injection point has the following annotations:
+	- @org.springframework.beans.factory.annotation.Autowired(required=true)
+
+
+Action:
+
+Consider defining a bean of type 'org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler' in your configuration.
+
+[2021-11-24T22:00:33.033Z] [org.springframework.boot.StartupInfoLogger] [restartedMain] [55] [INFO ] Starting OterrainApplication using Java 1.8.0_271 on DESKTOP-B0QDJ37 with PID 14956 (C:\Users\AROUNA\connecsen\o-terrain\target\classes started by AROUNA in C:\Users\AROUNA\connecsen\o-terrain)
+[2021-11-24T22:00:33.033Z] [org.springframework.boot.SpringApplication] [restartedMain] [663] [INFO ] The following profiles are active: dev
+[2021-11-24T22:00:38.038Z] [org.springframework.data.repository.config.RepositoryConfigurationDelegate] [restartedMain] [132] [INFO ] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+[2021-11-24T22:00:39.039Z] [org.springframework.data.repository.config.RepositoryConfigurationDelegate] [restartedMain] [201] [INFO ] Finished Spring Data repository scanning in 948 ms. Found 19 JPA repository interfaces.
+[2021-11-24T22:00:40.040Z] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker] [restartedMain] [376] [INFO ] Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@63cd0430' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2021-11-24T22:00:40.040Z] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker] [restartedMain] [376] [INFO ] Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2021-11-24T22:00:42.042Z] [org.springframework.boot.web.embedded.tomcat.TomcatWebServer] [restartedMain] [108] [INFO ] Tomcat initialized with port(s): 8080 (http)
+[2021-11-24T22:00:42.042Z] [org.apache.juli.logging.DirectJDKLog] [restartedMain] [173] [INFO ] Initializing ProtocolHandler ["http-nio-8080"]
+[2021-11-24T22:00:42.042Z] [org.apache.juli.logging.DirectJDKLog] [restartedMain] [173] [INFO ] Starting service [Tomcat]
+[2021-11-24T22:00:42.042Z] [org.apache.juli.logging.DirectJDKLog] [restartedMain] [173] [INFO ] Starting Servlet engine: [Apache Tomcat/9.0.48]
+[2021-11-24T22:00:42.042Z] [org.apache.juli.logging.DirectJDKLog] [restartedMain] [173] [INFO ] Initializing Spring embedded WebApplicationContext
+[2021-11-24T22:00:42.042Z] [org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext] [restartedMain] [290] [INFO ] Root WebApplicationContext: initialization completed in 9446 ms
+[2021-11-24T22:00:43.043Z] [org.hibernate.jpa.internal.util.LogHelper] [restartedMain] [31] [INFO ] HHH000204: Processing PersistenceUnitInfo [name: default]
+[2021-11-24T22:00:43.043Z] [com.zaxxer.hikari.HikariDataSource] [restartedMain] [110] [INFO ] HikariPool-3 - Starting...
+[2021-11-24T22:00:55.055Z] [com.zaxxer.hikari.HikariDataSource] [restartedMain] [123] [INFO ] HikariPool-3 - Start completed.
+[2021-11-24T22:00:55.055Z] [org.hibernate.dialect.Dialect] [restartedMain] [175] [INFO ] HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+[2021-11-24T22:01:35.035Z] [org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator] [restartedMain] [52] [INFO ] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+[2021-11-24T22:01:36.036Z] [org.springframework.orm.jpa.AbstractEntityManagerFactoryBean] [restartedMain] [437] [INFO ] Initialized JPA EntityManagerFactory for persistence unit 'default'
+[2021-11-24T22:01:39.039Z] [org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration] [restartedMain] [219] [WARN ] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+[2021-11-24T22:01:59.059Z] [org.springframework.security.web.DefaultSecurityFilterChain] [restartedMain] [51] [INFO ] Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@25d52be9, org.springframework.security.web.context.SecurityContextPersistenceFilter@507e1139, org.springframework.security.web.header.HeaderWriterFilter@454531cc, org.springframework.security.web.authentication.logout.LogoutFilter@1c11777f, com.connecsen.oterrain.security.JWTAuthorizationFilter@891130b, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@20da028e, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@4c7d8c08, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@249e83d7, org.springframework.security.web.session.SessionManagementFilter@2c4b8000, org.springframework.security.web.access.ExceptionTranslationFilter@f7ff565, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@251ad018]
+[2021-11-24T22:02:00.000Z] [org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping] [restartedMain] [53] [INFO ] Adding welcome page: class path resource [static/index.html]
+[2021-11-24T22:02:05.005Z] [org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer] [restartedMain] [58] [INFO ] LiveReload server is running on port 35729
+[2021-11-24T22:02:05.005Z] [org.apache.juli.logging.DirectJDKLog] [restartedMain] [173] [INFO ] Starting ProtocolHandler ["http-nio-8080"]
+[2021-11-24T22:02:05.005Z] [org.springframework.boot.web.embedded.tomcat.TomcatWebServer] [restartedMain] [220] [INFO ] Tomcat started on port(s): 8080 (http) with context path ''
+[2021-11-24T22:02:05.005Z] [org.springframework.boot.StartupInfoLogger] [restartedMain] [61] [INFO ] Started OterrainApplication in 92.981 seconds (JVM running for 1064.791)
+[2021-11-24T22:02:05.005Z] [org.springframework.boot.devtools.autoconfigure.ConditionEvaluationDeltaLoggingListener] [restartedMain] [58] [INFO ] Condition evaluation delta:
+
+
+==========================
+CONDITION EVALUATION DELTA
+==========================
+
+
+Positive matches:
+-----------------
+
+   TaskExecutionAutoConfiguration#applicationTaskExecutor matched:
+      - @ConditionalOnMissingBean (types: java.util.concurrent.Executor; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+
+Negative matches:
+-----------------
+
+    None
+
+
+Exclusions:
+-----------
+
+    None
+
+
+Unconditional classes:
+----------------------
+
+    None
+
+
+
+[2021-11-24T22:05:06.006Z] [org.springframework.orm.jpa.AbstractEntityManagerFactoryBean] [Thread-8] [651] [INFO ] Closing JPA EntityManagerFactory for persistence unit 'default'
+[2021-11-24T22:05:06.006Z] [com.zaxxer.hikari.HikariDataSource] [Thread-8] [350] [INFO ] HikariPool-3 - Shutdown initiated...
+[2021-11-24T22:05:07.007Z] [com.zaxxer.hikari.HikariDataSource] [Thread-8] [352] [INFO ] HikariPool-3 - Shutdown completed.
+[2021-11-24T22:05:10.010Z] [org.springframework.boot.StartupInfoLogger] [restartedMain] [55] [INFO ] Starting OterrainApplication using Java 1.8.0_271 on DESKTOP-B0QDJ37 with PID 14956 (C:\Users\AROUNA\connecsen\o-terrain\target\classes started by AROUNA in C:\Users\AROUNA\connecsen\o-terrain)
+[2021-11-24T22:05:10.010Z] [org.springframework.boot.SpringApplication] [restartedMain] [663] [INFO ] The following profiles are active: dev
+[2021-11-24T22:05:14.014Z] [org.springframework.data.repository.config.RepositoryConfigurationDelegate] [restartedMain] [132] [INFO ] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+[2021-11-24T22:05:16.016Z] [org.springframework.data.repository.config.RepositoryConfigurationDelegate] [restartedMain] [201] [INFO ] Finished Spring Data repository scanning in 1797 ms. Found 19 JPA repository interfaces.
+[2021-11-24T22:05:17.017Z] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker] [restartedMain] [376] [INFO ] Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@eda88e8' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2021-11-24T22:05:17.017Z] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker] [restartedMain] [376] [INFO ] Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2021-11-24T22:05:19.019Z] [org.springframework.boot.web.embedded.tomcat.TomcatWebServer] [restartedMain] [108] [INFO ] Tomcat initialized with port(s): 8080 (http)
+[2021-11-24T22:05:19.019Z] [org.apache.juli.logging.DirectJDKLog] [restartedMain] [173] [INFO ] Initializing ProtocolHandler ["http-nio-8080"]
+[2021-11-24T22:05:19.019Z] [org.apache.juli.logging.DirectJDKLog] [restartedMain] [173] [INFO ] Starting service [Tomcat]
+[2021-11-24T22:05:19.019Z] [org.apache.juli.logging.DirectJDKLog] [restartedMain] [173] [INFO ] Starting Servlet engine: [Apache Tomcat/9.0.48]
+[2021-11-24T22:05:19.019Z] [org.apache.juli.logging.DirectJDKLog] [restartedMain] [173] [INFO ] Initializing Spring embedded WebApplicationContext
+[2021-11-24T22:05:19.019Z] [org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext] [restartedMain] [290] [INFO ] Root WebApplicationContext: initialization completed in 9117 ms
+[2021-11-24T22:05:20.020Z] [org.hibernate.jpa.internal.util.LogHelper] [restartedMain] [31] [INFO ] HHH000204: Processing PersistenceUnitInfo [name: default]
+[2021-11-24T22:05:21.021Z] [com.zaxxer.hikari.HikariDataSource] [restartedMain] [110] [INFO ] HikariPool-4 - Starting...
+[2021-11-24T22:05:21.021Z] [com.zaxxer.hikari.HikariDataSource] [restartedMain] [123] [INFO ] HikariPool-4 - Start completed.
+[2021-11-24T22:05:21.021Z] [org.hibernate.dialect.Dialect] [restartedMain] [175] [INFO ] HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+[2021-11-24T22:05:28.028Z] [org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator] [restartedMain] [52] [INFO ] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+[2021-11-24T22:05:28.028Z] [org.springframework.orm.jpa.AbstractEntityManagerFactoryBean] [restartedMain] [437] [INFO ] Initialized JPA EntityManagerFactory for persistence unit 'default'
+[2021-11-24T22:05:31.031Z] [org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration] [restartedMain] [219] [WARN ] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+[2021-11-24T22:05:40.040Z] [org.springframework.security.web.DefaultSecurityFilterChain] [restartedMain] [51] [INFO ] Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@69b90e87, org.springframework.security.web.context.SecurityContextPersistenceFilter@4cf0b56c, org.springframework.security.web.header.HeaderWriterFilter@4acdacc8, org.springframework.security.web.authentication.logout.LogoutFilter@5e22e492, com.connecsen.oterrain.security.JWTAuthorizationFilter@225182f4, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@55af40f2, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@423a9a43, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@488adaeb, org.springframework.security.web.session.SessionManagementFilter@6aaefe9d, org.springframework.security.web.access.ExceptionTranslationFilter@2697ea3a, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@2fe7447a]
+[2021-11-24T22:05:42.042Z] [org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping] [restartedMain] [53] [INFO ] Adding welcome page: class path resource [static/index.html]
+[2021-11-24T22:05:48.048Z] [org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer] [restartedMain] [58] [INFO ] LiveReload server is running on port 35729
+[2021-11-24T22:05:48.048Z] [org.apache.juli.logging.DirectJDKLog] [restartedMain] [173] [INFO ] Starting ProtocolHandler ["http-nio-8080"]
+[2021-11-24T22:05:48.048Z] [org.springframework.boot.web.embedded.tomcat.TomcatWebServer] [restartedMain] [220] [INFO ] Tomcat started on port(s): 8080 (http) with context path ''
+[2021-11-24T22:05:49.049Z] [org.springframework.boot.StartupInfoLogger] [restartedMain] [61] [INFO ] Started OterrainApplication in 40.098 seconds (JVM running for 1288.388)
+[2021-11-24T22:05:49.049Z] [org.springframework.boot.devtools.autoconfigure.ConditionEvaluationDeltaLoggingListener] [restartedMain] [58] [INFO ] Condition evaluation delta:
+
+
+==========================
+CONDITION EVALUATION DELTA
+==========================
+
+
+Positive matches:
+-----------------
+
+    None
+
+
+Negative matches:
+-----------------
+
+   TaskExecutionAutoConfiguration#applicationTaskExecutor:
+      Did not match:
+         - @ConditionalOnMissingBean (types: java.util.concurrent.Executor; SearchStrategy: all) found beans of type 'java.util.concurrent.Executor' threadPoolTaskScheduler (OnBeanCondition)
+
+
+Exclusions:
+-----------
+
+    None
+
+
+Unconditional classes:
+----------------------
+
+    None
+
+
+
