@@ -1,5 +1,4 @@
 HELP.md
-target/
 !.mvn/wrapper/maven-wrapper.jar
 
 
@@ -33,3 +32,4 @@ target/
 
 ##O-terrain
 src/main/resources/application-dev.properties
+myLog.log
