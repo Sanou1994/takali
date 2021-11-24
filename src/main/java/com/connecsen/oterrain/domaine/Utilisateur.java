@@ -48,7 +48,7 @@ public class Utilisateur implements Serializable {
 	@OneToMany(targetEntity=Terrain.class,cascade = CascadeType.REMOVE, mappedBy="user")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Terrain> terrains = new ArrayList<Terrain>();
-	@OneToMany(targetEntity=Reservation.class, cascade = CascadeType.REMOVE,mappedBy = "user")
+	@OneToMany(targetEntity=Reservation.class, cascade = CascadeType.ALL,mappedBy = "user")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Reservation> reservations = new ArrayList<Reservation>();
 	@OneToMany(targetEntity=Transaction.class, cascade = CascadeType.REMOVE,mappedBy = "user")

@@ -1,5 +1,7 @@
 package com.connecsen.oterrain;
 
+import javax.annotation.PostConstruct;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -7,17 +9,28 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import com.connecsen.oterrain.jobs.JobRunner;
 import com.connecsen.oterrain.repository.RoleRepository;
+import com.connecsen.oterrain.repository.TerrainRepository;
 import com.connecsen.oterrain.repository.UserRepository;
 import com.connecsen.oterrain.service.IAccountService;
 import com.connecsen.oterrain.service.IMatchService;
+import com.connecsen.oterrain.service.IReservationService;
+import com.connecsen.oterrain.service.ITerrainService;
 @Configuration
 @SpringBootApplication
 public class OterrainApplication implements CommandLineRunner {
 	@Autowired
-	IAccountService iAccountService; 
+    private ThreadPoolTaskScheduler taskScheduler;
+	@Autowired
+	private TerrainRepository terrainRepository;
+	@Autowired
+	IReservationService iReservationService; 
+	@Autowired
+	IAccountService iAccountService;
 	@Autowired(required=true)
 	IMatchService iMatchService;
 //	@Autowired
@@ -30,8 +43,7 @@ public class OterrainApplication implements CommandLineRunner {
 //   private EquipeRepository equipeRepository;
 //	@Autowired
 //    private TournoiRepository tournoiRepository;
-//	@Autowired
-//    private TerrainRepository terrainRepository;
+//	
 
 	public static void main(String[] args) {
 		SpringApplication.run(OterrainApplication.class, args);
@@ -45,10 +57,17 @@ public class OterrainApplication implements CommandLineRunner {
 	public BCryptPasswordEncoder getBCPE() {
 		return new BCryptPasswordEncoder();
 	}
-	@Override
+    
+	/*
+	 * @PostConstruct public void scheduleRunnableWithCronTrigger() {
+	 * taskScheduler.scheduleWithFixedDelay(new
+	 * JobRunner(iReservationService,terrainRepository,userRepository),1000); }
+	 */
+    
+	@Override  
 	public void run(String... args) throws Exception {
-				
-		
+	    
+		System.out.println("Runnable Task with  on thread ");
 //		System.out.println(Long.valueOf(calendar.get(Calendar.MONTH)+Long.valueOf("1")));
 //		System.out.println("jour :"+Long.valueOf(calendar.get(Calendar.DAY_OF_MONTH)));
 //		System.out.println("year :"+calendar.get(Calendar.YEAR));
