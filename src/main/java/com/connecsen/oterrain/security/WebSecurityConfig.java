@@ -47,12 +47,9 @@ private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
 	// We don't need CSRF for this example
 	httpSecurity.csrf().disable()
-	// dont authenticate this particular request
-<<<<<<< HEAD
-	.authorizeRequests().antMatchers("/**","/user/add/transaction/**","/static/**","/static/favicon.ico","/static/static/**","/static/favicon-o-terrain.png/**","/static/avatars**","/assets/**","/","/#","/#/","/#/accueil-visiteur","/match/**","/terrain/**","/tournoi/**","/v3/api-docs/**","/swagger-ui/**","/acceuil/**","/user/role/**","/user/register/**","/user/login/**").permitAll().
-=======
+	
 	.authorizeRequests().antMatchers("/user/add/transaction/**","/static/**","/static/favicon.ico","/static/static/**","/static/favicon-o-terrain.png/**","/static/avatars**","/assets/**","/","/#","/#/","/#/accueil-visiteur","/match/**","/terrain/**","/tournoi/**","/v3/api-docs/**","/swagger-ui/**","/acceuil/**","/user/role/**","/user/register/**","/user/login/**").permitAll().
->>>>>>> main
+
 	// all other requests need to be authenticated
 	anyRequest().authenticated().and().
 	// make sure we use stateless session; session won't be used to
