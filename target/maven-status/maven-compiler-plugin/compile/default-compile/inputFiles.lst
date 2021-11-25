@@ -61,6 +61,7 @@ C:\Users\AROUNA\connecsen\o-terrain\src\main\java\com\connecsen\oterrain\domaine
 C:\Users\AROUNA\connecsen\o-terrain\src\main\java\com\connecsen\oterrain\rest\MatchController.java
 C:\Users\AROUNA\connecsen\o-terrain\src\main\java\com\connecsen\oterrain\exception\deleteexception\HomeOneDeletedException.java
 C:\Users\AROUNA\connecsen\o-terrain\src\main\java\com\connecsen\oterrain\security\WebSecurityConfig.java
+C:\Users\AROUNA\connecsen\o-terrain\src\main\java\com\connecsen\oterrain\jobs\JobRunner.java
 C:\Users\AROUNA\connecsen\o-terrain\src\main\java\com\connecsen\oterrain\service\ITerrainService.java
 C:\Users\AROUNA\connecsen\o-terrain\src\main\java\com\connecsen\oterrain\domaine\Multimedia.java
 C:\Users\AROUNA\connecsen\o-terrain\src\main\java\com\connecsen\oterrain\domaine\dto\request\TransactionDtoRequest.java
@@ -140,6 +141,7 @@ C:\Users\AROUNA\connecsen\o-terrain\src\main\java\com\connecsen\oterrain\rest\Mu
 C:\Users\AROUNA\connecsen\o-terrain\src\main\java\com\connecsen\oterrain\domaine\Reserver.java
 C:\Users\AROUNA\connecsen\o-terrain\src\main\java\com\connecsen\oterrain\exception\createexception\CreateReservationException.java
 C:\Users\AROUNA\connecsen\o-terrain\src\main\java\com\connecsen\oterrain\repository\HomeOneRepository.java
+C:\Users\AROUNA\connecsen\o-terrain\src\main\java\com\connecsen\oterrain\jobs\ThreadPoolTaskSchedulerConfig.java
 C:\Users\AROUNA\connecsen\o-terrain\src\main\java\com\connecsen\oterrain\domaine\dto\request\MatchDtoRequest.java
 C:\Users\AROUNA\connecsen\o-terrain\src\main\java\com\connecsen\oterrain\domaine\Transaction.java
 C:\Users\AROUNA\connecsen\o-terrain\src\main\java\com\connecsen\oterrain\domaine\Reservation.java

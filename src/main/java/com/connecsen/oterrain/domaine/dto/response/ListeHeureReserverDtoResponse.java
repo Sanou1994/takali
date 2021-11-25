@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @Data @AllArgsConstructor @NoArgsConstructor
 public class ListeHeureReserverDtoResponse {
 	private long id ;
+	private long idReservation ;
 	private int numeroJour;
 	private int numeroMois;
 	private String heure;

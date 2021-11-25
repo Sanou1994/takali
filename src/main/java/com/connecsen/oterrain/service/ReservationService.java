@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.connecsen.oterrain.domaine.ListeHeureReserver;
 import com.connecsen.oterrain.domaine.Reservation;
 import com.connecsen.oterrain.domaine.Terrain;
 import com.connecsen.oterrain.domaine.UpdateReservation;
@@ -13,22 +14,27 @@ import com.connecsen.oterrain.domaine.Utilisateur;
 import com.connecsen.oterrain.exception.createexception.CreateReservationException;
 import com.connecsen.oterrain.exception.deleteexception.ReservationDeletedException;
 import com.connecsen.oterrain.exception.nofoundexception.ReservationNotFoundException;
+import com.connecsen.oterrain.repository.ListerHeureRepository;
 import com.connecsen.oterrain.repository.ReservationRepository;
 import com.connecsen.oterrain.repository.TerrainRepository;
 import com.connecsen.oterrain.repository.UserRepository;
+
 @Service
-public class ReservationService implements IReservationService{
+public class ReservationService implements IReservationService {
+	@Autowired
+	private ListerHeureRepository listeHeureReserverRepository;
 	@Autowired
 	private ReservationRepository reservationRepository;
 	@Autowired
-	private TerrainRepository terrainRepository;
-	@Autowired
 	private UserRepository userRepository;
 	@Autowired
+	private TerrainRepository terrainRepository;
+	@Autowired
 	private IReservationService iReservationService;
+
 	@Override
 	public Reservation createOrUpdateReservation(Reservation tournoiDtoRequest) {
-		Reservation tournoiDtoResponse =null;
+		Reservation tournoiDtoResponse = null;
 		try {
 			tournoiDtoResponse = reservationRepository.save(tournoiDtoRequest);
 
@@ -44,7 +50,7 @@ public class ReservationService implements IReservationService{
 		try {
 			Reservation tournoi = reservationRepository.findById(id).get();
 			tournoiDtoResponse = reservationRepository.save(tournoi);
-				
+
 		} catch (Exception e) {
 			throw new ReservationNotFoundException(id);
 		}
@@ -61,25 +67,25 @@ public class ReservationService implements IReservationService{
 		boolean resultat = false;
 		try {
 			Reservation tournoi = reservationRepository.findById(id).get();
-			if(tournoi != null) {
+			if (tournoi != null) {
 				reservationRepository.deleteById(id);
-				resultat =true;
+				resultat = true;
 			}
 		} catch (Exception e) {
 			throw new ReservationDeletedException(id);
 		}
-		
+
 		return resultat;
-	
+
 	}
 
 	@Override
 	public Reservation updateReservationByStatus(UpdateReservation updateReservation) {
-		Reservation tournoiDtoResponse =null;
+		Reservation tournoiDtoResponse = null;
 		try {
 			Reservation reservation = reservationRepository.findById(updateReservation.getId()).get();
-				reservation.setStatePayement(updateReservation.getStatus());
-				tournoiDtoResponse = reservationRepository.save(reservation);
+			reservation.setStatePayement(updateReservation.getStatus());
+			tournoiDtoResponse = reservationRepository.save(reservation);
 
 		} catch (Exception e) {
 			throw new CreateReservationException(Long.toString(tournoiDtoResponse.getId()));
@@ -88,32 +94,31 @@ public class ReservationService implements IReservationService{
 	}
 
 	@Override
-	public boolean deleteReservationByIdUserAndIdTerrain(Long idUser, Long idTerrain,
+	public void deleteReservationByIdUserAndIdTerrain(Long idUser, Long idTerrain,
 			Reservation reservationDtoRequest) {
-		List<Reservation> reservationUsers = new ArrayList<Reservation>();
-		List<Reservation> reservationTerrains = new ArrayList<Reservation>();
-        boolean resultat =false;
+		List<ListeHeureReserver> heures = new ArrayList<ListeHeureReserver>();
+		reservationDtoRequest.setUser(null);
+		reservationDtoRequest.setTerrain(null);
+		createOrUpdateReservation(reservationDtoRequest);
 		Utilisateur user = userRepository.findById(idUser).get();
 		Terrain terrain = terrainRepository.findById(idTerrain).get();
-		for (int i = 0; i < user.getReservations().size(); i++) {
-			if(user.getReservations().get(i).getId()!=reservationDtoRequest.getId()) {
-				Reservation reservation =reservationRepository.save(user.getReservations().get(i));
-				reservationUsers.add(reservation);
-				iReservationService.deleteReservation(user.getReservations().get(i).getId());
-				resultat=true;
+		for (int i = 0; i < terrain.getListeHeureReserver().size(); i++) {
+			
+			if(terrain.getListeHeureReserver().get(i).getIdReservation()==reservationDtoRequest.getId()) {
+			
+				terrain.getListeHeureReserver().get(i).setTerrain(null);
+				terrainRepository.save(terrain);
+				listeHeureReserverRepository.deleteById(terrain.getListeHeureReserver().get(i).getId());
 			}
 		}
-		System.out.println(" taille nouveau tablo :"+reservationUsers.size());
-		user.setReservations(reservationUsers);
-		System.out.println("  nouveau user taille:"+user.getReservations().size());
-		userRepository.save(user);
-		System.out.println("  nouveau user taille apres :"+user.getReservations().size());
-		terrain.setReservations(reservationTerrains);
+		
+		terrain.setListeHeureReserver(heures);
+		terrain.setReservations(null);
 		terrainRepository.save(terrain);
 		
 		
-		
-		
-		return resultat;
-	}
+		  user.setReservations(null);
+		  userRepository.save(user);
+		  iReservationService.deleteReservation(reservationDtoRequest.getId());
+			}
 }

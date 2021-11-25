@@ -34,7 +34,7 @@ public class Terrain implements Serializable{
 	private Long idUser;
 	@OneToOne(targetEntity=Indisponibilite.class,cascade = { CascadeType.PERSIST, CascadeType.REMOVE})
 	private  Indisponibilite indisponibilite ;
-	@ManyToMany(targetEntity=ListeHeureReserver.class,cascade = CascadeType.PERSIST)
+	@OneToMany(targetEntity=ListeHeureReserver.class,mappedBy="terrain",cascade =CascadeType.ALL)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<ListeHeureReserver> listeHeureReserver = new ArrayList<ListeHeureReserver>();
 	@ManyToMany(targetEntity=Multimedia.class,cascade = CascadeType.ALL)
@@ -63,7 +63,7 @@ public class Terrain implements Serializable{
 		this.ville = ville;
 		this.latitude = latitude;
 		this.longitude = longitude;
-		this.disponibilite = disponibilite;
+		this.disponibilite = disponibilite; 
 		this.description = description;
 		this.statusTerrain = statusTerrain;
 		this.idUser = idUser;
@@ -100,6 +100,7 @@ public class Terrain implements Serializable{
 		this.user = user;
 		this.prix = prix;
 	}
+	
 	public Terrain() {
 		super();
 	}

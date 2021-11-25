@@ -300,11 +300,13 @@ public class AccountService implements IAccountService{
 	
 		for (int i = 0; i < splitted.length; i++) {
 			ListeHeureReserver reserver = new ListeHeureReserver(
+					reservation.getId(),
 					Long.parseLong(date[0]),
 					Long.parseLong(date[1]),
 					splitted[i],null
 					);
 			ListeHeureReserver reserverSave =reserverRepository.save(reserver);
+			terrainRepository.save(terrain);
 			terrain.getListeHeureReserver().add(reserverSave);
 		}
 		terrainRepository.save(terrain);
@@ -356,7 +358,7 @@ public class AccountService implements IAccountService{
 	}
 	@Override
 	public UserDtoResponse addReservationToUserAndTerrainWithoutPaid(long idUser, long idTerrain,
-			Reservation reservationDtoRequest) {
+		Reservation reservationDtoRequest) {
 		Utilisateur user =userRepository.findById(idUser ).get();
 		Terrain terrain =terrainRepository.findById(idTerrain).get();
 		 Reservation reservation= iReservationService.createOrUpdateReservation(reservationDtoRequest);
@@ -368,6 +370,46 @@ public class AccountService implements IAccountService{
 		Utilisateur userSave=userRepository.save(user);
 		UserDtoResponse userDtoResponse =Utility.utilisateurConvertToUserDtoResponse(userSave);
 		return userDtoResponse;
+	}
+	@Override
+	public UserDtoResponse addReservationToUserAndTerrain(long idUser, long idTerrain,
+			Reservation reservationDtoRequest) {
+		    Reservation reservation= iReservationService.createOrUpdateReservation(reservationDtoRequest);
+			Terrain terrain =terrainRepository.findById(idTerrain).get();
+			
+			String[]  date =reservation.getDateReservation().split("/");
+			Utilisateur user =userRepository.findById(idUser ).get();
+			 reservation.setTerrain(terrain);
+				reservation.setUser(user);
+				user.getReservations().add(reservation);
+				terrain.getReservations().add(reservation);
+				terrainRepository.save(terrain);
+				userRepository.save(user);
+			String[] splitted =reservation.getHeure().split(",");
+			UserDoReservation userDoReservation = new UserDoReservation();
+			userDoReservation.setAdresse(user.getAdresse());
+			userDoReservation.setIdUser(user.getId());
+			userDoReservation.setNom(user.getNom());
+			userDoReservation.setPrenom(user.getPrenom());
+			userDoReservation.setTelephone(user.getTelephone());
+			UserDoReservation userDoReservationCreate =userDoReservationRepository.save(userDoReservation);
+			reservation.setUserDoReservation(userDoReservationCreate);
+		
+			for (int i = 0; i < splitted.length; i++) {
+				ListeHeureReserver reserver = new ListeHeureReserver(
+						reservation.getId(),
+						Long.parseLong(date[0]),
+						Long.parseLong(date[1]),
+						splitted[i],terrain
+						);
+				ListeHeureReserver reserverSave =reserverRepository.save(reserver);
+				terrain.getListeHeureReserver().add(reserverSave);
+				terrainRepository.save(terrain);
+			}
+			
+			Utilisateur userSave=userRepository.save(user);
+			UserDtoResponse userDtoResponse =Utility.utilisateurConvertToUserDtoResponse(userSave);
+			return userDtoResponse;
 	}
 	
 	

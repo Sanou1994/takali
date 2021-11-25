@@ -445,6 +445,12 @@ public final class Utility {
 		UserDtoResponse userDtoResponse = new UserDtoResponse() ;
 	    return (utilisateur != null)? modelMapper.map(utilisateur, UserDtoResponse.class) : userDtoResponse;
 	}
+	
+	public static  UserDtoRequest utilisateurConvertToUserDtoRequest(Utilisateur utilisateur) {
+		ModelMapper modelMapper = new ModelMapper(); 
+		UserDtoRequest userDtoResponse = new UserDtoRequest() ;
+	    return (utilisateur != null)? modelMapper.map(utilisateur, UserDtoRequest.class) : userDtoResponse;
+	}
 	public static  Utilisateur userDtoResponseConvertToUtilisateur(UserDtoResponse userDtoResponse) {
 		ModelMapper modelMapper = new ModelMapper(); 
 		Utilisateur utilisateur = modelMapper.map(userDtoResponse, Utilisateur.class);
@@ -462,6 +468,13 @@ public final class Utility {
 			TerrainDtoResponse terrainDtoResponse = new TerrainDtoResponse() ;
 		    return (terrainDtoRequest != null)? modelMapper.map(terrainDtoRequest, TerrainDtoResponse.class) : terrainDtoResponse;
 		}
+		
+		public static  TerrainDtoRequest terrainConvertToTerrainDtoRequest(Terrain terrainDtoRequest) {
+			ModelMapper modelMapper = new ModelMapper(); 
+			TerrainDtoRequest terrainDtoResponse = new TerrainDtoRequest() ;
+		    return (terrainDtoRequest != null)? modelMapper.map(terrainDtoRequest, TerrainDtoRequest.class) : terrainDtoResponse;
+		}
+		
 		public static  Terrain terrainDtoResponseConvertToTerrain(TerrainDtoResponse terrainDtoResponse) {
 			ModelMapper modelMapper = new ModelMapper(); 
 			Terrain terrain = modelMapper.map(terrainDtoResponse, Terrain.class);

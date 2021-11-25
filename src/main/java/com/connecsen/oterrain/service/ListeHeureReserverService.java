@@ -2,15 +2,15 @@ package com.connecsen.oterrain.service;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.connecsen.oterrain.domaine.ListeHeureReserver;
 import com.connecsen.oterrain.domaine.dto.request.ListeHeureReserverDtoRequest;
 import com.connecsen.oterrain.domaine.dto.response.ListeHeureReserverDtoResponse;
 import com.connecsen.oterrain.repository.ListerHeureRepository;
 import com.connecsen.oterrain.utils.Utility;
-
+@Service
 public class ListeHeureReserverService implements IListerHeureReserverService {
 
 	@Autowired

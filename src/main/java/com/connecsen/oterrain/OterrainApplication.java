@@ -13,13 +13,10 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.connecsen.oterrain.jobs.JobRunner;
-import com.connecsen.oterrain.repository.RoleRepository;
 import com.connecsen.oterrain.repository.TerrainRepository;
-import com.connecsen.oterrain.repository.UserRepository;
 import com.connecsen.oterrain.service.IAccountService;
 import com.connecsen.oterrain.service.IMatchService;
 import com.connecsen.oterrain.service.IReservationService;
-import com.connecsen.oterrain.service.ITerrainService;
 @Configuration
 @SpringBootApplication
 public class OterrainApplication implements CommandLineRunner {
@@ -36,9 +33,9 @@ public class OterrainApplication implements CommandLineRunner {
 //	@Autowired
 //    private MatchRepository matchRepository;
 //	@Autowired
-    private UserRepository userRepository;
+//    private UserRepository userRepository;
 //	@Autowired
-    private RoleRepository roleRepository;
+ //   private RoleRepository roleRepository;
 //	@Autowired
 //   private EquipeRepository equipeRepository;
 //	@Autowired
@@ -58,12 +55,13 @@ public class OterrainApplication implements CommandLineRunner {
 		return new BCryptPasswordEncoder();
 	}
     
-	/*
-	 * @PostConstruct public void scheduleRunnableWithCronTrigger() {
-	 * taskScheduler.scheduleWithFixedDelay(new
-	 * JobRunner(iReservationService,terrainRepository,userRepository),1000); }
-	 */
-    
+	
+	  @PostConstruct
+	  public void scheduleRunnableWithCronTrigger() {
+	  taskScheduler.scheduleWithFixedDelay(new
+	  JobRunner(iReservationService,terrainRepository),180000); }
+	 
+	 
 	@Override  
 	public void run(String... args) throws Exception {
 	    

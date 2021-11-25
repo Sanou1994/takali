@@ -1,34 +1,35 @@
 package com.connecsen.oterrain.domaine;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 @Entity
 public class ListeHeureReserver implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id ;
+	private long idReservation ;
 	private long numeroJour;
 	private long numeroMois;
 	private String heure;
-	@ManyToMany(targetEntity = Terrain.class, mappedBy="listeHeureReserver")
-	private List<Terrain> terrain = new ArrayList<Terrain>();
-	public ListeHeureReserver(long numeroJour, long numeroMois, String heure,  List<Terrain> terrain) {
+	@ManyToOne(targetEntity = Terrain.class)
+	private Terrain terrain;
+	public ListeHeureReserver(long idReservation,long numeroJour, long numeroMois, String heure,  Terrain terrain) {
 		super();
+		this.idReservation = idReservation;
 		this.numeroJour = numeroJour;
 		this.numeroMois = numeroMois;
 		this.heure = heure;
 		this.terrain = terrain;
 	}
-	public ListeHeureReserver(long id,long numeroJour, long numeroMois, String heure,  List<Terrain> terrain) {
+	public ListeHeureReserver(long id,long idReservation,long numeroJour, long numeroMois, String heure,  Terrain terrain) {
 		super();
 		this.id = id;
+		this.idReservation = idReservation;
 		this.numeroJour = numeroJour;
 		this.numeroMois = numeroMois;
 		this.heure = heure;
@@ -62,8 +63,14 @@ public class ListeHeureReserver implements Serializable {
 		this.heure = heure;
 	}
 	
-	public void setTerrain( List<Terrain> terrain) {
+	public void setTerrain( Terrain terrain) {
 		this.terrain = terrain;
+	}
+	public long getIdReservation() {
+		return idReservation;
+	}
+	public void setIdReservation(long idReservation) {
+		this.idReservation = idReservation;
 	}
 	
 

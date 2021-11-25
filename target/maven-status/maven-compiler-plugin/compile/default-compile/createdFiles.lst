@@ -62,6 +62,7 @@ com\connecsen\oterrain\repository\ProposRepository.class
 com\connecsen\oterrain\security\JwtTokenUtil.class
 com\connecsen\oterrain\domaine\dto\request\MultimediaDtoRequest.class
 com\connecsen\oterrain\domaine\HomeOne.class
+com\connecsen\oterrain\jobs\JobRunner.class
 com\connecsen\oterrain\domaine\UpdateReservation.class
 com\connecsen\oterrain\exception\createexception\CreateMatchException.class
 com\connecsen\oterrain\exception\deleteexception\UserDeletedException.class
@@ -95,6 +96,7 @@ com\connecsen\oterrain\domaine\Indisponibilite.class
 com\connecsen\oterrain\domaine\Reserver.class
 com\connecsen\oterrain\service\PrixService.class
 com\connecsen\oterrain\exception\nofoundexception\MatchNotFoundException.class
+com\connecsen\oterrain\jobs\ThreadPoolTaskSchedulerConfig.class
 com\connecsen\oterrain\repository\TransactionRepository.class
 com\connecsen\oterrain\repository\ListerHeureRepository.class
 com\connecsen\oterrain\service\EquipeService.class

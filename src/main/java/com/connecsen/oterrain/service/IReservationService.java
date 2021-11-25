@@ -11,6 +11,6 @@ public interface IReservationService {
 	  public Reservation updateReservationByStatus(UpdateReservation updateReservation);
 	  public  Reservation getReservationById(Long id);
 	  public List<Reservation> getAllReservations();
-	  public boolean deleteReservationByIdUserAndIdTerrain(Long idUser,Long idTerrain,Reservation reservationDtoRequest);
+	  public void deleteReservationByIdUserAndIdTerrain(Long idUser,Long idTerrain,Reservation reservationDtoRequest);
 	  public boolean deleteReservation(Long id); 
 }

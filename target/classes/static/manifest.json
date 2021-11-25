@@ -3,7 +3,7 @@
   "name": "O-Terrain",
   "icons": [
     {
-      "src": "o-terrain-logo-png.png",
+      "src": "./assets/img/favicon-o-terrain.png",
       "sizes": "100x100",
       "type": "image/png"
     }
