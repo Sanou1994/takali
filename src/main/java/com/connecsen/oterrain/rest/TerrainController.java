@@ -53,7 +53,7 @@ logger.info(terrainAdd.getNom() +" terrain is created  "+"with : "+resultat);
 	}
 	@PostMapping(Utility.UPDATE_TERRAIN)
 	public TerrainDtoResponse getUpdateUser( @RequestBody TerrainDtoRequest user){
-		return iTerrainService.createOrUpdateTerrain(user.getId(),user);
+		return iTerrainService.createOrUpdateTerrain(user.getIdUser(),user);
     }
 	@GetMapping(Utility.GET_ALL_TERRAINS)
 	public List<TerrainDtoResponse> getAllTerrain(){
