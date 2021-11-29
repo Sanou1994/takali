@@ -21,6 +21,7 @@ public class JobRunner implements Runnable{
 		this.terrainRepository = terrainRepository;
 	}
     public void checkReservation(List<Reservation> reservations) {
+    	System.out.println("je suis job");
     	for (int i = 0; i < reservations.size(); i++) {
 			if(reservations.get(i).getStatePayement().equals("PENDING")) {
 				

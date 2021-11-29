@@ -66,7 +66,8 @@ public class AccountService implements IAccountService{
     @Autowired
     private UserDoReservationRepository userDoReservationRepository;
     @Autowired
-   private  JavaMailSender javaMailSender;
+    private  JavaMailSender javaMailSender;
+     
     @Autowired
 	private IReservationService iReservationService;
     
@@ -138,7 +139,6 @@ public class AccountService implements IAccountService{
 	}
 	 @Override
     public void sendMail(Mail mail) {
-
 		     SimpleMailMessage msg = new SimpleMailMessage();
 		    msg.setFrom(mail.getEmail());
 	        msg.setTo(Utility.NOTREEMAIL);
@@ -152,16 +152,17 @@ public class AccountService implements IAccountService{
 	
 	@Override
 	public void sendMailWithAttachments(Login login,String resetPasswordId) throws MessagingException {
-		    MimeMessage msg = javaMailSender.createMimeMessage();
+		Utilisateur user = userRepository.findByEmail(login.getEmail());   
+		MimeMessage msg = javaMailSender.createMimeMessage();
 
 	        MimeMessageHelper helper = new MimeMessageHelper(msg, true);
             String subject = "Information pour changer le mot de passe";
-	        String link ="www.google.com";
-	        String content = "<p>Salut,</p>"
+	        String link ="o-terrain.com/#/login";
+	        String content = "<p>Bonjour  <h3>" + user.getNom() + "</h3>,</p>"
 	                + "<p>Vous aviez reçu cet email pour changer votre mot de passe.</p>"
 	                + "<p>Copie ce code : <h3>" + resetPasswordId + "</h3> et inserer comme ancien mot de passe après avoir cliquer sur ce lien:</p>"
 	                + "<p>Clique sur le lien  a travers le champ en bleu :</p>"
-	                + "<p><a href=\"" + link + "\">Changer mon mot de passe</a></p>"
+	                + "<p><a href=\"" + link + "\">me connecter à mon compte</a></p>"
 	                + "<br>"
 	                + "<p>ignore ce message si vous vous souvenez de votre mot de passe, "
 	                + "oubien si vous n'avez pas fait cette demande.</p>";
@@ -327,12 +328,13 @@ public class AccountService implements IAccountService{
 	}
 	@Override
 	public void confirmedMessageAccountCreatedSuccess(Login login) throws MessagingException {
-		 MimeMessage msg = javaMailSender.createMimeMessage();
+		Utilisateur user =userRepository.findByEmail(login.getEmail());
+		MimeMessage msg = javaMailSender.createMimeMessage();
 
 	        MimeMessageHelper helper = new MimeMessageHelper(msg, true);
          String subject = "Confirmation de creation de compte";
-	        String link ="www.o-terrain.com/#/login";
-	        String content = "<p>Salut,</p>"
+	        String link ="o-terrain.com/#/login";
+	        String content = "<p>Bonjour <h3>"+user.getNom()+"</h3>,</p>"
 	                + "<p>Vous aviez reçu cet email car vous aviez crée un compte sur notre plateforme.</p>"
 	                + "<br>"
 	                + "<p>Pour vous connectez utiliser les identifiants ci-dessous.</p>"
@@ -410,6 +412,10 @@ public class AccountService implements IAccountService{
 			Utilisateur userSave=userRepository.save(user);
 			UserDtoResponse userDtoResponse =Utility.utilisateurConvertToUserDtoResponse(userSave);
 			return userDtoResponse;
+	}
+	@Override
+	public Utilisateur getUserByEmail(String email) {
+		return userRepository.findByEmail(email);
 	}
 	
 	

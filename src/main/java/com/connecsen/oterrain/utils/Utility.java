@@ -65,7 +65,7 @@ public final class Utility {
 	public static final String TOKEN_PREFIX = "Bearer ";
 	public static final String HEADER_STRING = "Authorization";
 	public static final String SECRET = "javainuse";
-	public static final String NOTREEMAIL = "oterrain.foot@gmail.com";
+	public static final String NOTREEMAIL ="sanouarouna90@gmail.com";       //"oterrain.foot@gmail.com";
 	
 	// LES URLS D'ACCESS
 	public static final String ADD_INDISPONIBILITE = "/indisponibilite/add";
@@ -230,7 +230,7 @@ public final class Utility {
 	}
 	//GENERATEUR DE TOKEN POUR RECUPERER LE MOT DE PASSE
 	public static String getTokenResetPassword() {
-		return RandomString.make(30);
+		return RandomString.make(10);
 	}
 	//LES MAPPERS DTO A DAO PUB
 	public static  PubDtoResponse pubConvertToPubDtoResponse( Publicite  pub) {

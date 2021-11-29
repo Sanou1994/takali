@@ -3,7 +3,13 @@ package com.connecsen.oterrain.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 import com.connecsen.oterrain.domaine.ListeHeureReserver;
@@ -31,7 +37,8 @@ public class ReservationService implements IReservationService {
 	private TerrainRepository terrainRepository;
 	@Autowired
 	private IReservationService iReservationService;
-
+	 @Autowired
+	private  JavaMailSender javaMailSender;
 	@Override
 	public Reservation createOrUpdateReservation(Reservation tournoiDtoRequest) {
 		Reservation tournoiDtoResponse = null;
@@ -121,4 +128,31 @@ public class ReservationService implements IReservationService {
 		  userRepository.save(user);
 		  iReservationService.deleteReservation(reservationDtoRequest.getId());
 			}
+
+	@Override
+	public void confirmedMessageReservationPaidSuccess(Reservation reservation) throws MessagingException {
+		 MimeMessage msg = javaMailSender.createMimeMessage();
+		Terrain terrain = terrainRepository.findById(reservation.getIdTerrain()).get();
+		 Utilisateur user = userRepository.findById(terrain.getIdUser()).get();
+		  MimeMessageHelper helper = new MimeMessageHelper(msg, true); 
+          String subject ="Confirmation de paiement de reservation";
+          String link ="http://o-terrain.com";
+		  String content ="<p>Bonjour "+user.getNom()+",</p>" +
+		  "<p>Vous aviez reçu cet email car vous aviez fait une reservation de terrain sur notre plateforme.</p>"
+		  + "<br>"+"<p>Nom du terrain:<h6>"+reservation.getNomTerrain()+"</h6></p>"
+		  +"<p>Adresse du terrain:<h6>"+terrain.getAdresse()+"</h6></p>"+
+		  "<p> Date de reservation du terrain :<h6>"+reservation.getDateReservation()+"</h6></p>" 
+		  +"<p> somme payée :<h6>"+reservation.getMontantTotal()+"</h6></p>" +
+		  "<p>Clique sur le lien  a travers le champ en bleu pour accéder à notre plateforme:</p>"
+		  + "<p>Veuillez suivre ce lien <a href="+ link +">se connecter </a></p>" + "<br>" +
+		  "<p>veuillez ne pas repondre à cet email.</p>";
+		  helper.setTo(user.getEmail());
+		  helper.setSubject(subject);
+		  
+		  helper.setText(content, true); helper.addAttachment("terrain.png", new
+		  ClassPathResource("terrain.png"));
+		  
+		  javaMailSender.send(msg);
+		 
+	}
 }

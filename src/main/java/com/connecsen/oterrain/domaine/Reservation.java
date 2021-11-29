@@ -1,6 +1,7 @@
 package com.connecsen.oterrain.domaine;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -21,6 +22,7 @@ public class Reservation implements Serializable{
 	private String statePayement;
 	private String dateReservation;
 	private String heure;
+	private Date dateReservationTypeDate;
 	@OneToOne 
 	private Match match;
 	@ManyToOne(targetEntity=Utilisateur.class)
@@ -31,7 +33,7 @@ public class Reservation implements Serializable{
 	private UserDoReservation userDoReservation;
 	
 	public Reservation(Long idUserDoReservation,Long idTerrain, String nomTerrain, double montant, double montantTotal, String statePayement,
-			String dateReservation, String heure, Match match, Utilisateur user, Terrain terrain, UserDoReservation userDoReservation) {
+			String dateReservation, String heure,Date dateReservationTypeDate, Match match, Utilisateur user, Terrain terrain, UserDoReservation userDoReservation) {
 		super();
 		this.idTerrain = idTerrain;
 		this.nomTerrain = nomTerrain;
@@ -40,6 +42,7 @@ public class Reservation implements Serializable{
 		this.statePayement = statePayement;
 		this.dateReservation = dateReservation;
 		this.heure = heure;
+		this.dateReservationTypeDate = dateReservationTypeDate;
 		this.match = match;
 		this.user = user;
 		this.terrain = terrain;
@@ -47,7 +50,7 @@ public class Reservation implements Serializable{
 	}
 	
 	public Reservation(Long id,Long idUserDoReservation, Long idTerrain, String nomTerrain, double montant, double montantTotal,
-			String statePayement, String dateReservation, String heure, Match match, Utilisateur user,
+			String statePayement, String dateReservation, String heure,Date dateReservationTypeDate, Match match, Utilisateur user,
 			Terrain terrain, UserDoReservation userDoReservation) {
 		super();
 		this.id = id;
@@ -58,6 +61,7 @@ public class Reservation implements Serializable{
 		this.statePayement = statePayement;
 		this.dateReservation = dateReservation;
 		this.heure = heure;
+		this.dateReservationTypeDate = dateReservationTypeDate;
 		this.match = match;
 		this.user = user;
 		this.terrain = terrain;
@@ -145,6 +149,14 @@ public class Reservation implements Serializable{
 
 	public void setUserDoReservation(UserDoReservation userDoReservation) {
 		this.userDoReservation = userDoReservation;
+	}
+
+	public Date getDateReservationTypeDate() {
+		return dateReservationTypeDate;
+	}
+
+	public void setDateReservationTypeDate(Date dateReservationTypeDate) {
+		this.dateReservationTypeDate = dateReservationTypeDate;
 	}
 	
 

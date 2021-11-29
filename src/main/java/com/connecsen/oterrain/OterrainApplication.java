@@ -12,6 +12,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import com.connecsen.oterrain.domaine.Login;
+import com.connecsen.oterrain.domaine.Reservation;
 import com.connecsen.oterrain.jobs.JobRunner;
 import com.connecsen.oterrain.repository.TerrainRepository;
 import com.connecsen.oterrain.service.IAccountService;
@@ -56,16 +58,22 @@ public class OterrainApplication implements CommandLineRunner {
 	}
     
 	
-	  @PostConstruct
-	  public void scheduleRunnableWithCronTrigger() {
-	  taskScheduler.scheduleWithFixedDelay(new
-	  JobRunner(iReservationService,terrainRepository),180000); }
-	 
+	/*
+	 * @PostConstruct public void scheduleRunnableWithCronTrigger() {
+	 * taskScheduler.scheduleWithFixedDelay(new
+	 * JobRunner(iReservationService,terrainRepository),1); }
+	 */
 	 
 	@Override  
 	public void run(String... args) throws Exception {
-	    
+		
+		/*
+		 * Reservation reservation =iReservationService.getReservationById((long) 3);
+		 * iReservationService.confirmedMessageReservationPaidSuccess(reservation);
+		 */
+		 
 		System.out.println("Runnable Task with  on thread ");
+	//	iAccountService.sendMailWithAttachments(new Login("arouna","admin","sanouarouna45@yahoo.fr"),"resetPasswordId");
 //		System.out.println(Long.valueOf(calendar.get(Calendar.MONTH)+Long.valueOf("1")));
 //		System.out.println("jour :"+Long.valueOf(calendar.get(Calendar.DAY_OF_MONTH)));
 //		System.out.println("year :"+calendar.get(Calendar.YEAR));

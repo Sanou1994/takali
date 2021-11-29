@@ -89,8 +89,8 @@ public class AccountRestController {
     }
 	@PostMapping(Utility.DO_FORGOT_PASSWORD)
 	public long sendMail(@RequestBody Login login) throws MessagingException {
-		Utilisateur user =accountService.findUserByUsernameAndEmail(login.getUsername(), login.getEmail());
-		String token = Utility.getTokenResetPassword();
+		Utilisateur user =accountService.getUserByEmail(login.getEmail());
+		String token = Utility.getTokenResetPassword(); 
 		long idUser  =0;
 		if(user != null) {
 			idUser=accountService.updateResetPasswordToken(token,user.getEmail());

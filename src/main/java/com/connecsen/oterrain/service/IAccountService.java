@@ -37,6 +37,7 @@ public interface IAccountService {
 	  public UserDtoResponse login_up(UserDtoRequest user);
 	  public Utilisateur findUserByUsername(String username);
 	  public Utilisateur findUserByUsernameAndEmail(String username,String email);
+	  public Utilisateur getUserByEmail(String email);
 	  public void sendMail(Mail mail);
       public void confirmedMessageAccountCreatedSuccess(Login login) throws MessagingException;
       public void sendMailWithAttachments(Login login,String resetPasswordId) throws MessagingException;
