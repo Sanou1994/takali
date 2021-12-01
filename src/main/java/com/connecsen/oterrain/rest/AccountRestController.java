@@ -60,7 +60,7 @@ public class AccountRestController {
 			user.setPassword(token);
 			user.setUsername(user.getEmail());
 			UserDtoResponse userAdd =accountService.login_up(user);
-			logger.info(" new user with role "+userAdd.getRoles().getLibelle() +"created : "+"firstname :"+userAdd.getUsername() +"lastname : "+userAdd.getPrenom());
+			logger.info(" new user created  with firstname :"+userAdd.getUsername() +"lastname : "+userAdd.getPrenom());
 			accountService.confirmedMessageAccountCreatedSuccess(new Login(user.getEmail(),token, user.getEmail()));
 			reponse =true;
 		} catch (Exception e) {

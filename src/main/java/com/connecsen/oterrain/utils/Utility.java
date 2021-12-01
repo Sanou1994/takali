@@ -61,11 +61,11 @@ import net.bytebuddy.utility.RandomString;
 
 public final class Utility {
 	// CONSTANT POUR LA SECURITE
-	public static final long EXPIRATION_TIME =5 * 60 * 60 ;
+	public static final long EXPIRATION_TIME =365 * 24 * 60 * 60 ;
 	public static final String TOKEN_PREFIX = "Bearer ";
 	public static final String HEADER_STRING = "Authorization";
 	public static final String SECRET = "javainuse";
-	public static final String NOTREEMAIL ="sanouarouna90@gmail.com";       //"oterrain.foot@gmail.com";
+	public static final String NOTREEMAIL ="oterrain.foot@gmail.com";
 	
 	// LES URLS D'ACCESS
 	public static final String ADD_INDISPONIBILITE = "/indisponibilite/add";

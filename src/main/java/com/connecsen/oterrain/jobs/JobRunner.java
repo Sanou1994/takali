@@ -20,15 +20,19 @@ public class JobRunner implements Runnable{
 		this.iReservationService = iReservationService;
 		this.terrainRepository = terrainRepository;
 	}
+	
     public void checkReservation(List<Reservation> reservations) {
-    	System.out.println("je suis job");
-    	for (int i = 0; i < reservations.size(); i++) {
-			if(reservations.get(i).getStatePayement().equals("PENDING")) {
-				
-				Terrain terrain=terrainRepository.findById(reservations.get(i).getIdTerrain()).get();
-				iReservationService.deleteReservationByIdUserAndIdTerrain(terrain.getIdUser(), reservations.get(i).getIdTerrain(), reservations.get(i));
-			}
-		}
+            if(reservations.size() !=0) {
+            	for (int i = 0; i < reservations.size(); i++) {
+     	    	   long last = reservations.get(i).getDateReservationTypeDate().getTime();
+     	           long duration = System.currentTimeMillis() -last;
+     	           
+     			  if((reservations.get(i).getStatePayement().equals("PENDING"))&&(duration >= 180000)) {
+     			   Terrain terrain=terrainRepository.findById(reservations.get(i).getIdTerrain()).get();
+     		      iReservationService.deleteReservationByIdUserAndIdTerrain(terrain.getIdUser(), reservations.get(i).getIdTerrain(), reservations.get(i));
+     			  } 
+     		} 
+            }	
     }
     
 	@Override

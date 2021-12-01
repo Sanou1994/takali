@@ -8,7 +8,6 @@ import javax.mail.internet.MimeMessage;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -34,7 +33,6 @@ import com.connecsen.oterrain.domaine.dto.request.RoleDtoRequest;
 import com.connecsen.oterrain.domaine.dto.request.UserDtoRequest;
 import com.connecsen.oterrain.domaine.dto.response.RoleDtoResponse;
 import com.connecsen.oterrain.domaine.dto.response.UserDtoResponse;
-import com.connecsen.oterrain.exception.nofoundexception.UserNotFoundException;
 import com.connecsen.oterrain.repository.ListerHeureRepository;
 import com.connecsen.oterrain.repository.RoleRepository;
 import com.connecsen.oterrain.repository.TerrainRepository;
@@ -83,15 +81,10 @@ public class AccountService implements IAccountService{
 	@Override
 	public UserDtoResponse se_connecter(String username,String password) {
 		UserDtoResponse userMap = null;
-		Utilisateur user = null;
-		try {
-			user = userRepository.findByUsername(username);
+		Utilisateur user = userRepository.findByUsername(username);
 			if((user != null)&&(bCryptPasswordEncoder.matches(password, user.getPassword()))){
 				userMap = Utility.utilisateurConvertToUserDtoResponse(user);
-			}
-		} catch (Exception e) {
-			throw new UserNotFoundException(username);
-		}
+			}	
 		return userMap ;
 	}
 	@Override
@@ -157,12 +150,12 @@ public class AccountService implements IAccountService{
 
 	        MimeMessageHelper helper = new MimeMessageHelper(msg, true);
             String subject = "Information pour changer le mot de passe";
-	        String link ="o-terrain.com/#/login";
-	        String content = "<p>Bonjour  <h3>" + user.getNom() + "</h3>,</p>"
+	        String link ="http://o-terrain.com/#/login";
+	        String content = "<p>Bonjour " + user.getNom() + ",</p>"
 	                + "<p>Vous aviez reçu cet email pour changer votre mot de passe.</p>"
 	                + "<p>Copie ce code : <h3>" + resetPasswordId + "</h3> et inserer comme ancien mot de passe après avoir cliquer sur ce lien:</p>"
 	                + "<p>Clique sur le lien  a travers le champ en bleu :</p>"
-	                + "<p><a href=\"" + link + "\">me connecter à mon compte</a></p>"
+	                + "<p><a href="+ link +">me connecter à mon compte</a></p>"
 	                + "<br>"
 	                + "<p>ignore ce message si vous vous souvenez de votre mot de passe, "
 	                + "oubien si vous n'avez pas fait cette demande.</p>";
@@ -173,7 +166,7 @@ public class AccountService implements IAccountService{
 	       
 	        
 	        helper.setText(content, true);
-	       helper.addAttachment("terrain.png", new ClassPathResource("terrain.png"));
+	       //helper.addAttachment("terrain.png", new ClassPathResource("terrain.png"));
 
 	        javaMailSender.send(msg);
 	    }
@@ -353,7 +346,7 @@ public class AccountService implements IAccountService{
 	       
 	        
 	        helper.setText(content, true);
-	       helper.addAttachment("terrain.png", new ClassPathResource("terrain.png"));
+	     //  helper.addAttachment("terrain.png", new ClassPathResource("terrain.png"));
 
 	        javaMailSender.send(msg);
 		
@@ -416,6 +409,17 @@ public class AccountService implements IAccountService{
 	@Override
 	public Utilisateur getUserByEmail(String email) {
 		return userRepository.findByEmail(email);
+	}
+	@Override
+	public void initAccount() {
+		List<UserDtoResponse> users=this.getAllUsers();
+		if(users.size()==0) {
+		Role admin=roleRepository.save(new Role("ADMIN"));
+		Utilisateur user =new Utilisateur("oterrain.foot@gmail.com", "admin", "admin", "Dakar", "neant", "neant", "2021", false, "oterrain.foot@gmail.com", "774024131", "oteRRain202121@", "neant",admin, null, null, null, null);
+		UserDtoRequest userDtoResponse =Utility.utilisateurConvertToUserDtoRequest(user);
+		this.login_up(userDtoResponse);
+		}
+    	
 	}
 	
 	

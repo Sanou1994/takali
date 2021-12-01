@@ -7,7 +7,6 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -93,6 +92,7 @@ public class ReservationService implements IReservationService {
 			Reservation reservation = reservationRepository.findById(updateReservation.getId()).get();
 			reservation.setStatePayement(updateReservation.getStatus());
 			tournoiDtoResponse = reservationRepository.save(reservation);
+			confirmedMessageReservationPaidSuccess(tournoiDtoResponse);
 
 		} catch (Exception e) {
 			throw new CreateReservationException(Long.toString(tournoiDtoResponse.getId()));
@@ -149,8 +149,8 @@ public class ReservationService implements IReservationService {
 		  helper.setTo(user.getEmail());
 		  helper.setSubject(subject);
 		  
-		  helper.setText(content, true); helper.addAttachment("terrain.png", new
-		  ClassPathResource("terrain.png"));
+		  helper.setText(content, true); 
+		//  helper.addAttachment("terrain.png", new ClassPathResource("terrain.png"));
 		  
 		  javaMailSender.send(msg);
 		 

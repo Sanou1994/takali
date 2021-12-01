@@ -25,6 +25,7 @@ public interface IAccountService {
 	  public boolean deleteRole(Long id);
 	 
 	         //GESTION USER
+	  public void initAccount();
 	  public String getToken(String username , String password);
 	  public UserDtoResponse addReservationToUserAndTerrain(long idReservation);
 	  public UserDtoResponse addReservationToUserAndTerrain(long idUser,long idTerrain,Reservation reservationDtoRequest);
