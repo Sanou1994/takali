@@ -41,6 +41,24 @@ public class OterrainApplication implements CommandLineRunner {
 		SpringApplication.run(OterrainApplication.class, args);
 	}
 
+		//Connexon à la base via le plugin postgres payant
+		@Bean
+		@Order(0)
+		public BasicDataSource dataSource() throws URISyntaxException {
+			URI dbUri = new URI(System.getenv("DATABASE_URL"));
+	
+			String username = dbUri.getUserInfo().split(":")[0];
+			String password = dbUri.getUserInfo().split(":")[1];
+			String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath() + "?sslmode=require";
+	
+			BasicDataSource basicDataSource = new BasicDataSource();
+			basicDataSource.setUrl(dbUrl);
+			basicDataSource.setUsername(username);
+			basicDataSource.setPassword(password);
+	
+			return basicDataSource;
+		}
+
 	@Bean
 	public ModelMapper modelMapper() {
 	    return new ModelMapper();
@@ -65,21 +83,5 @@ public class OterrainApplication implements CommandLineRunner {
 		System.out.println("Runnable Task with  on thread ");
 
 	}
-	//Connexon à la base via le plugin postgres payant
-	@Bean
-	@Order(0)
-    public BasicDataSource dataSource() throws URISyntaxException {
-        URI dbUri = new URI(System.getenv("DATABASE_URL"));
 
-        String username = dbUri.getUserInfo().split(":")[0];
-        String password = dbUri.getUserInfo().split(":")[1];
-        String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath() + "?sslmode=require";
-
-        BasicDataSource basicDataSource = new BasicDataSource();
-        basicDataSource.setUrl(dbUrl);
-        basicDataSource.setUsername(username);
-        basicDataSource.setPassword(password);
-
-        return basicDataSource;
-    }
 }
