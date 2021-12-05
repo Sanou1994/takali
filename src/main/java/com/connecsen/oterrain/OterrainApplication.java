@@ -19,8 +19,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 //import com.connecsen.oterrain.jobs.JobRunner;
 //import com.connecsen.oterrain.repository.TerrainRepository;
 import com.connecsen.oterrain.service.IAccountService;
-import com.connecsen.oterrain.service.IMatchService;
-import com.connecsen.oterrain.service.IReservationService;
+//import com.connecsen.oterrain.service.IMatchService;
+//import com.connecsen.oterrain.service.IReservationService;
 @Configuration
 @SpringBootApplication
 public class OterrainApplication implements CommandLineRunner {
@@ -29,12 +29,12 @@ public class OterrainApplication implements CommandLineRunner {
     // private ThreadPoolTaskScheduler taskScheduler;
 	// @Autowired
 	// private TerrainRepository terrainRepository;
-	@Autowired
-	IReservationService iReservationService; 
+	// @Autowired
+	// IReservationService iReservationService; 
 	@Autowired
 	IAccountService iAccountService;
-	@Autowired(required=true)
-	IMatchService iMatchService;	
+	// @Autowired(required=true)
+	// IMatchService iMatchService;	
 
 	public static void main(String[] args) {
 		SpringApplication.run(OterrainApplication.class, args);
