@@ -33,6 +33,10 @@ public class UserDoReservation implements Serializable{
 		this.telephone = telephone;
 		this.reservation = reservation;
 	}
+	
+	public UserDoReservation() {
+	}
+
 	public long getId() {
 		return id;
 	}
