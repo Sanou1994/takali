@@ -3,7 +3,7 @@ package com.connecsen.oterrain;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import javax.annotation.PostConstruct;
+//import javax.annotation.PostConstruct;
 
 import org.apache.commons.dbcp.BasicDataSource;
 import org.modelmapper.ModelMapper;
@@ -13,11 +13,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
+//import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import com.connecsen.oterrain.jobs.JobRunner;
-import com.connecsen.oterrain.repository.TerrainRepository;
+//import com.connecsen.oterrain.jobs.JobRunner;
+//import com.connecsen.oterrain.repository.TerrainRepository;
 import com.connecsen.oterrain.service.IAccountService;
 import com.connecsen.oterrain.service.IMatchService;
 import com.connecsen.oterrain.service.IReservationService;
@@ -25,10 +25,10 @@ import com.connecsen.oterrain.service.IReservationService;
 @SpringBootApplication
 public class OterrainApplication implements CommandLineRunner {
 	
-	@Autowired
-    private ThreadPoolTaskScheduler taskScheduler;
-	@Autowired
-	private TerrainRepository terrainRepository;
+	// @Autowired
+    // private ThreadPoolTaskScheduler taskScheduler;
+	// @Autowired
+	// private TerrainRepository terrainRepository;
 	@Autowired
 	IReservationService iReservationService; 
 	@Autowired
