@@ -73,7 +73,11 @@ private TournoiRepository tournoiRepository;
 	public TournoiDtoResponse addMatchToTournoi(Long id, MatchDtoRequest matchDtoRequest) {
 		Tournoi tournoi = tournoiRepository.getById(id);
 		Match match = Utility.MatchDtoRequestConvertToMatch(matchDtoRequest);
-		match.setTournoi(tournoi);
+		
+		  match.setNomTournoi(tournoi.getNom());
+		  match.setDateDebutTournoi(tournoi.getDateDebut());
+		  match.setDateFinTournoi(tournoi.getDateFin());
+		 
 		tournoi.getMatchs().add(match);
 		Tournoi tournoiSave =tournoiRepository.save(tournoi);
 		TournoiDtoResponse tournoiDtoResponse = Utility.tournoiConvertToTournoiDtoResponse(tournoiSave);

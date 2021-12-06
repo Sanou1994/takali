@@ -415,8 +415,13 @@ public class AccountService implements IAccountService{
 		List<UserDtoResponse> users=this.getAllUsers();
 		if(users.size()==0) {
 		Role admin=roleRepository.save(new Role("ADMIN"));
+		roleRepository.save(new Role("VISITEUR"));
+		Role proprietaire=roleRepository.save(new Role("PROPRIETAIRE_TERRAIN"));
 		Utilisateur user =new Utilisateur("oterrain.foot@gmail.com", "admin", "admin", "Dakar", "neant", "neant", "2021", false, "oterrain.foot@gmail.com", "774024131", "oteRRain202121@", "neant",admin, null, null, null, null);
+		Utilisateur proprietaireCreate =new Utilisateur("ouedraogomahamadi218@gmail.com", "proprietaire", "proprietaire", "Dakar", "neant", "neant", "2021", false, "ouedraogomahamadi218@gmail.com", "774024131", "ouedraogomahamadi218@gmail.com", "neant",proprietaire, null, null, null, null);
 		UserDtoRequest userDtoResponse =Utility.utilisateurConvertToUserDtoRequest(user);
+		UserDtoRequest proprietaireResponse =Utility.utilisateurConvertToUserDtoRequest(proprietaireCreate);
+		this.login_up(proprietaireResponse);
 		this.login_up(userDtoResponse);
 		}
     	

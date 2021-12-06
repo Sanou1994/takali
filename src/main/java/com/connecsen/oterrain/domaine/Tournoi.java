@@ -12,7 +12,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.LazyCollection;
@@ -40,10 +39,10 @@ public class Tournoi implements Serializable{
 	private Date dateFin;
 	private Date dateDebutInscription;
 	private Date dateFinInscription;
-	@OneToMany(targetEntity=Transaction.class, mappedBy="tournoi",cascade = { CascadeType.PERSIST, CascadeType.REMOVE})
+	@ManyToMany(targetEntity=Transaction.class,cascade = { CascadeType.PERSIST, CascadeType.REMOVE})
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Transaction> transactions = new ArrayList<Transaction>();
-	@OneToMany(targetEntity=Match.class,cascade = {CascadeType.PERSIST,CascadeType.REMOVE},mappedBy="tournoi")
+	@ManyToMany(targetEntity=Match.class,cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE})
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Match> matchs = new ArrayList<Match>();
 	@ManyToMany(targetEntity=Equipe.class, cascade = {CascadeType.PERSIST,CascadeType.MERGE} )

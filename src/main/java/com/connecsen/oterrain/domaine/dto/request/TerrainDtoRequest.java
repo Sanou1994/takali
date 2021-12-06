@@ -2,6 +2,7 @@ package com.connecsen.oterrain.domaine.dto.request;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.connecsen.oterrain.domaine.Indisponibilite;
@@ -29,6 +30,7 @@ public class TerrainDtoRequest implements Serializable{
 	private Double prixDemiHeure;
 	private String statusTerrain="public";
 	private Long idUser;
+	private Date dateInscription;
 	private  Indisponibilite indisponibilite ;
 	private List<Multimedia> multimedias = new ArrayList<Multimedia>();
 	private List<Match> matchs = new ArrayList<Match>();
@@ -36,7 +38,7 @@ public class TerrainDtoRequest implements Serializable{
 	private List<Transaction> transactions = new ArrayList<Transaction>();
 	private Utilisateur user;
 	public TerrainDtoRequest(String nom, String adresse, String ville, String latitude, String longitude,
-			String disponibilite, String description, Double prixHeure, Double prixDemiHeure,String statusTerrain,Long idUser,Indisponibilite indisponibilite,List<Multimedia> multimedias,List<Match> matchs,
+			String disponibilite, String description, Double prixHeure, Double prixDemiHeure,String statusTerrain,Long idUser,Date dateInscription,Indisponibilite indisponibilite,List<Multimedia> multimedias,List<Match> matchs,
 			List<Reservation> reservations,List<Transaction> transactions, Utilisateur user) {
 		super();
 		this.nom = nom;
@@ -50,6 +52,7 @@ public class TerrainDtoRequest implements Serializable{
 		this.prixDemiHeure = prixDemiHeure;
 		this.statusTerrain = statusTerrain;
 		this.idUser = idUser;
+		this.dateInscription = dateInscription;
 		this.indisponibilite = indisponibilite;
 		this.multimedias = multimedias;
 		this.matchs = matchs;

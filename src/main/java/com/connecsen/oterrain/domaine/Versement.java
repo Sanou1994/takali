@@ -20,14 +20,21 @@ private Date date =new Date();
 private double montant;
 private String status;
 private String typeVersement;
+private String reference;
+private String email;
+private Long idUser;
+
 @ManyToOne
 private Utilisateur user;
-public Versement(Date date, double montant, String status, String typeVersement, Utilisateur user) {
+public Versement(Date date, double montant, String status,String reference,String email,Long idUser, String typeVersement, Utilisateur user) {
 	super();
 	this.date = date;
 	this.montant = montant;
 	this.status = status;
 	this.typeVersement = typeVersement;
+	this.reference = reference;
+	this.email = email;
+	this.idUser = idUser;
 	this.user = user;
 }
 public Long getId() {
@@ -63,6 +70,24 @@ public void setTypeVersement(String typeVersement) {
 
 public void setUser(Utilisateur user) {
 	this.user = user;
+}
+public String getReference() {
+	return reference;
+}
+public void setReference(String reference) {
+	this.reference = reference;
+}
+public String getEmail() {
+	return email;
+}
+public void setEmail(String email) {
+	this.email = email;
+}
+public Long getIdUser() {
+	return idUser;
+}
+public void setIdUser(Long idUser) {
+	this.idUser = idUser;
 }
 
 

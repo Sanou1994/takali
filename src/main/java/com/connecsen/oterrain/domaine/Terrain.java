@@ -2,6 +2,7 @@ package com.connecsen.oterrain.domaine;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -32,6 +33,7 @@ public class Terrain implements Serializable{
 	private String description;
 	private String statusTerrain ;
 	private Long idUser;
+	private Date dateInscription;
 	@OneToOne(targetEntity=Indisponibilite.class,cascade = { CascadeType.PERSIST, CascadeType.REMOVE})
 	private  Indisponibilite indisponibilite ;
 	@OneToMany(targetEntity=ListeHeureReserver.class,mappedBy="terrain",cascade =CascadeType.ALL)
@@ -55,7 +57,7 @@ public class Terrain implements Serializable{
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Prix> prix = new ArrayList<Prix>();
 	public Terrain(String nom, String adresse, String ville, String latitude, String longitude, String disponibilite,
-			String description,String statusTerrain,Long idUser,Indisponibilite indisponibilite,List<ListeHeureReserver> listeHeureReserver, List<Multimedia> multimedia, List<Match> matchs,
+			String description,String statusTerrain,Long idUser,Date dateInscription,Indisponibilite indisponibilite,List<ListeHeureReserver> listeHeureReserver, List<Multimedia> multimedia, List<Match> matchs,
 			List<Reservation> reservations,List<Transaction> transactions, Utilisateur user, List<Prix> prix) {
 		super();
 		this.nom = nom;
@@ -67,6 +69,7 @@ public class Terrain implements Serializable{
 		this.description = description;
 		this.statusTerrain = statusTerrain;
 		this.idUser = idUser;
+		this.dateInscription = dateInscription;
 		this.indisponibilite = indisponibilite;
 		this.listeHeureReserver = listeHeureReserver;
 		this.multimedias = multimedia;
@@ -78,7 +81,7 @@ public class Terrain implements Serializable{
 
 	}
 	public Terrain(Long id, String nom, String adresse, String ville, String latitude, String longitude,
-			String disponibilite, String description, String statusTerrain,Long idUser,Indisponibilite indisponibilite,List<ListeHeureReserver> listeHeureReserver,
+			String disponibilite, String description, String statusTerrain,Long idUser,Date dateInscription,Indisponibilite indisponibilite,List<ListeHeureReserver> listeHeureReserver,
 			List<Multimedia> multimedia, List<Match> matchs, List<Reservation> reservations,List<Transaction> transactions, Utilisateur user,List<Prix> prix) {
 		super();
 		this.id = id;
@@ -91,6 +94,7 @@ public class Terrain implements Serializable{
 		this.description = description;
 		this.statusTerrain = statusTerrain;
 		this.idUser = idUser;
+		this.dateInscription = dateInscription;
 		this.indisponibilite = indisponibilite;
 		this.multimedias = multimedia;
 		this.listeHeureReserver = listeHeureReserver;
@@ -103,6 +107,13 @@ public class Terrain implements Serializable{
 	
 	public Terrain() {
 		super();
+	}
+	
+	public Date getDateInscription() {
+		return dateInscription;
+	}
+	public void setDateInscription(Date dateInscription) {
+		this.dateInscription = dateInscription;
 	}
 	public Long getId() {
 		return id;

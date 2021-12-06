@@ -12,7 +12,9 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 import com.connecsen.oterrain.domaine.ListeHeureReserver;
+import com.connecsen.oterrain.domaine.NombreReservationEtMontant;
 import com.connecsen.oterrain.domaine.Reservation;
+import com.connecsen.oterrain.domaine.SoldeProprietaire;
 import com.connecsen.oterrain.domaine.Terrain;
 import com.connecsen.oterrain.domaine.UpdateReservation;
 import com.connecsen.oterrain.domaine.Utilisateur;
@@ -154,5 +156,43 @@ public class ReservationService implements IReservationService {
 		  
 		  javaMailSender.send(msg);
 		 
+	}
+
+	@Override
+	public NombreReservationEtMontant getNombreReservationEtMontantTotal(String date1, String date2) {
+		NombreReservationEtMontant nombreReservationEtMontant= new NombreReservationEtMontant();
+		double somme=0.0;
+		List<Reservation>reservations=reservationRepository.findBydateReservationBetween(date1,date2);
+		for (int i = 0; i < reservations.size(); i++) {
+			somme +=reservations.get(i).getMontantTotal();
+		}
+		nombreReservationEtMontant.setMontantTotal(somme);
+		nombreReservationEtMontant.setNombreReservation(reservations.size());
+		return nombreReservationEtMontant;
+	}
+
+	@Override
+	public SoldeProprietaire soldeProprietaire(Long idProprietaire) {
+		double montantTotalReservations=0.0;
+		double montantTotalDemandeVersement=0.0;
+		SoldeProprietaire soldeProprietaire = new SoldeProprietaire();
+		Utilisateur proprietaire = userRepository.findById(idProprietaire).get();
+		for (int i = 0; i < proprietaire.getReservations().size(); i++) {
+			if( proprietaire.getReservations().get(i).getStatePayement().equals("PAYE")) {
+				montantTotalReservations +=proprietaire.getReservations().get(i).getMontantTotal();
+			}
+			
+		}
+		for (int i = 0; i < proprietaire.getVersements().size(); i++) {
+			if( proprietaire.getVersements().get(i).getStatus().equals("VALIDE")) {
+				montantTotalReservations +=proprietaire.getVersements().get(i).getMontant();
+			}
+			
+		}
+		soldeProprietaire.setMontantTotalDemandeVersement(montantTotalDemandeVersement);
+		soldeProprietaire.setMontantTotalReservations(montantTotalReservations);
+		soldeProprietaire.setIdProprietaire(idProprietaire);
+		
+		return soldeProprietaire;
 	}
 }

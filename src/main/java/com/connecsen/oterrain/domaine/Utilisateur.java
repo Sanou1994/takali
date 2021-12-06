@@ -87,7 +87,7 @@ public class Utilisateur implements Serializable {
 	}
 
 	public Utilisateur(String username, String prenom,String nom, String adresse, String typeId, String numeroId, String naissance,
-			boolean userDelete,String email, String telephone, String password, String compteBancaire, Role roles, List<Terrain> terrains,
+			boolean userDelete,String email, String telephone, String password, String compteBancaire,  Role roles, List<Terrain> terrains,
 			List<Reservation> reservations,List<Transaction> transactions,List<Versement> versements) {
 		super();
 		this.username = username;

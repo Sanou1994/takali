@@ -9,7 +9,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.connecsen.oterrain.domaine.NombreReservationEtMontant;
+import com.connecsen.oterrain.domaine.NombreReservationEtMontantObjet;
 import com.connecsen.oterrain.domaine.Reservation;
+import com.connecsen.oterrain.domaine.SoldeProprietaire;
 import com.connecsen.oterrain.domaine.UpdateReservation;
 import com.connecsen.oterrain.service.IReservationService;
 import com.connecsen.oterrain.utils.Utility;
@@ -41,8 +44,18 @@ public class ReservationRestController {
 	public Reservation getTournoiById(@PathVariable(value = "id") Long userId){
 		return iReservationService.getReservationById(userId);
     }
+	@GetMapping(Utility.GET_SOLDE_RESERVATION_BY_PROPRIETAIRE)
+	public SoldeProprietaire getSoldeByProprietaire(@PathVariable(value = "idProprietaire") Long idProprietaire){
+		return iReservationService.soldeProprietaire(idProprietaire);
+    }
 	@GetMapping(Utility.DELETE_RESERVATION_BY_ID)
 	public boolean getDeleteTournoi(@PathVariable(value = "id") Long userId){
 		return iReservationService.deleteReservation(userId);
     }
+	
+	@PostMapping(Utility.GET_ALL_RESERVATIONS_BETWEEN_DATE)
+	public NombreReservationEtMontant getAllReservationsBetweenDate( @RequestBody NombreReservationEtMontantObjet nombreReservationEtMontantObjet){
+		return iReservationService.getNombreReservationEtMontantTotal(nombreReservationEtMontantObjet.getDate1(),nombreReservationEtMontantObjet.getDate2());
+    }
+	
 }

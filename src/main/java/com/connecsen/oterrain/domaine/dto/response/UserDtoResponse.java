@@ -2,6 +2,7 @@ package com.connecsen.oterrain.domaine.dto.response;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.connecsen.oterrain.domaine.Reservation;
@@ -25,6 +26,7 @@ public class UserDtoResponse implements Serializable{
 	private String telephone;
 	private String monToken;
 	private String compteBancaire;
+	private Date dateInscription;
 	private String password;
     private String resetPasswordToken;
 	private Role roles ;
@@ -35,7 +37,7 @@ public class UserDtoResponse implements Serializable{
 
 	public UserDtoResponse(Long id, String username, String prenom, String nom, String adresse, String typeId,
 			String numeroId, boolean userDelete, String naissance, String email, String telephone, String monToken,
-			String compteBancaire,String password, String resetPasswordToken, Role roles, List<Terrain> terrains,
+			String compteBancaire,Date dateInscription,String password, String resetPasswordToken, Role roles, List<Terrain> terrains,
 			List<Reservation> reservations,List<Transaction> transactions,
 			List<Versement> versements) {
 		super();
@@ -53,6 +55,7 @@ public class UserDtoResponse implements Serializable{
 		this.monToken = monToken;
 		this.password = password;
 		this.compteBancaire = compteBancaire;
+		this.dateInscription = dateInscription;
 		this.resetPasswordToken = resetPasswordToken;
 		this.roles = roles;
 		this.terrains = terrains;
@@ -65,6 +68,16 @@ public class UserDtoResponse implements Serializable{
 
 	public UserDtoResponse() {
 		super();
+	}
+
+
+	public Date getDateInscription() {
+		return dateInscription;
+	}
+
+
+	public void setDateInscription(Date dateInscription) {
+		this.dateInscription = dateInscription;
 	}
 
 

@@ -16,7 +16,10 @@ import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
-@Entity 
+
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+@Entity @AllArgsConstructor @NoArgsConstructor
 public class Match implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
@@ -43,14 +46,15 @@ public class Match implements Serializable{
 	private Reservation reservation;
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	private Terrain terrain;
-	@ManyToOne(targetEntity=Tournoi.class)
-	private Tournoi tournoi;
+	@ManyToMany(targetEntity=Tournoi.class,mappedBy="matchs")
+	@LazyCollection(LazyCollectionOption.FALSE)
+	private  List<Tournoi>tournois = new ArrayList<Tournoi>();
 	private long idTournoi;
 	private String date;
 	private String heure;
 	public Match(String scoreVisiteur, String scoreVisite, String niveauTournoi, String codeVideoEmded, String annule,
 			boolean matchDejaJoue,boolean status,String repousse,String nomTournoi,Date dateDebutTournoi, Date dateFinTournoi, List<Equipe> equipeVisites, List<Equipe> equipeVisiteurs, Reservation reservation,
-			 Terrain terrain,  Tournoi tournoi,long idTournoi,String date,String heure) {
+			 Terrain terrain,  List<Tournoi>tournois,long idTournoi,String date,String heure) {
 		super();
 		this.scoreVisiteur = scoreVisiteur;
 		this.scoreVisite = scoreVisite;
@@ -67,39 +71,14 @@ public class Match implements Serializable{
 		this.equipeVisiteurs = equipeVisiteurs;
 		this.reservation = reservation;
 		this.terrain = terrain;
-		this.tournoi = tournoi;
+		this.tournois = tournois;
 		this.idTournoi = idTournoi;
 		this.date = date;
 		this.heure = heure;
 
 	}
 
-	public Match(Long id, String scoreVisiteur, String scoreVisite, String niveauTournoi, String codeVideoEmded,
-			String annule,boolean matchDejaJoue,boolean status, String repousse,String nomTournoi,Date dateDebutTournoi, Date dateFinTournoi, List<Equipe> equipeVisites, List<Equipe> equipeVisiteurs,
-			Reservation reservation, Terrain terrain, Tournoi tournoi,long idTournoi,String date,String heure) {
-		super();
-		this.id = id;
-		this.scoreVisiteur = scoreVisiteur;
-		this.scoreVisite = scoreVisite;
-		this.niveauTournoi = niveauTournoi;
-		this.codeVideoEmded = codeVideoEmded;
-		this.annule = annule;
-		this.status = status;
-		this.matchDejaJoue = matchDejaJoue;
-		this.repousse = repousse;
-		this.nomTournoi = nomTournoi;
-		this.dateDebutTournoi = dateDebutTournoi;
-		this.dateFinTournoi = dateFinTournoi;
-		this.equipeVisites = equipeVisites;
-		this.equipeVisiteurs = equipeVisiteurs;
-		this.reservation = reservation;
-		this.terrain = terrain;
-		this.tournoi = tournoi;
-		this.idTournoi = idTournoi;
-		this.date = date;
-		this.heure = heure;
-	}
-
+	
 	public void setNomTournoi(String nomTournoi) {
 		this.nomTournoi = nomTournoi;
 	}
@@ -122,9 +101,6 @@ public class Match implements Serializable{
 		this.idTournoi = idTournoi;
 	}
 
-	public Match() {
-		super();
-	}
 
 	public Long getId() {
 		return id;
@@ -221,16 +197,17 @@ public class Match implements Serializable{
 		this.terrain = terrain;
 	}
 	
-	public Tournoi getTournoi() {
-		Tournoi test = new Tournoi();
-		test.setNom(nomTournoi);;
-		test.setDateDebut(dateDebutTournoi);
-		test.setDateFin(dateFinTournoi);
-		return test;
-	}
+	
+	  public Tournoi getTournoi() {
+     Tournoi test = new Tournoi();
+	  test.setNom(nomTournoi);; test.setDateDebut(dateDebutTournoi);
+	  test.setDateFin(dateFinTournoi); 
+	  return test; 
+	  }
+	 
 
-	public void setTournoi(Tournoi tournoi) {
-		this.tournoi = tournoi;
+	public void setTournoi(List<Tournoi>tournois) {
+		this.tournois = tournois;
 	}
 
 	public boolean isStatus() {

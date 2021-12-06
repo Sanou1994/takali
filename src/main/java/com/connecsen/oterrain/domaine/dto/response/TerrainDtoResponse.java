@@ -2,6 +2,7 @@ package com.connecsen.oterrain.domaine.dto.response;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.connecsen.oterrain.domaine.Indisponibilite;
@@ -28,6 +29,7 @@ public class TerrainDtoResponse implements Serializable{
 	private List<Multimedia> multimedias;
 	private String statusTerrain;
 	private Long idUser;
+	private Date dateInscription;
 	private  Indisponibilite indisponibilite ;
 	private List<ListeHeureReserver> listeHeureReserver = new ArrayList<ListeHeureReserver>();
 	private List<Match> matchs = new ArrayList<Match>();

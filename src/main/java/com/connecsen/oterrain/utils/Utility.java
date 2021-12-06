@@ -83,11 +83,13 @@ public final class Utility {
 	public static final String GET_ALL_MULTIMEDIAS = "/multimedia/multimedias";
 	
 	public static final String ADD_RESERVATION = "/reservation/add";
+	public static final String GET_SOLDE_RESERVATION_BY_PROPRIETAIRE = "/reservation/solde/{idProprietaire}";
 	public static final String UPDATE_RESERVATION = "/reservation/update";
 	public static final String UPDATE_RESERVATION_BY_STATUS = "/reservation/update/status";
 	public static final String GET_RESERVATION_BY_ID = "/reservation/reservations/{id}";
 	public static final String DELETE_RESERVATION_BY_ID = "/reservation/reservations/delete/{id}";
 	public static final String GET_ALL_RESERVATIONS = "/reservation/reservations";
+	public static final String GET_ALL_RESERVATIONS_BETWEEN_DATE = "/reservation/reservations/date";
 	
 	public static final String ADD_PUB = "/pub/add";
 	public static final String UPDATE_PUB = "/pub/update";
@@ -114,6 +116,7 @@ public final class Utility {
 	public static final String ADD_VERSEMENT = "/versement/add";
 	public static final String UPDATE_VERSEMENT = "/versement/update";
 	public static final String GET_VERSEMENT_BY_ID = "/versement/versements/{id}";
+	public static final String GET_VERSEMENT_BY_ID_USER = "/versement/versements/user/{id}";
 	public static final String DELETE_VERSEMENT_BY_ID = "/versement/versements/delete/{id}";
 	public static final String GET_ALL_VERSEMENTS = "/versement/versements";
 	public static final String ADD_VERSEMENT_TO_USER = "/user/add/versement/user/{idUser}";

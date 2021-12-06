@@ -38,6 +38,10 @@ public class VersementRestController {
 	public List<VersementDtoResponse> getAllVersement(){
 		return iVersementService.getAllVersements();
     }
+	@GetMapping(Utility.GET_VERSEMENT_BY_ID_USER)
+	public List<VersementDtoResponse> getAllVersementByUser(@PathVariable(value = "id") Long userId){
+		return iVersementService.getVersementByUser(userId);
+    }
 	@GetMapping(Utility.GET_VERSEMENT_BY_ID)
 	public VersementDtoResponse getVersementById(@PathVariable(value = "id") Long userId){
 		return iVersementService.getVersementById(userId);
