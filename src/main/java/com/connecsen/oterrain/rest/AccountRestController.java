@@ -76,10 +76,11 @@ public class AccountRestController {
 		if(user != null ) {
 			user.setMonToken(accountService.getToken(login.getUsername(), login.getPassword()));
 			userNull  = user ;
+		logger.info(" username : "+  userNull.getUsername()+" is role : "+userNull.getRoles().getLibelle() +" connected.......");
+
 		}else {
 		 userNull = new UserDtoResponse();	
 		}
-		//logger.info(" username : "+  userNull.getUsername()+" is role : "+userNull.getRoles().getLibelle() +" connected.......");
 		return userNull ;
 	}
 	@PostMapping(Utility.DO_CONTACTED)
