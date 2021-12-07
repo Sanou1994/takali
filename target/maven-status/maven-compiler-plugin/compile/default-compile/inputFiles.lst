@@ -108,8 +108,10 @@ C:\Users\AROUNA\connecsen\o-terrain\src\main\java\com\connecsen\oterrain\reposit
 C:\Users\AROUNA\connecsen\o-terrain\src\main\java\com\connecsen\oterrain\domaine\UpdateReservation.java
 C:\Users\AROUNA\connecsen\o-terrain\src\main\java\com\connecsen\oterrain\rest\IndisponibiliteRestController.java
 C:\Users\AROUNA\connecsen\o-terrain\src\main\java\com\connecsen\oterrain\exception\createexception\CreateEquipeException.java
+C:\Users\AROUNA\connecsen\o-terrain\src\main\java\com\connecsen\oterrain\domaine\NombreReservationEtMontantObjet.java
 C:\Users\AROUNA\connecsen\o-terrain\src\main\java\com\connecsen\oterrain\rest\TerrainController.java
 C:\Users\AROUNA\connecsen\o-terrain\src\main\java\com\connecsen\oterrain\utils\Utility.java
+C:\Users\AROUNA\connecsen\o-terrain\src\main\java\com\connecsen\oterrain\domaine\NombreReservationEtMontant.java
 C:\Users\AROUNA\connecsen\o-terrain\src\main\java\com\connecsen\oterrain\service\VersementService.java
 C:\Users\AROUNA\connecsen\o-terrain\src\main\java\com\connecsen\oterrain\domaine\dto\response\TransactionDtoResponse.java
 C:\Users\AROUNA\connecsen\o-terrain\src\main\java\com\connecsen\oterrain\domaine\dto\request\AcceuilDtoRequest.java
@@ -158,5 +160,6 @@ C:\Users\AROUNA\connecsen\o-terrain\src\main\java\com\connecsen\oterrain\service
 C:\Users\AROUNA\connecsen\o-terrain\src\main\java\com\connecsen\oterrain\domaine\UpdateTransactionObjet.java
 C:\Users\AROUNA\connecsen\o-terrain\src\main\java\com\connecsen\oterrain\exception\deleteexception\EquipeDeletedException.java
 C:\Users\AROUNA\connecsen\o-terrain\src\main\java\com\connecsen\oterrain\service\IVersementService.java
+C:\Users\AROUNA\connecsen\o-terrain\src\main\java\com\connecsen\oterrain\domaine\SoldeProprietaire.java
 C:\Users\AROUNA\connecsen\o-terrain\src\main\java\com\connecsen\oterrain\exception\nofoundexception\ReservationNotFoundException.java
 C:\Users\AROUNA\connecsen\o-terrain\src\main\java\com\connecsen\oterrain\repository\TournoiRepository.java

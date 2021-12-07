@@ -63,6 +63,7 @@ com\connecsen\oterrain\security\JwtTokenUtil.class
 com\connecsen\oterrain\domaine\dto\request\MultimediaDtoRequest.class
 com\connecsen\oterrain\domaine\HomeOne.class
 com\connecsen\oterrain\jobs\JobRunner.class
+com\connecsen\oterrain\domaine\SoldeProprietaire.class
 com\connecsen\oterrain\domaine\UpdateReservation.class
 com\connecsen\oterrain\exception\createexception\CreateMatchException.class
 com\connecsen\oterrain\exception\deleteexception\UserDeletedException.class
@@ -146,6 +147,7 @@ com\connecsen\oterrain\domaine\Publicite.class
 com\connecsen\oterrain\domaine\Mail.class
 com\connecsen\oterrain\service\ProposService.class
 com\connecsen\oterrain\domaine\dto\request\MatchDtoRequest.class
+com\connecsen\oterrain\domaine\NombreReservationEtMontant.class
 com\connecsen\oterrain\rest\MultimediaRestController.class
 com\connecsen\oterrain\exception\deleteexception\MultimediaDeletedException.class
 com\connecsen\oterrain\exception\createexception\CreateTerrainException.class
@@ -154,6 +156,7 @@ com\connecsen\oterrain\domaine\Login.class
 com\connecsen\oterrain\exception\deleteexception\HomeOneDeletedException.class
 com\connecsen\oterrain\domaine\dto\request\ProposDtoRequest.class
 com\connecsen\oterrain\rest\TransactionRestController.class
+com\connecsen\oterrain\domaine\NombreReservationEtMontantObjet.class
 com\connecsen\oterrain\service\IProposService.class
 com\connecsen\oterrain\domaine\Transaction.class
 com\connecsen\oterrain\rest\TerrainController.class

@@ -79,7 +79,7 @@ public class AccountRestController {
 		}else {
 		 userNull = new UserDtoResponse();	
 		}
-		logger.info(" username : "+  userNull.getUsername()+" is role : "+userNull.getRoles().getLibelle() +" connected.......");
+		//logger.info(" username : "+  userNull.getUsername()+" is role : "+userNull.getRoles().getLibelle() +" connected.......");
 		return userNull ;
 	}
 	@PostMapping(Utility.DO_CONTACTED)
