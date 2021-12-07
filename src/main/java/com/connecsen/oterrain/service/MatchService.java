@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.connecsen.oterrain.domaine.Match;
 import com.connecsen.oterrain.domaine.dto.request.MatchDtoRequest;
@@ -14,7 +15,7 @@ import com.connecsen.oterrain.exception.deleteexception.MatchDeletedException;
 import com.connecsen.oterrain.exception.nofoundexception.MatchNotFoundException;
 import com.connecsen.oterrain.repository.MatchRepository;
 import com.connecsen.oterrain.utils.Utility;
-@Service
+@Service @Transactional
 public class MatchService implements IMatchService{
 	@Autowired
 	private MatchRepository matchRepository;
