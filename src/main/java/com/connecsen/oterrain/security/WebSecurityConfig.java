@@ -48,7 +48,7 @@ private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 	// We don't need CSRF for this example
 	httpSecurity.csrf().disable()
 	
-	.authorizeRequests().antMatchers("/user/add/transaction/**","/static/**","/static/favicon.ico","/static/static/**","/static/favicon-o-terrain.png/**","/static/avatars**","/assets/**","/","/#","/#/","/#/accueil-visiteur","/match/**","/terrain/**","/tournoi/**","/v3/api-docs/**","/swagger-ui/**","/acceuil/**","/user/role/**","/user/register/**","/user/login/**","/user/forgot").permitAll().
+	.authorizeRequests().antMatchers("/**","/user/add/transaction/**","/static/**","/static/favicon.ico","/static/static/**","/static/favicon-o-terrain.png/**","/static/avatars**","/assets/**","/","/#","/#/","/#/accueil-visiteur","/match/**","/terrain/**","/tournoi/**","/v3/api-docs/**","/swagger-ui/**","/acceuil/**","/user/role/**","/user/register/**","/user/login/**","/user/forgot").permitAll().
 
 	// all other requests need to be authenticated
 	anyRequest().authenticated().and().
