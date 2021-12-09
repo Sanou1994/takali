@@ -34,9 +34,11 @@ public class Multimedia implements Serializable {
 	private List<Terrain> terrain =new ArrayList<Terrain>();
 	@OneToOne(targetEntity=Equipe.class,mappedBy = "multimedia")
 	private Equipe equipe;
+	@OneToOne(targetEntity=Tournoi.class,mappedBy = "multimedia")
+	private Tournoi tournoi;
 	
 	public Multimedia(String file, HomeOne homeone, Fichier fichier, Publicite publicite, Propos propos,
-			Service service, List<Terrain> terrain, Equipe equipe) {
+			Service service, List<Terrain> terrain, Equipe equipe,Tournoi tournoi) {
 		super();
 		this.file = file;
 		this.homeone = homeone;
@@ -46,6 +48,7 @@ public class Multimedia implements Serializable {
 		this.service = service;
 		this.terrain = terrain;
 		this.equipe = equipe;
+		this.tournoi = tournoi;
 	}
 	public void setId(Long id) {
 		this.id = id;
@@ -78,6 +81,9 @@ public class Multimedia implements Serializable {
 	}
 	public String getFile() {
 		return file;
+	}
+	public void setTournoi(Tournoi tournoi) {
+		this.tournoi = tournoi;
 	}
 	
 }

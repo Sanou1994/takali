@@ -32,7 +32,7 @@ public class TournoiDtoRequest implements Serializable{
 	private Date dateFinInscription;
 	private String numero ;
 	private Multimedia multimedia ;
-	private Multimedia multimediaProgramme;
+	private String multimediaProgramme;
 	private List<Match> matchs = new ArrayList<Match>();
 	private List<Equipe> equipes = new ArrayList<Equipe>();
 	private List<Transaction> transactions = new ArrayList<Transaction>();

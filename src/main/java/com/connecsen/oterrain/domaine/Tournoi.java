@@ -48,13 +48,12 @@ public class Tournoi implements Serializable{
 	@ManyToMany(targetEntity=Equipe.class, cascade = {CascadeType.PERSIST,CascadeType.MERGE} )
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Equipe> equipes = new ArrayList<Equipe>();
-	@OneToOne(targetEntity=Multimedia.class,cascade = { CascadeType.PERSIST, CascadeType.REMOVE})
+	@OneToOne(targetEntity=Multimedia.class,cascade = { CascadeType.PERSIST, CascadeType.ALL})
 	private Multimedia multimedia;
-	@OneToOne(targetEntity=Multimedia.class,cascade = { CascadeType.PERSIST, CascadeType.REMOVE})
-	private Multimedia multimediaProgramme;
+	private String multimediaProgramme;
 	public Tournoi(String nom, String annee, String description,String typeTournoi, String niveau, String numero, Double prixPartSrl,
 			Double prixPartSa, Double prixPartEcole, Double prixPme, Date dateDebutInscription, Date dateFinInscription, Date dateDebut, Date dateFin, List<Match> matchs,
-			List<Equipe> equipes, Multimedia multimedia, Multimedia multimediaProgramme) {
+			List<Equipe> equipes, Multimedia multimedia, String multimediaProgramme) {
 		super();
 		this.nom = nom;
 		this.annee = annee;
@@ -190,10 +189,10 @@ public class Tournoi implements Serializable{
 	public void setPrixPme(Double prixPme) {
 		this.prixPme = prixPme;
 	}
-	public Multimedia getMultimediaProgramme() {
+	public String getMultimediaProgramme() {
 		return multimediaProgramme;
 	}
-	public void setMultimediaProgramme(Multimedia multimediaProgramme) {
+	public void setMultimediaProgramme(String multimediaProgramme) {
 		this.multimediaProgramme = multimediaProgramme;
 	}
 	
