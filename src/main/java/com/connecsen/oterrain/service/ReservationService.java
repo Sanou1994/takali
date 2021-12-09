@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -25,8 +26,10 @@ import com.connecsen.oterrain.repository.ListerHeureRepository;
 import com.connecsen.oterrain.repository.ReservationRepository;
 import com.connecsen.oterrain.repository.TerrainRepository;
 import com.connecsen.oterrain.repository.UserRepository;
+import com.connecsen.oterrain.utils.Utility;
 
 @Service
+@Transactional
 public class ReservationService implements IReservationService {
 	@Autowired
 	private ListerHeureRepository listeHeureReserverRepository;
@@ -194,5 +197,10 @@ public class ReservationService implements IReservationService {
 		soldeProprietaire.setIdProprietaire(idProprietaire);
 		
 		return soldeProprietaire;
+	}
+
+	@Override
+	public List<Reservation> getAllReservationsToday() {
+		return 	reservationRepository.findBydateReservation(Utility.getToday());
 	}
 }

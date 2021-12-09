@@ -6,6 +6,7 @@ import com.connecsen.oterrain.domaine.Reservation;
 import com.connecsen.oterrain.domaine.Terrain;
 import com.connecsen.oterrain.repository.TerrainRepository;
 import com.connecsen.oterrain.service.IReservationService;
+import com.connecsen.oterrain.utils.Utility;
 
 public class JobRunner implements Runnable{
     private IReservationService iReservationService;
@@ -22,6 +23,7 @@ public class JobRunner implements Runnable{
 	}
 	
     public void checkReservation(List<Reservation> reservations) {
+    	 System.out.println("Runnable Task with date  on thread :"+Utility.getToday());
             if(reservations.size() !=0) {
             	for (int i = 0; i < reservations.size(); i++) {
      	    	   long last = reservations.get(i).getDateReservationTypeDate().getTime();
@@ -37,6 +39,6 @@ public class JobRunner implements Runnable{
     
 	@Override
     public void run() {
-		checkReservation(iReservationService.getAllReservations());	
+		checkReservation(iReservationService.getAllReservationsToday());	
     }
 }

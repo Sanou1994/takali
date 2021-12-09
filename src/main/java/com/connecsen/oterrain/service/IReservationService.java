@@ -15,6 +15,7 @@ public interface IReservationService {
 	  public Reservation updateReservationByStatus(UpdateReservation updateReservation);
 	  public  Reservation getReservationById(Long id);
 	  public List<Reservation> getAllReservations();
+	  public List<Reservation> getAllReservationsToday();
 	  public void deleteReservationByIdUserAndIdTerrain(Long idUser,Long idTerrain,Reservation reservationDtoRequest);
 	  public boolean deleteReservation(Long id); 
       public void confirmedMessageReservationPaidSuccess(Reservation reservation) throws MessagingException;

@@ -3,6 +3,8 @@ package com.connecsen.oterrain.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,7 @@ import com.connecsen.oterrain.exception.deleteexception.FichierDeletedException;
 import com.connecsen.oterrain.exception.nofoundexception.FichierNotFoundException;
 import com.connecsen.oterrain.repository.FichierRepository;
 import com.connecsen.oterrain.utils.Utility;
+@Transactional
 @Service
 public class FichierService implements IFichierService{
 	@Autowired

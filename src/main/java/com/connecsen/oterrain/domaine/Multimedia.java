@@ -1,6 +1,7 @@
 package com.connecsen.oterrain.domaine;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -30,7 +31,7 @@ public class Multimedia implements Serializable {
 	@OneToOne(targetEntity=Service.class,mappedBy = "multimedia")
 	private Service service;
 	@ManyToMany(targetEntity=Terrain.class,mappedBy = "multimedias") 
-	private List<Terrain> terrain ;
+	private List<Terrain> terrain =new ArrayList<Terrain>();
 	@OneToOne(targetEntity=Equipe.class,mappedBy = "multimedia")
 	private Equipe equipe;
 	

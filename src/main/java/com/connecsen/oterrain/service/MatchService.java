@@ -15,7 +15,8 @@ import com.connecsen.oterrain.exception.deleteexception.MatchDeletedException;
 import com.connecsen.oterrain.exception.nofoundexception.MatchNotFoundException;
 import com.connecsen.oterrain.repository.MatchRepository;
 import com.connecsen.oterrain.utils.Utility;
-@Service @Transactional
+@Service 
+@Transactional
 public class MatchService implements IMatchService{
 	@Autowired
 	private MatchRepository matchRepository;

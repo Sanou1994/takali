@@ -26,7 +26,7 @@ public class TerrainDtoResponse implements Serializable{
 	private String latitude;
 	private String longitude;
 	private String description;
-	private List<Multimedia> multimedias;
+	private List<Multimedia> multimedias= new ArrayList<Multimedia>();;
 	private String statusTerrain;
 	private Long idUser;
 	private Date dateInscription;

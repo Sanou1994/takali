@@ -3,6 +3,8 @@ package com.connecsen.oterrain.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.connecsen.oterrain.domaine.Service;
@@ -10,7 +12,7 @@ import com.connecsen.oterrain.domaine.dto.request.ServiceDtoRequest;
 import com.connecsen.oterrain.domaine.dto.response.ServiceDtoResponse;
 import com.connecsen.oterrain.repository.ServiceRepository;
 import com.connecsen.oterrain.utils.Utility;
-
+@Transactional
 @org.springframework.stereotype.Service
 public class FrontService implements IFrontService{
 	@Autowired

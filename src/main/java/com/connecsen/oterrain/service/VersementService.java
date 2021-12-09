@@ -3,6 +3,8 @@ package com.connecsen.oterrain.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,7 @@ import com.connecsen.oterrain.repository.UserRepository;
 import com.connecsen.oterrain.repository.VersementRepository;
 import com.connecsen.oterrain.utils.Utility;
 @Service
+@Transactional
 public class VersementService implements IVersementService{
 
 	@Autowired

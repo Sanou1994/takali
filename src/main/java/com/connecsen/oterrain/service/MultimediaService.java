@@ -3,6 +3,8 @@ package com.connecsen.oterrain.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,7 @@ import com.connecsen.oterrain.exception.nofoundexception.MultimediaNotFoundExcep
 import com.connecsen.oterrain.repository.MultimediaRepository;
 import com.connecsen.oterrain.utils.Utility;
 @Service
+@Transactional
 public class MultimediaService implements IMultimediaService{
 
 	@Autowired
