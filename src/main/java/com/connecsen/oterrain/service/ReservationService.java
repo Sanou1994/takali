@@ -28,6 +28,8 @@ import com.connecsen.oterrain.repository.TerrainRepository;
 import com.connecsen.oterrain.repository.UserRepository;
 import com.connecsen.oterrain.utils.Utility;
 
+
+
 @Service
 @Transactional
 public class ReservationService implements IReservationService {
@@ -39,9 +41,7 @@ public class ReservationService implements IReservationService {
 	private UserRepository userRepository;
 	@Autowired
 	private TerrainRepository terrainRepository;
-	@Autowired
-	private IReservationService iReservationService;
-	 @Autowired
+	@Autowired(required=true)
 	private  JavaMailSender javaMailSender;
 	@Override
 	public Reservation createOrUpdateReservation(Reservation tournoiDtoRequest) {
@@ -131,7 +131,7 @@ public class ReservationService implements IReservationService {
 		
 		  user.setReservations(null);
 		  userRepository.save(user);
-		  iReservationService.deleteReservation(reservationDtoRequest.getId());
+		  this.deleteReservation(reservationDtoRequest.getId());
 			}
 
 	@Override
