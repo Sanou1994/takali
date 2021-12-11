@@ -45,7 +45,7 @@ public class AccountRestController {
 	public UserDtoResponse register( @RequestBody UserDtoRequest user) {
 		Utilisateur userGot = userRepository.findByEmail(user.getEmail());
 		UserDtoResponse userAdd =null;
-		if(userGot !=null) {
+		if(userGot ==null) {
 			userAdd =accountService.login_up(user);
 			logger.info(" new user with role "+userAdd.getRoles().getLibelle() +"created : "+"firstname :"+userAdd.getUsername() +"lastname : "+userAdd.getPrenom());
 		} 
@@ -56,7 +56,7 @@ public class AccountRestController {
 		Utilisateur userGot = userRepository.findByEmail(user.getEmail());
 		boolean reponse =false;
 		String token = Utility.getTokenResetPassword();
-		if(userGot !=null) {
+		if(userGot ==null) {
 			user.setPassword(token);
 			user.setUsername(user.getEmail());
 			UserDtoResponse userAdd =accountService.login_up(user);
