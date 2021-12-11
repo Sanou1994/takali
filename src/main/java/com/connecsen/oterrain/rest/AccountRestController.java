@@ -43,29 +43,32 @@ public class AccountRestController {
 	 private UserRepository userRepository;
 	@PostMapping(Utility.DO_REGISTER)
 	public UserDtoResponse register( @RequestBody UserDtoRequest user) {
+		Utilisateur userGot = userRepository.findByEmail(user.getEmail());
 		UserDtoResponse userAdd =null;
-		try {
+		if(userGot !=null) {
 			userAdd =accountService.login_up(user);
 			logger.info(" new user with role "+userAdd.getRoles().getLibelle() +"created : "+"firstname :"+userAdd.getUsername() +"lastname : "+userAdd.getPrenom());
-		} catch (Exception e) {
-			throw new CreateException();
-		}
+		} 
 		return userAdd;
 	}
 	@PostMapping(Utility.DO_REGISTER_BY_ADMIN)
 	public boolean registerByAmdin( @RequestBody UserDtoRequest user) {
+		Utilisateur userGot = userRepository.findByEmail(user.getEmail());
 		boolean reponse =false;
 		String token = Utility.getTokenResetPassword();
-		try {
+		if(userGot !=null) {
 			user.setPassword(token);
 			user.setUsername(user.getEmail());
 			UserDtoResponse userAdd =accountService.login_up(user);
 			logger.info(" new user created  with firstname :"+userAdd.getUsername() +"lastname : "+userAdd.getPrenom());
-			accountService.confirmedMessageAccountCreatedSuccess(new Login(user.getEmail(),token, user.getEmail()));
+			try {
+				accountService.confirmedMessageAccountCreatedSuccess(new Login(user.getEmail(),token, user.getEmail()));
+			} catch (MessagingException e) {
+				// TODO Auto-generated catch block
+				reponse =false;
+			}
 			reponse =true;
-		} catch (Exception e) {
-			throw new CreateException();
-		}
+		} 
 		return reponse;
 	}
 	
