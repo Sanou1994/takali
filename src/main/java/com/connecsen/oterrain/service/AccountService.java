@@ -1,5 +1,6 @@
 package com.connecsen.oterrain.service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,7 +23,7 @@ import org.springframework.stereotype.Service;
 
 import com.connecsen.oterrain.domaine.ListeHeureReserver;
 import com.connecsen.oterrain.domaine.Login;
-import com.connecsen.oterrain.domaine.Mail;
+import com.connecsen.oterrain.domaine.MailSend;
 import com.connecsen.oterrain.domaine.Reservation;
 import com.connecsen.oterrain.domaine.Role;
 import com.connecsen.oterrain.domaine.Terrain;
@@ -40,6 +41,13 @@ import com.connecsen.oterrain.repository.UserDoReservationRepository;
 import com.connecsen.oterrain.repository.UserRepository;
 import com.connecsen.oterrain.security.JwtTokenUtil;
 import com.connecsen.oterrain.utils.Utility;
+import com.sendgrid.Method;
+import com.sendgrid.Request;
+import com.sendgrid.Response;
+import com.sendgrid.SendGrid;
+import com.sendgrid.helpers.mail.Mail;
+import com.sendgrid.helpers.mail.objects.Content;
+import com.sendgrid.helpers.mail.objects.Email;
 
 @Service
 @Transactional
@@ -131,7 +139,7 @@ public class AccountService implements IAccountService{
 		return userRepository.findByUsername(username);
 	}
 	 @Override
-    public void sendMail(Mail mail) {
+    public void sendMail(MailSend mail) {
 		     SimpleMailMessage msg = new SimpleMailMessage();
 		    msg.setFrom(mail.getEmail());
 	        msg.setTo(Utility.NOTREEMAIL);
@@ -322,34 +330,38 @@ public class AccountService implements IAccountService{
 	@Override
 	public void confirmedMessageAccountCreatedSuccess(Login login) throws MessagingException {
 		Utilisateur user =userRepository.findByEmail(login.getEmail());
-		MimeMessage msg = javaMailSender.createMimeMessage();
-
-	        MimeMessageHelper helper = new MimeMessageHelper(msg, true);
-         String subject = "Confirmation de creation de compte";
-	        String link ="o-terrain.com/#/login";
-	        String content = "<p>Bonjour <h3>"+user.getNom()+"</h3>,</p>"
-	                + "<p>Vous aviez reçu cet email car vous aviez crée un compte sur notre plateforme.</p>"
+		 Email to = new Email(login.getEmail());
+		 String subject = "Confirmation de création de compte";  
+		 Email from = new Email(Utility.NOTREEMAIL);
+	     String link ="https://o-terrain.com/#/login";
+	     String contentString = "<p>Bonjour <h3>"+user.getNom()+"</h3>,</p>"
+	                + "<p>Vous avez reçu cet email car vous avez créé un compte sur notre plateforme.</p>"
 	                + "<br>"
-	                + "<p>Pour vous connectez utiliser les identifiants ci-dessous.</p>"
+	                + "<p>Pour vous connectez ,utilisez les identifiants ci-dessous.</p>"
 	                + "<br>" 
 	                + "<p>login : <h3>" +login.getEmail()  + "</h3> </p>"
 	                +"<p>mot de passe : <h3>" + login.getPassword()+ "</h3> </p>"
 	                 + "<br>"
-	                + "<p>Clique sur le lien  a travers le champ en bleu pour accéder à notre plateforme:</p>"
-	                + "<p>Veuillez suivre ce lien <a href=\"" + link + "\"></a></p>"
-	                + "<br>"
+	                 + "<p></p>"
+	                + "<p>Cliquez sur <a href="+ link +"> ce lien en blue</a> pour accéder à notre plateforme:</p>"
 	                + "<p>veuillez ne pas repondre à cet email.</p>";
-	        helper.setTo(login.getEmail());
+		   Content content = new Content("text/plain", contentString);
+		   Mail mail = new Mail(from, subject, to, content);
 
-	        helper.setSubject(subject);
-
+		    SendGrid sg = new SendGrid(System.getenv("SENDGRID_API_KEY"));
+		    Request request = new Request();
+		    try {
+		      request.setMethod(Method.POST);
+		      request.setEndpoint(Utility.DO_REGISTER_BY_ADMIN);
+		      request.setBody(mail.build());
+		      Response response = sg.api(request);
+		      System.out.println(response.getStatusCode());
+		      System.out.println(response.getBody());
+		      System.out.println(response.getHeaders());
+		    } catch (IOException ex) {
+		      System.out.println(ex.getMessage());
+		    }
 	       
-	        
-	        helper.setText(content, true);
-	     //  helper.addAttachment("terrain.png", new ClassPathResource("terrain.png"));
-
-	        javaMailSender.send(msg);
-		
 	}
 	@Override
 	public UserDtoResponse addReservationToUserAndTerrainWithoutPaid(long idUser, long idTerrain,

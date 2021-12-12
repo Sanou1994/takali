@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.connecsen.oterrain.domaine.Login;
-import com.connecsen.oterrain.domaine.Mail;
+import com.connecsen.oterrain.domaine.MailSend;
 import com.connecsen.oterrain.domaine.Reservation;
 import com.connecsen.oterrain.domaine.UpdatePasswordUser;
 import com.connecsen.oterrain.domaine.Utilisateur;
@@ -87,7 +87,7 @@ public class AccountRestController {
 		return userNull ;
 	}
 	@PostMapping(Utility.DO_CONTACTED)
-	public void contacteNous(@RequestBody Mail mail) throws MessagingException {	
+	public void contacteNous(@RequestBody MailSend mail) throws MessagingException {	
 		logger.info("username : "+mail.getName()+"email: "+mail.getEmail()+" send us message.......");
 			accountService.sendMail(mail);
     }
