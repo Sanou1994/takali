@@ -64,12 +64,14 @@ public class EmailService implements IEmailService{
 	public Mail prepareMailContact(MailSend mailRequest) {
 		Mail mail = new Mail();
 		mail.setSubject(mailRequest.getSubject());
-	    mail.addContent(new Content("text/plain", mailRequest.getMessage()));
+		String content = "<p>Bonjour ,mon email est " +mailRequest.getEmail() + ",</p>" +
+				         "</br>"+mailRequest.getMessage();
+	    mail.addContent(new Content("text/html", content));
 		Email fromEmail = new Email();
 		fromEmail.setEmail(Utility.NOTREEMAIL);
 		mail.setFrom(fromEmail);
 		Email to = new Email();
-		to.setEmail(mailRequest.getEmail());
+		to.setEmail(Utility.NOTREEMAIL);
 		Personalization personalization = new Personalization();
 		personalization.addTo(to);
 		 mail.addPersonalization(personalization);
