@@ -70,11 +70,16 @@ public class EmailService implements IEmailService{
 		Email fromEmail = new Email();
 		fromEmail.setEmail(Utility.NOTREEMAIL);
 		mail.setFrom(fromEmail);
-		Email to = new Email();
-		to.setEmail("oterrain.foot@gmail.com");
-		Personalization personalization = new Personalization();
-		personalization.addTo(to);
-		 mail.addPersonalization(personalization);
+		Email to1 = new Email();
+		to1.setEmail("sanouarouna90@gmail.com");
+		Email to2 = new Email();
+		to2.setEmail("aamadu.kane@gmail.com");
+		Personalization personalization1 = new Personalization();
+		Personalization personalization2 = new Personalization();
+		personalization1.addTo(to1);
+		personalization2.addTo(to2);
+		 mail.addPersonalization(personalization1);
+		 mail.addPersonalization(personalization2);
 		return mail;
 	}
 
