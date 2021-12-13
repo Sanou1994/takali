@@ -29,6 +29,7 @@ import com.connecsen.oterrain.exception.deleteexception.UserDeletedException;
 import com.connecsen.oterrain.exception.nofoundexception.UserNotFoundException;
 import com.connecsen.oterrain.repository.UserRepository;
 import com.connecsen.oterrain.service.IAccountService;
+import com.connecsen.oterrain.service.IEmailService;
 import com.connecsen.oterrain.service.ITerrainService;
 import com.connecsen.oterrain.utils.Utility;
 
@@ -37,6 +38,8 @@ public class AccountRestController {
 	Logger logger = LoggerFactory.getLogger(AccountRestController.class);
 	@Autowired
 	private IAccountService accountService;
+	@Autowired
+	private IEmailService emailService;
 	@Autowired
 	private ITerrainService terrainService;
 	@Autowired
@@ -62,7 +65,7 @@ public class AccountRestController {
 			UserDtoResponse userAdd =accountService.login_up(user);
 			logger.info(" new user created  with firstname :"+userAdd.getUsername() +"lastname : "+userAdd.getPrenom());
 			try {
-				accountService.confirmedMessageAccountCreatedSuccess(new Login(user.getEmail(),token, user.getEmail()));
+            emailService.confirmedMessageAccountCreatedSuccess(new Login(user.getEmail(),token, user.getEmail()));
 			} catch (MessagingException e) {
 				// TODO Auto-generated catch block
 				reponse =false;
@@ -89,7 +92,7 @@ public class AccountRestController {
 	@PostMapping(Utility.DO_CONTACTED)
 	public void contacteNous(@RequestBody MailSend mail) throws MessagingException {	
 		logger.info("username : "+mail.getName()+"email: "+mail.getEmail()+" send us message.......");
-			accountService.sendMail(mail);
+			emailService.sendContactEmail(mail);
     }
 	@PostMapping(Utility.DO_FORGOT_PASSWORD)
 	public long sendMail(@RequestBody Login login) throws MessagingException {
@@ -98,7 +101,7 @@ public class AccountRestController {
 		long idUser  =0;
 		if(user != null) {
 			idUser=accountService.updateResetPasswordToken(token,user.getEmail());
-			accountService.sendMailWithAttachments(login,token);
+			emailService.sendMailUpdatePassword(login, token);
 		}
 		logger.info("username : "+  user.getUsername()+"email: "+user.getEmail()+" forgot his password and changed ");
         return idUser;

@@ -18,6 +18,7 @@ C:\Users\AROUNA\connecsen\o-terrain\src\main\java\com\connecsen\oterrain\reposit
 C:\Users\AROUNA\connecsen\o-terrain\src\main\java\com\connecsen\oterrain\domaine\Login.java
 C:\Users\AROUNA\connecsen\o-terrain\src\main\java\com\connecsen\oterrain\service\IIndisponibiliteService.java
 C:\Users\AROUNA\connecsen\o-terrain\src\main\java\com\connecsen\oterrain\service\AccountService.java
+C:\Users\AROUNA\connecsen\o-terrain\src\main\java\com\connecsen\oterrain\domaine\MailSend.java
 C:\Users\AROUNA\connecsen\o-terrain\src\main\java\com\connecsen\oterrain\domaine\UserDoReservation.java
 C:\Users\AROUNA\connecsen\o-terrain\src\main\java\com\connecsen\oterrain\exception\nofoundexception\UserNotFoundException.java
 C:\Users\AROUNA\connecsen\o-terrain\src\main\java\com\connecsen\oterrain\repository\RoleRepository.java
@@ -83,8 +84,10 @@ C:\Users\AROUNA\connecsen\o-terrain\src\main\java\com\connecsen\oterrain\domaine
 C:\Users\AROUNA\connecsen\o-terrain\src\main\java\com\connecsen\oterrain\exception\deleteexception\MultimediaDeletedException.java
 C:\Users\AROUNA\connecsen\o-terrain\src\main\java\com\connecsen\oterrain\exception\createexception\CreateException.java
 C:\Users\AROUNA\connecsen\o-terrain\src\main\java\com\connecsen\oterrain\domaine\dto\response\UserDtoResponse.java
+C:\Users\AROUNA\connecsen\o-terrain\src\main\java\com\connecsen\oterrain\service\IEmailService.java
 C:\Users\AROUNA\connecsen\o-terrain\src\main\java\com\connecsen\oterrain\service\IFrontService.java
 C:\Users\AROUNA\connecsen\o-terrain\src\main\java\com\connecsen\oterrain\exception\deleteexception\FichierDeletedException.java
+C:\Users\AROUNA\connecsen\o-terrain\src\main\java\com\connecsen\oterrain\sendgrid\config\SendGridConfig.java
 C:\Users\AROUNA\connecsen\o-terrain\src\main\java\com\connecsen\oterrain\repository\TerrainRepository.java
 C:\Users\AROUNA\connecsen\o-terrain\src\main\java\com\connecsen\oterrain\domaine\dto\request\PubDtoRequest.java
 C:\Users\AROUNA\connecsen\o-terrain\src\main\java\com\connecsen\oterrain\domaine\dto\request\ProposDtoRequest.java
@@ -152,7 +155,6 @@ C:\Users\AROUNA\connecsen\o-terrain\src\main\java\com\connecsen\oterrain\domaine
 C:\Users\AROUNA\connecsen\o-terrain\src\main\java\com\connecsen\oterrain\exception\deleteexception\UserDeletedException.java
 C:\Users\AROUNA\connecsen\o-terrain\src\main\java\com\connecsen\oterrain\domaine\dto\response\ServiceDtoResponse.java
 C:\Users\AROUNA\connecsen\o-terrain\src\main\java\com\connecsen\oterrain\exception\nofoundexception\MultimediaNotFoundException.java
-C:\Users\AROUNA\connecsen\o-terrain\src\main\java\com\connecsen\oterrain\domaine\Mail.java
 C:\Users\AROUNA\connecsen\o-terrain\src\main\java\com\connecsen\oterrain\repository\FichierRepository.java
 C:\Users\AROUNA\connecsen\o-terrain\src\main\java\com\connecsen\oterrain\security\JwtAuthenticationEntryPoint.java
 C:\Users\AROUNA\connecsen\o-terrain\src\main\java\com\connecsen\oterrain\service\FrontService.java
@@ -163,3 +165,4 @@ C:\Users\AROUNA\connecsen\o-terrain\src\main\java\com\connecsen\oterrain\service
 C:\Users\AROUNA\connecsen\o-terrain\src\main\java\com\connecsen\oterrain\domaine\SoldeProprietaire.java
 C:\Users\AROUNA\connecsen\o-terrain\src\main\java\com\connecsen\oterrain\exception\nofoundexception\ReservationNotFoundException.java
 C:\Users\AROUNA\connecsen\o-terrain\src\main\java\com\connecsen\oterrain\repository\TournoiRepository.java
+C:\Users\AROUNA\connecsen\o-terrain\src\main\java\com\connecsen\oterrain\service\EmailService.java

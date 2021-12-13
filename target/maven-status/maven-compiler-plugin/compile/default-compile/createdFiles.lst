@@ -24,6 +24,7 @@ com\connecsen\oterrain\exception\createexception\CreateException.class
 com\connecsen\oterrain\exception\deleteexception\FichierDeletedException.class
 com\connecsen\oterrain\security\JwtAuthenticationEntryPoint.class
 com\connecsen\oterrain\rest\ReservationRestController.class
+com\connecsen\oterrain\service\IEmailService.class
 com\connecsen\oterrain\service\IVersementService.class
 com\connecsen\oterrain\repository\ServiceRepository.class
 com\connecsen\oterrain\rest\PubRestController.class
@@ -31,6 +32,7 @@ com\connecsen\oterrain\repository\PubRepository.class
 com\connecsen\oterrain\service\TransactionService.class
 com\connecsen\oterrain\service\IPubService.class
 com\connecsen\oterrain\domaine\dto\request\FormReserverDtoRequest.class
+com\connecsen\oterrain\service\EmailService.class
 com\connecsen\oterrain\domaine\Multimedia.class
 com\connecsen\oterrain\repository\PrixRepository.class
 com\connecsen\oterrain\rest\HomeOneRestController.class
@@ -107,6 +109,7 @@ com\connecsen\oterrain\domaine\UpdatePasswordUser.class
 com\connecsen\oterrain\rest\AccountRestController.class
 com\connecsen\oterrain\rest\VersementRestController.class
 com\connecsen\oterrain\exception\nofoundexception\MultimediaNotFoundException.class
+com\connecsen\oterrain\sendgrid\config\SendGridConfig.class
 com\connecsen\oterrain\domaine\Terrain.class
 com\connecsen\oterrain\service\IHomeOneService.class
 com\connecsen\oterrain\domaine\dto\response\UserDtoResponse.class
@@ -131,6 +134,7 @@ com\connecsen\oterrain\exception\deleteexception\ReservationDeletedException.cla
 com\connecsen\oterrain\domaine\dto\response\VersementDtoResponse.class
 com\connecsen\oterrain\exception\nofoundexception\FichierNotFoundException.class
 com\connecsen\oterrain\domaine\dto\request\PrixDtoRequest.class
+com\connecsen\oterrain\domaine\MailSend.class
 com\connecsen\oterrain\domaine\UpdateEquipe.class
 com\connecsen\oterrain\service\VersementService.class
 com\connecsen\oterrain\service\IPrixService.class
@@ -144,7 +148,6 @@ com\connecsen\oterrain\domaine\dto\response\RoleDtoResponse.class
 com\connecsen\oterrain\service\PubService.class
 com\connecsen\oterrain\repository\MultimediaRepository.class
 com\connecsen\oterrain\domaine\Publicite.class
-com\connecsen\oterrain\domaine\Mail.class
 com\connecsen\oterrain\service\ProposService.class
 com\connecsen\oterrain\domaine\dto\request\MatchDtoRequest.class
 com\connecsen\oterrain\domaine\NombreReservationEtMontant.class

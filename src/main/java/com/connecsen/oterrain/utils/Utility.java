@@ -65,7 +65,7 @@ public final class Utility {
 	public static final String TOKEN_PREFIX = "Bearer ";
 	public static final String HEADER_STRING = "Authorization";
 	public static final String SECRET = "javainuse";
-	public static final String NOTREEMAIL ="oterrain.foot@gmail.com";
+	public static final String NOTREEMAIL ="sanouarouna1994@gmail.com";
 	
 	// LES URLS D'ACCESS
 	public static final String ADD_INDISPONIBILITE = "/indisponibilite/add";

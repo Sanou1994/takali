@@ -2,10 +2,6 @@ package com.connecsen.oterrain.service;
 
 import java.util.List;
 
-import javax.mail.MessagingException;
-
-import com.connecsen.oterrain.domaine.Login;
-import com.connecsen.oterrain.domaine.MailSend;
 import com.connecsen.oterrain.domaine.Reservation;
 import com.connecsen.oterrain.domaine.UpdatePasswordUser;
 import com.connecsen.oterrain.domaine.Utilisateur;
@@ -39,9 +35,7 @@ public interface IAccountService {
 	  public Utilisateur findUserByUsername(String username);
 	  public Utilisateur findUserByUsernameAndEmail(String username,String email);
 	  public Utilisateur getUserByEmail(String email);
-	  public void sendMail(MailSend mail);
-      public void confirmedMessageAccountCreatedSuccess(Login login) throws MessagingException;
-      public void sendMailWithAttachments(Login login,String resetPasswordId) throws MessagingException;
+	
       public long updateResetPasswordToken(String token, String email);
       public UserDtoResponse getByResetPasswordToken(String token);
       public void updatePassword(Utilisateur user, String newPassword);
