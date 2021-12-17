@@ -45,14 +45,14 @@ public class AccountRestController {
 	@Autowired
 	 private UserRepository userRepository;
 	@PostMapping(Utility.DO_REGISTER)
-	public UserDtoResponse register( @RequestBody UserDtoRequest user) {
+	public boolean register( @RequestBody UserDtoRequest user) {
+		boolean reponse =false;
 		UserDtoResponse userAdd =accountService.login_up(user);
-		if(userAdd !=null) {	
-			logger.info(" new user with role "+userAdd.getRoles().getLibelle() +"created : "+"firstname :"+userAdd.getUsername() +"lastname : "+userAdd.getPrenom());
-		}else {
-			userAdd = new UserDtoResponse();
-		}
-		return userAdd;
+		if(userAdd !=null) {
+			reponse =true;
+			logger.info(" new user created  with firstname :"+userAdd.getUsername() +"lastname : "+userAdd.getPrenom());
+		} 
+		return reponse;
 	}
 	@PostMapping(Utility.DO_REGISTER_BY_ADMIN)
 	public boolean registerByAmdin( @RequestBody UserDtoRequest user) {
