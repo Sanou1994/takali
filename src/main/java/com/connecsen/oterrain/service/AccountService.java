@@ -62,11 +62,16 @@ public class AccountService implements IAccountService{
     
 	@Override
 	public UserDtoResponse login_up(UserDtoRequest user) {
-		String pwdCryp = bCryptPasswordEncoder.encode(user.getPassword());
-		user.setPassword(pwdCryp);
-		Utilisateur userConverted =Utility.userDtoRequestConvertToUtilisateur(user);
-		Utilisateur userSave = userRepository.save(userConverted);
-		UserDtoResponse userMap = Utility.utilisateurConvertToUserDtoResponse(userSave);
+		Utilisateur userGot = userRepository.findByEmail(user.getEmail());
+		UserDtoResponse userMap =null;
+		if(userGot == null) {
+			String pwdCryp = bCryptPasswordEncoder.encode(user.getPassword());
+			user.setPassword(pwdCryp);
+			Utilisateur userConverted =Utility.userDtoRequestConvertToUtilisateur(user);
+			Utilisateur userSave = userRepository.save(userConverted);
+			userMap = Utility.utilisateurConvertToUserDtoResponse(userSave);
+		}
+		
 		return userMap ;
 	}
 	@Override
@@ -332,20 +337,64 @@ public class AccountService implements IAccountService{
 	@Override
 	public void initAccount() {
 		List<UserDtoResponse> users=this.getAllUsers();
-		if(users.size()==0) {
-		Role admin=roleRepository.save(new Role("ADMIN"));
-		roleRepository.save(new Role("VISITEUR"));
-		Role proprietaire=roleRepository.save(new Role("PROPRIETAIRE_TERRAIN"));
-		Utilisateur user =new Utilisateur("oterrain.foot@gmail.com", "admin", "admin", "Dakar", "neant", "neant", "2021", false, "oterrain.foot@gmail.com", "774024131", "oteRRain202121@", "neant",admin, null, null, null, null);
-		Utilisateur proprietaireCreate =new Utilisateur("ouedraogomahamadi218@gmail.com", "proprietaire", "proprietaire", "Dakar", "neant", "neant", "2021", false, "ouedraogomahamadi218@gmail.com", "774024131", "ouedraogomahamadi218@gmail.com", "neant",proprietaire, null, null, null, null);
-		UserDtoRequest userDtoResponse =Utility.utilisateurConvertToUserDtoRequest(user);
-		UserDtoRequest proprietaireResponse =Utility.utilisateurConvertToUserDtoRequest(proprietaireCreate);
-		this.login_up(proprietaireResponse);
+		boolean kane =false;
+		boolean cedric =false;
+		boolean mahamadi =false;
+		boolean arouna =false;
+		boolean ba =false;
+
+		for (int i = 0; i < users.size(); i++) {
+			switch (users.get(i).getEmail()) {
+			case "sanouarouna90@gmail.com":
+				arouna=true;
+				break;
+			case "bollky.nana@gmail.com":
+					cedric=true;		
+				break;
+			case "aamadu.kane@gmail.com":
+				kane=true;
+				break;
+			case "ouedraogomahamadi218@gmail.com":
+				mahamadi=true;
+				break;
+			case "baamamad2018@outlook.fr":
+				ba=true;
+				break;
+			default:
+				break;
+			}
+		}
+		if(kane == false) {
+		Role role =roleRepository.findById((long) 1).get();
+		Utilisateur adminCreate =new Utilisateur("aamadu.kane@gmail.com", "admin", "admin", "Dakar", "neant", "neant", "2021", false, "aamadu.kane@gmail.com", "774024131", "aamadu.kane@gmail.com", "neant",role, null, null, null, null);
+		UserDtoRequest userDtoResponse =Utility.utilisateurConvertToUserDtoRequest(adminCreate);
 		this.login_up(userDtoResponse);
 		}
+		if(cedric == false) {
+			Role role =roleRepository.findById((long) 1).get();
+			Utilisateur adminCreate =new Utilisateur("bollky.nana@gmail.com", "admin", "admin", "Dakar", "neant", "neant", "2021", false, "bollky.nana@gmail.com", "774024131", "bollky.nana@gmail.com", "neant",role, null, null, null, null);
+			UserDtoRequest userDtoResponse =Utility.utilisateurConvertToUserDtoRequest(adminCreate);
+			this.login_up(userDtoResponse);
+			}
+		if(mahamadi == false) {
+			Role role =roleRepository.findById((long) 1).get();
+			Utilisateur adminCreate =new Utilisateur("ouedraogomahamadi218@gmail.com", "admin", "admin", "Dakar", "neant", "neant", "2021", false, "ouedraogomahamadi218@gmail.com", "774024131", "ouedraogomahamadi218@gmail.com", "neant",role, null, null, null, null);
+			UserDtoRequest userDtoResponse =Utility.utilisateurConvertToUserDtoRequest(adminCreate);
+			this.login_up(userDtoResponse);
+			}
+		if(arouna == false) {
+			Role role =roleRepository.findById((long) 1).get();
+			Utilisateur adminCreate =new Utilisateur("sanouarouna90@gmail.com", "admin", "admin", "Dakar", "neant", "neant", "2021", false, "sanouarouna90@gmail.com", "774024131", "sanouarouna90@gmail.com", "neant",role, null, null, null, null);
+			UserDtoRequest userDtoResponse =Utility.utilisateurConvertToUserDtoRequest(adminCreate);
+			this.login_up(userDtoResponse);
+			}
+		if(ba == false) {
+			Role role =roleRepository.findById((long) 1).get();
+			Utilisateur adminCreate =new Utilisateur("baamamad2018@outlook.fr", "admin", "admin", "Dakar", "neant", "neant", "2021", false, "baamamad2018@outlook.fr", "774024131", "baamamad2018@outlook.fr", "neant",role, null, null, null, null);
+			UserDtoRequest userDtoResponse =Utility.utilisateurConvertToUserDtoRequest(adminCreate);
+			this.login_up(userDtoResponse);
+			}
     	
 	}
-	
-	
 	
 	}

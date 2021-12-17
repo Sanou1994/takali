@@ -1,10 +1,4 @@
 package com.connecsen.oterrain;
-import com.sendgrid.*;
-import com.sendgrid.helpers.mail.Mail;
-import com.sendgrid.helpers.mail.objects.Content;
-import com.sendgrid.helpers.mail.objects.Email;
-
-import java.io.IOException;
 import javax.annotation.PostConstruct;
 
 import org.modelmapper.ModelMapper;
@@ -74,18 +68,12 @@ public class OterrainApplication implements CommandLineRunner {
 	public BCryptPasswordEncoder getBCPE() {
 		return new BCryptPasswordEncoder();
 	}
-    
-	
-	
-	
+
 	
 	  @PostConstruct
 	  public void scheduleRunnableWithCronTrigger() {
 	  taskScheduler.scheduleWithFixedDelay(new
 	  JobRunner(iReservationService,terrainRepository),1); }
-	 
-	 
-	 
 	 
 	@Override  
 	public void run(String... args) throws Exception {

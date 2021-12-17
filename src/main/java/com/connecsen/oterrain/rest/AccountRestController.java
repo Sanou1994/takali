@@ -46,23 +46,23 @@ public class AccountRestController {
 	 private UserRepository userRepository;
 	@PostMapping(Utility.DO_REGISTER)
 	public UserDtoResponse register( @RequestBody UserDtoRequest user) {
-		Utilisateur userGot = userRepository.findByEmail(user.getEmail());
-		UserDtoResponse userAdd =null;
-		if(userGot ==null) {
-			userAdd =accountService.login_up(user);
+		UserDtoResponse userAdd =accountService.login_up(user);
+		if(userAdd !=null) {	
 			logger.info(" new user with role "+userAdd.getRoles().getLibelle() +"created : "+"firstname :"+userAdd.getUsername() +"lastname : "+userAdd.getPrenom());
-		} 
+		}else {
+			userAdd = new UserDtoResponse();
+		}
 		return userAdd;
 	}
 	@PostMapping(Utility.DO_REGISTER_BY_ADMIN)
 	public boolean registerByAmdin( @RequestBody UserDtoRequest user) {
-		Utilisateur userGot = userRepository.findByEmail(user.getEmail());
 		boolean reponse =false;
 		String token = Utility.getTokenResetPassword();
-		if(userGot ==null) {
-			user.setPassword(token);
-			user.setUsername(user.getEmail());
-			UserDtoResponse userAdd =accountService.login_up(user);
+		user.setPassword(token);
+		user.setUsername(user.getEmail());
+		UserDtoResponse userAdd =accountService.login_up(user);
+		if(userAdd !=null) {
+			reponse =true;
 			logger.info(" new user created  with firstname :"+userAdd.getUsername() +"lastname : "+userAdd.getPrenom());
 			try {
             emailService.confirmedMessageAccountCreatedSuccess(new Login(user.getEmail(),token, user.getEmail()));
@@ -70,7 +70,7 @@ public class AccountRestController {
 				// TODO Auto-generated catch block
 				reponse =false;
 			}
-			reponse =true;
+			
 		} 
 		return reponse;
 	}
@@ -82,6 +82,7 @@ public class AccountRestController {
 		if(user != null ) {
 			user.setMonToken(accountService.getToken(login.getUsername(), login.getPassword()));
 			userNull  = user ;
+			
 		logger.info(" username : "+  userNull.getUsername()+" is role : "+userNull.getRoles().getLibelle() +" connected.......");
 
 		}else {
@@ -196,9 +197,8 @@ public class AccountRestController {
 	public boolean getDeleteUser(@PathVariable(value = "id") Long userId){
 		 boolean resultat =false;
 		try {
-			UserDtoResponse userGot =accountService.getUserById(userId);
 	       resultat = accountService.deleteUser(userId);
-			logger.info("username : "+  userGot.getUsername()+"with role : "+userGot.getRoles().getLibelle()+" was deleted  with  : "+resultat);
+			logger.info("username with id : "+userId+" was deleted  ");
 	
 		} catch (Exception e) {
 			throw new UserDeletedException(userId);

@@ -95,7 +95,7 @@ private TournoiRepository tournoiRepository;
 	@Override
 	public List<TournoiDtoResponse> getAllTournoisByOrderByDateFinAsc() {
 		List<Tournoi> tournoisReturned = new ArrayList<Tournoi>();
-		List<Tournoi> tournois =tournoiRepository.findAllByOrderByDateFinDesc();
+		List<Tournoi> tournois =tournoiRepository.findAllByOrderByDateDebutAsc();
 		tournoisReturned.add(tournois.get(0));
 		tournoisReturned.add(tournois.get(1));
 		 List<TournoiDtoResponse> tournoiDtoResponses = tournoisReturned.stream()

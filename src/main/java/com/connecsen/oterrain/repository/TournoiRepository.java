@@ -8,6 +8,6 @@ import com.connecsen.oterrain.domaine.Tournoi;
 
 public interface TournoiRepository extends JpaRepository<Tournoi, Long> {
   public List<Tournoi> findByTypeTournoi(String typeTournoi);
-  public List<Tournoi> findAllByOrderByDateFinDesc();
+  public List<Tournoi> findAllByOrderByDateDebutAsc();
 
 }
