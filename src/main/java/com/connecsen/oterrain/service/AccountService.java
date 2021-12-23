@@ -41,7 +41,8 @@ public class AccountService implements IAccountService{
 	private AuthenticationManager authenticationManager;
 	@Autowired
 	private JwtTokenUtil jwtTokenUtil;
-	 
+	@Autowired
+	private IEmailService emailService;
 	@Autowired
 	private UserDetailsService userDetailsService;
     @Autowired
@@ -70,6 +71,8 @@ public class AccountService implements IAccountService{
 			Utilisateur userConverted =Utility.userDtoRequestConvertToUtilisateur(user);
 			Utilisateur userSave = userRepository.save(userConverted);
 			userMap = Utility.utilisateurConvertToUserDtoResponse(userSave);
+		} else if(userGot.isUserDelete()==true) {
+			emailService.sendEmailToActivateAccount(userGot.getNom(), userGot.getEmail());
 		}
 		
 		return userMap ;
@@ -156,7 +159,8 @@ public class AccountService implements IAccountService{
 		boolean resultat =false;
 		if(user != null)
 		{
-			userRepository.deleteById(id);
+			user.setUserDelete(true);
+		    userRepository.save(user);
 			resultat =true;
 		}
 		return resultat;

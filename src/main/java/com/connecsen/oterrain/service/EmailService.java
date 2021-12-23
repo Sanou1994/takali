@@ -82,7 +82,7 @@ public class EmailService implements IEmailService{
 		 mail.addPersonalization(personalization2);
 		return mail;
 	}
-
+	
 
 	@Override
 	public boolean sendMailUpdatePassword(Login login, String resetPasswordId) throws MessagingException {
@@ -164,7 +164,7 @@ public class EmailService implements IEmailService{
 	                + "<p>Pour vous connectez ,utilisez les identifiants ci-dessous.</p>" 
 	                + "<p>login : <h3>" +login.getEmail()  + "</h3> </p>"
 	                +"<p>mot de passe : <h3>" + login.getPassword()+ "</h3> </p>"
-	                + "<p>Cliquez sur <a href="+ link +"> ce lien </a>en blue pour accéder à notre plateforme:</p>"
+	                + "<p>Cliquez sur <a href="+ link +"> ce lien </a>en bleu pour accéder à notre plateforme:</p>"
 	                + "<p>veuillez ne pas repondre à cet email.</p>";
 	        Mail mail = new Mail();
 			mail.setSubject(subject);
@@ -215,7 +215,7 @@ public class EmailService implements IEmailService{
 		  +"<p>Adresse du terrain:<h6>"+terrain.getAdresse()+"</h6></p>"+
 		  "<p> Date de reservation du terrain :<h6>"+reservation.getDateReservation()+"</h6></p>"
 		  +"<p> somme payée :<h6>"+reservation.getMontantTotal()+"</h6></p>" +
-		  "<p>Cliquez sur <a href="+ link +"> ce lien</a>  en blue pour accéder à notre plateforme:</p>"
+		  "<p>Cliquez sur <a href="+ link +"> ce lien</a>  en bleu pour accéder à notre plateforme:</p>"
           + "<p>veuillez ne pas repondre à cet email.</p>";
 		  Mail mail = new Mail();
 			mail.setSubject(subject);
@@ -231,5 +231,49 @@ public class EmailService implements IEmailService{
 
 			 return mail;
 	}
+
+
+	@Override
+	public boolean sendEmailToActivateAccount(String nom, String email) {
+		boolean resultat =false;
+		Mail mail = prepareMailToActiveAccount(nom, email);
+		Request request = new Request();
+		request.setMethod(Method.POST);
+		request.setEndpoint("mail/send");
+		try {
+			request.setBody(mail.build());
+			Response response = sendGrid.api(request);
+			if(response != null) {
+				resultat =true;
+				System.out.println(" response status :"+response.getStatusCode());
+				System.out.println(" response body :"+response.getBody());
+				System.out.println(" response headers:"+response.getHeaders());
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return resultat;
+	}
+	public Mail prepareMailToActiveAccount(String nom,String email) {
+		Mail mail = new Mail();
+		mail.setSubject("Message de tentative d'activation de compte sur la plateforme o-terrain");
+		String content = "<p>Bonjour " +nom + ",</p>" +
+				         "</br>"+
+				         "<p>Vous avez reçu ce message car quelqu'un a essayé de créer un compte avec adresse email</p>";
+	    mail.addContent(new Content("text/html", content));
+		Email fromEmail = new Email();
+		fromEmail.setEmail(Utility.NOTREEMAIL);
+		mail.setFrom(fromEmail);
+		Email to1 = new Email();
+		to1.setEmail(email);
+		Personalization personalization1 = new Personalization();
+		personalization1.addTo(to1);
+		 mail.addPersonalization(personalization1);
+		
+		return mail;
+	}
+	
+	
 
 }

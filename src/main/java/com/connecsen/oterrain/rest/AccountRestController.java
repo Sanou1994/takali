@@ -27,7 +27,6 @@ import com.connecsen.oterrain.domaine.dto.response.UserDtoResponse;
 import com.connecsen.oterrain.exception.createexception.CreateException;
 import com.connecsen.oterrain.exception.deleteexception.UserDeletedException;
 import com.connecsen.oterrain.exception.nofoundexception.UserNotFoundException;
-import com.connecsen.oterrain.repository.UserRepository;
 import com.connecsen.oterrain.service.IAccountService;
 import com.connecsen.oterrain.service.IEmailService;
 import com.connecsen.oterrain.service.ITerrainService;
@@ -42,8 +41,6 @@ public class AccountRestController {
 	private IEmailService emailService;
 	@Autowired
 	private ITerrainService terrainService;
-	@Autowired
-	 private UserRepository userRepository;
 	@PostMapping(Utility.DO_REGISTER)
 	public boolean register( @RequestBody UserDtoRequest user) {
 		boolean reponse =false;
@@ -180,8 +177,8 @@ public class AccountRestController {
 		return userUpdate;
     }
 	@GetMapping(Utility.GET_ALL_USERS)
-	public List<Utilisateur> getAllUser(){
-		return userRepository.findAll();
+	public List<UserDtoResponse> getAllUser(){
+		return accountService.getAllUsers();
     }
 	@GetMapping(Utility.GET_USER_BY_ID)
 	public UserDtoResponse getUserById(@PathVariable(value = "id") Long userId){

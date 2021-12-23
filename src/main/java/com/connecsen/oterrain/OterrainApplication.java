@@ -70,7 +70,8 @@ public class OterrainApplication implements CommandLineRunner {
 	}
 
 	
-	  @PostConstruct
+	
+	  @PostConstruct 
 	  public void scheduleRunnableWithCronTrigger() {
 	  taskScheduler.scheduleWithFixedDelay(new
 	  JobRunner(iReservationService,terrainRepository),1); }
