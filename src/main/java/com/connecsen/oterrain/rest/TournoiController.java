@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.connecsen.oterrain.domaine.dto.request.EquipeDtoRequest;
 import com.connecsen.oterrain.domaine.dto.request.MatchDtoRequest;
 import com.connecsen.oterrain.domaine.dto.request.TournoiDtoRequest;
+import com.connecsen.oterrain.domaine.dto.response.EquipeDtoResponse;
 import com.connecsen.oterrain.domaine.dto.response.MatchDtoResponse;
 import com.connecsen.oterrain.domaine.dto.response.TournoiDtoResponse;
 import com.connecsen.oterrain.service.ITournoiService;
@@ -28,17 +29,17 @@ public class TournoiController {
 		this.iTournoiService = iTournoiService;
 	}
 	@PostMapping(Utility.ADD_EQUIPE_TO_TOURNOI)
-	public TournoiDtoResponse ajouterEquipeATournoi(@PathVariable(value = "id") Long tournoiId, @RequestBody EquipeDtoRequest equipe) {
+	public EquipeDtoResponse ajouterEquipeATournoi(@PathVariable(value = "id") Long tournoiId, @RequestBody EquipeDtoRequest equipe) {
 		TournoiDtoResponse tournoiGot =iTournoiService.getTournoiById(tournoiId);
-		TournoiDtoResponse tournoiAdd =iTournoiService.addEquipeToTournoi(tournoiId, equipe);
+		EquipeDtoResponse equipeAdd =iTournoiService.addEquipeToTournoi(tournoiId, equipe);
 		String resultat ="echec";
-		if(tournoiGot.getEquipes().size() < tournoiAdd.getEquipes().size())
+		if(equipeAdd !=null)
 		{
 			resultat = "success";
 		}
-	logger.info(" equipe : "+equipe.getNomEquipe() +" tried to subscribe to tournoi : "+tournoiAdd.getNom()+"type de tournoi : "+tournoiAdd.getTypeTournoi()
+	logger.info(" equipe : "+equipeAdd.getNomEquipe() +" tried to subscribe to tournoi : "+tournoiGot.getNom()+"type de tournoi : "+tournoiGot.getTypeTournoi()
 		+" with : "+resultat);
-		return tournoiAdd;
+		return equipeAdd;
 	}
 	@PostMapping(Utility.ADD_MATCH_TO_TOURNOI)
 	public TournoiDtoResponse ajouterMatchATournoi(@PathVariable(value = "id") Long tournoiId, @RequestBody MatchDtoRequest match) {
