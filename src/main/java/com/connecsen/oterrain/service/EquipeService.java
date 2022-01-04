@@ -78,7 +78,7 @@ public class EquipeService implements IEquipeService {
 		EquipeDtoResponse tournoiDtoResponse =null;
 		try {
 			Equipe tournoi = equipeRepository.findById(updateEquipe.getId()).get();
-			tournoi.setPaye(updateEquipe.isPaye());
+			tournoi.setPaye(true);
 			tournoiDtoResponse = Utility.equipeConvertToEquipeDtoResponse(equipeRepository.save(tournoi));
 				
 		} catch (Exception e) {
