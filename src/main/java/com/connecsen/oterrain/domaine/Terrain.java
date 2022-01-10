@@ -34,6 +34,9 @@ public class Terrain implements Serializable{
 	private String statusTerrain ;
 	private Long idUser;
 	private Date dateInscription;
+	private String annulerTerrain="non-annuler";
+	private  String tauxAnnulation="0";
+	private String dureLimiteAvantAnnulation="aucun";
 	@OneToOne(targetEntity=Indisponibilite.class,cascade = { CascadeType.PERSIST, CascadeType.REMOVE})
 	private  Indisponibilite indisponibilite ;
 	@OneToMany(targetEntity=ListeHeureReserver.class,mappedBy="terrain",cascade =CascadeType.ALL)
@@ -57,7 +60,7 @@ public class Terrain implements Serializable{
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Prix> prix = new ArrayList<Prix>();
 	public Terrain(String nom, String adresse, String ville, String latitude, String longitude, String disponibilite,
-			String description,String statusTerrain,Long idUser,Date dateInscription,Indisponibilite indisponibilite,List<ListeHeureReserver> listeHeureReserver, List<Multimedia> multimedia, List<Match> matchs,
+			String description,String statusTerrain,Long idUser,Date dateInscription,String annulerTerrain,String tauxAnnulation,String dureLimiteAvantAnnulation,Indisponibilite indisponibilite,List<ListeHeureReserver> listeHeureReserver, List<Multimedia> multimedia, List<Match> matchs,
 			List<Reservation> reservations,List<Transaction> transactions, Utilisateur user, List<Prix> prix) {
 		super();
 		this.nom = nom;
@@ -70,6 +73,9 @@ public class Terrain implements Serializable{
 		this.statusTerrain = statusTerrain;
 		this.idUser = idUser;
 		this.dateInscription = dateInscription;
+		this.annulerTerrain = annulerTerrain;
+		this.tauxAnnulation = tauxAnnulation;
+		this.dureLimiteAvantAnnulation = dureLimiteAvantAnnulation;
 		this.indisponibilite = indisponibilite;
 		this.listeHeureReserver = listeHeureReserver;
 		this.multimedias = multimedia;
@@ -81,7 +87,7 @@ public class Terrain implements Serializable{
 
 	}
 	public Terrain(Long id, String nom, String adresse, String ville, String latitude, String longitude,
-			String disponibilite, String description, String statusTerrain,Long idUser,Date dateInscription,Indisponibilite indisponibilite,List<ListeHeureReserver> listeHeureReserver,
+			String disponibilite, String description, String statusTerrain,Long idUser,Date dateInscription,String annulerTerrain,String tauxAnnulation,String dureLimiteAvantAnnulation,Indisponibilite indisponibilite,List<ListeHeureReserver> listeHeureReserver,
 			List<Multimedia> multimedia, List<Match> matchs, List<Reservation> reservations,List<Transaction> transactions, Utilisateur user,List<Prix> prix) {
 		super();
 		this.id = id;
@@ -95,6 +101,9 @@ public class Terrain implements Serializable{
 		this.statusTerrain = statusTerrain;
 		this.idUser = idUser;
 		this.dateInscription = dateInscription;
+		this.annulerTerrain = annulerTerrain;
+		this.tauxAnnulation = tauxAnnulation;
+		this.dureLimiteAvantAnnulation = dureLimiteAvantAnnulation;
 		this.indisponibilite = indisponibilite;
 		this.multimedias = multimedia;
 		this.listeHeureReserver = listeHeureReserver;
@@ -221,6 +230,24 @@ public class Terrain implements Serializable{
 	}
 	public void setPrix(List<Prix> prix) {
 		this.prix = prix;
+	}
+	public String getAnnulerTerrain() {
+		return annulerTerrain;
+	}
+	public void setAnnulerTerrain(String annulerTerrain) {
+		this.annulerTerrain = annulerTerrain;
+	}
+	public String getTauxAnnulation() {
+		return tauxAnnulation;
+	}
+	public void setTauxAnnulation(String tauxAnnulation) {
+		this.tauxAnnulation = tauxAnnulation;
+	}
+	public String getDureLimiteAvantAnnulation() {
+		return dureLimiteAvantAnnulation;
+	}
+	public void setDureLimiteAvantAnnulation(String dureLimiteAvantAnnulation) {
+		this.dureLimiteAvantAnnulation = dureLimiteAvantAnnulation;
 	}
 	
 	

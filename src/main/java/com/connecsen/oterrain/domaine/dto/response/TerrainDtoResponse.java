@@ -30,6 +30,9 @@ public class TerrainDtoResponse implements Serializable{
 	private String statusTerrain;
 	private Long idUser;
 	private Date dateInscription;
+	private String annulerTerrain;
+	private  String tauxAnnulation;
+	private String dureLimiteAvantAnnulation;
 	private  Indisponibilite indisponibilite ;
 	private List<ListeHeureReserver> listeHeureReserver = new ArrayList<ListeHeureReserver>();
 	private List<Match> matchs = new ArrayList<Match>();

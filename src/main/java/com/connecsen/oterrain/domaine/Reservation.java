@@ -23,6 +23,8 @@ public class Reservation implements Serializable{
 	private String dateReservation;
 	private String heure;
 	private Date dateReservationTypeDate;
+	private String annulerReservation="non-annuler";
+	private String repousserReservation="non-repousser";
 	@OneToOne 
 	private Match match;
 	@ManyToOne(targetEntity=Utilisateur.class)
@@ -33,7 +35,7 @@ public class Reservation implements Serializable{
 	private UserDoReservation userDoReservation;
 	
 	public Reservation(Long idUserDoReservation,Long idTerrain, String nomTerrain, double montant, double montantTotal, String statePayement,
-			String dateReservation, String heure,Date dateReservationTypeDate, Match match, Utilisateur user, Terrain terrain, UserDoReservation userDoReservation) {
+			String dateReservation, String heure,Date dateReservationTypeDate,String annulerReservation,String repousserReservation, Match match, Utilisateur user, Terrain terrain, UserDoReservation userDoReservation) {
 		super();
 		this.idTerrain = idTerrain;
 		this.nomTerrain = nomTerrain;
@@ -44,13 +46,15 @@ public class Reservation implements Serializable{
 		this.heure = heure;
 		this.dateReservationTypeDate = dateReservationTypeDate;
 		this.match = match;
+		this.annulerReservation = annulerReservation;
+		this.repousserReservation = repousserReservation;
 		this.user = user;
 		this.terrain = terrain;
 		this.userDoReservation = userDoReservation;
 	}
 	
 	public Reservation(Long id,Long idUserDoReservation, Long idTerrain, String nomTerrain, double montant, double montantTotal,
-			String statePayement, String dateReservation, String heure,Date dateReservationTypeDate, Match match, Utilisateur user,
+			String statePayement, String dateReservation, String heure,Date dateReservationTypeDate,String annulerReservation,String repousserReservation, Match match, Utilisateur user,
 			Terrain terrain, UserDoReservation userDoReservation) {
 		super();
 		this.id = id;
@@ -63,6 +67,8 @@ public class Reservation implements Serializable{
 		this.heure = heure;
 		this.dateReservationTypeDate = dateReservationTypeDate;
 		this.match = match;
+		this.annulerReservation = annulerReservation;
+		this.repousserReservation = repousserReservation;
 		this.user = user;
 		this.terrain = terrain;
 		this.userDoReservation = userDoReservation;
@@ -157,6 +163,22 @@ public class Reservation implements Serializable{
 
 	public void setDateReservationTypeDate(Date dateReservationTypeDate) {
 		this.dateReservationTypeDate = dateReservationTypeDate;
+	}
+
+	public String isAnnulerReservation() {
+		return annulerReservation;
+	}
+
+	public void setAnnulerReservation(String annulerReservation) {
+		this.annulerReservation = annulerReservation;
+	}
+
+	public String isRepousserReservation() {
+		return repousserReservation;
+	}
+
+	public void setRepousserReservation(String repousserReservation) {
+		this.repousserReservation = repousserReservation;
 	}
 	
 
