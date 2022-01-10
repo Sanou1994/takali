@@ -158,9 +158,7 @@ public class AccountService implements IAccountService{
 		Utilisateur user = userRepository.findById(id).get();
 		boolean resultat =false;
 		if(user != null)
-		{
-			user.setUserDelete(true);
-		    userRepository.save(user);
+		{		    userRepository.delete(user);
 			resultat =true;
 		}
 		return resultat;
