@@ -1,2 +1,0 @@
-(this["webpackJsonpo-terrain"]=this["webpackJsonpo-terrain"]||[]).push([[85],{1510:function(c,e,s){"use strict";s.r(e);s(1);var t=s(1099),a=s(2);e.default=function(){return Object(a.jsx)("div",{className:"c-app c-default-layout",children:Object(a.jsxs)("div",{className:"c-wrapper",children:[Object(a.jsx)(t.g,{}),Object(a.jsx)("div",{className:"c-body",children:Object(a.jsx)(t.c,{})}),Object(a.jsx)(t.d,{})]})})}}}]);
-//# sourceMappingURL=85.198f27a3.chunk.js.map
