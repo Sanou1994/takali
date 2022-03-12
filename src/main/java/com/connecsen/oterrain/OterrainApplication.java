@@ -1,32 +1,19 @@
 package com.connecsen.oterrain;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 //import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import com.connecsen.oterrain.repository.TerrainRepository;
-//import com.connecsen.oterrain.jobs.JobRunner;
-//import com.connecsen.oterrain.repository.TerrainRepository;
-import com.connecsen.oterrain.service.IAccountService;
-import com.connecsen.oterrain.service.IReservationService;
-import com.connecsen.oterrain.utils.Utility;
+import com.sun.mail.imap.Utility;
 //import com.connecsen.oterrain.service.IMatchService;
 //import com.connecsen.oterrain.service.IReservationService;
 @Configuration
 @SpringBootApplication
 public class OterrainApplication implements CommandLineRunner {
 	
-	  @Autowired
-	   private TerrainRepository terrainRepository;
-	  @Autowired
-	  IReservationService iReservationService; 
-	@Autowired
-	IAccountService iAccountService;
 	// @Autowired(required=true)
 	// IMatchService iMatchService;	
 
@@ -53,21 +40,10 @@ public class OterrainApplication implements CommandLineRunner {
 	 * 
 	 * return basicDataSource; }
 	 */
-
-	@Bean
-	public ModelMapper modelMapper() {
-	    return new ModelMapper();
-	}
-    @Bean
-	public BCryptPasswordEncoder getBCPE() {
-		return new BCryptPasswordEncoder();
-	}
- 
 	@Override  
 	public void run(String... args) throws Exception {
 		//iAccountService.initAccount();
 
-		System.out.println("Runnable Task with  on thread :"+Utility.getToday());
 
 	}
 
